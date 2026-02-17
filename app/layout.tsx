@@ -21,15 +21,23 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_ZA",
     url: "https://pro-graphics.co.za",
+    title: "Pro Graphics | Professional Printing & Signage Durban",
+    description: "Premium vehicle branding, custom signs, and printing services in Durban. Specialists in quality visual marketing.",
     siteName: "Pro Graphics",
     images: [
       {
         url: "/images/content/logo.png",
-        width: 800,
-        height: 600,
+        width: 1200,
+        height: 630,
         alt: "Pro Graphics Logo",
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pro Graphics | Professional Printing & Signage Durban",
+    description: "Premium vehicle branding, custom signs, and printing services in Durban.",
+    images: ["/images/content/logo.png"],
   },
   robots: {
     index: true,
