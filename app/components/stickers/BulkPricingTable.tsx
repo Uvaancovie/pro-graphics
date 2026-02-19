@@ -68,10 +68,10 @@ export function BulkPricingTable() {
             <div className="container mx-auto px-4">
                 <div className="text-center mb-16">
                     <h2 className="text-4xl md:text-5xl font-bold text-blue-950 mb-4">
-                        Transparent <span className="text-amber-500">Bulk Pricing</span>
+                        Competitive <span className="text-amber-500">Value Estimates</span>
                     </h2>
                     <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                        Following the Ctrl P model - no hidden fees, no surprises. The more you order, the more you save.
+                        We provide estimated cost reductions based on volume. The more you order, the more affordable your branding becomes.
                     </p>
                 </div>
 
@@ -107,10 +107,10 @@ export function BulkPricingTable() {
                                 <table className="w-full">
                                     <thead>
                                         <tr className="bg-gray-50 border-b border-gray-100">
-                                            <th className="px-6 py-4 text-left font-bold text-blue-950">Quantity</th>
-                                            <th className="px-6 py-4 text-left font-bold text-blue-950">Price Per Sticker</th>
-                                            <th className="px-6 py-4 text-left font-bold text-blue-950">Total Price</th>
-                                            <th className="px-6 py-4 text-left font-bold text-blue-950">You Save</th>
+                                            <th className="px-6 py-4 text-left font-bold text-blue-950">Value Estimate</th>
+                                            <th className="px-6 py-4 text-left font-bold text-blue-950">Unit Value</th>
+                                            <th className="px-6 py-4 text-left font-bold text-blue-950">Batch Savings</th>
+                                            <th className="px-6 py-4 text-left font-bold text-blue-950">Efficiency</th>
                                             <th className="px-6 py-4 text-center font-bold text-blue-950">Action</th>
                                         </tr>
                                     </thead>
@@ -137,24 +137,25 @@ export function BulkPricingTable() {
                                                 </td>
                                                 <td className="px-6 py-5">
                                                     <div className="text-xl font-bold text-blue-600">
-                                                        {formatCurrency(tier.pricePerUnit)}
+                                                        {tier.savings ? `${tier.savings}% More Affordable` : "Standard Value"}
                                                     </div>
-                                                    <div className="text-xs text-gray-400">per sticker</div>
+                                                    <div className="text-xs text-gray-400">estimated unit value</div>
                                                 </td>
                                                 <td className="px-6 py-5">
                                                     <div className="text-2xl font-bold text-blue-950 font-mono">
-                                                        {formatCurrency(tier.totalPrice)}
+                                                        {tier.savings ? `-${tier.savings}%` : "Base"}
                                                     </div>
+                                                    <div className="text-xs text-gray-400">relative cost</div>
                                                 </td>
                                                 <td className="px-6 py-5">
                                                     {tier.savings ? (
                                                         <div className="flex items-center gap-2">
                                                             <span className="text-green-600 font-bold text-lg bg-green-50 px-2 py-1 rounded">
-                                                                {tier.savings}%
+                                                                High Efficiency
                                                             </span>
                                                         </div>
                                                     ) : (
-                                                        <span className="text-gray-400 text-sm">Base price</span>
+                                                        <span className="text-gray-400 text-sm">Standard</span>
                                                     )}
                                                 </td>
                                                 <td className="px-6 py-5 text-center">
@@ -212,7 +213,7 @@ export function BulkPricingTable() {
                                 💡 Pro Tip: Order in Bulk and Save Up to 60%
                             </h3>
                             <p className="text-blue-200 text-xl mb-6 font-light">
-                                Ordering 1,000 stickers instead of 50 saves you <span className="text-amber-400 font-bold">{formatCurrency(currentSize.tiers[0].pricePerUnit * 1000 - currentSize.tiers[4].totalPrice)}</span> on this size alone!
+                                High-volume orders significantly reduce the unit cost. Request a quote to see how much you can save on your batch!
                             </p>
                             <p className="text-sm text-blue-300/70">
                                 Need a custom quantity? Contact us for a personalized quote.

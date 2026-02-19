@@ -3,6 +3,7 @@ import "./globals.css";
 import Link from "next/link";
 import Image from "next/image";
 import { Navbar } from "@/app/components/ui/Navbar";
+import { ReviewBadge } from "@/app/components/ui/ReviewBadge";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://pro-graphics.co.za"),
@@ -10,8 +11,8 @@ export const metadata: Metadata = {
     default: "Pro Graphics | Professional Printing, Signage & Vehicle Branding Durban",
     template: "%s | Pro Graphics Durban"
   },
-  description: "Durban's premier printing and signage company positioned in Phoenix Industrial Park. Specialists in vehicle branding, custom signs, stickers, banners, and promotional materials. Call 031 508 6700.",
-  keywords: ["printing company Durban", "vehicle branding Phoenix", "signage Durban", "custom stickers", "Pro Graphics", "Phoenix Industrial Park printers"],
+  description: "Durban's premier printing and signage company in Phoenix Industrial Park. Specialists in vehicle branding, custom signs, stickers, banners, and promotional materials. Get high-quality, affordable branding with 24hr quotes. Call 031 508 6700.",
+  keywords: ["printing company Durban", "vehicle branding Phoenix", "signage Durban", "custom stickers Durban", "Pro Graphics", "Phoenix Industrial Park printers", "car wraps Durban", "sign boards Durban", "branded office signage"],
   icons: {
     icon: '/images/content/logo.png',
     shortcut: '/images/content/logo.png',
@@ -84,6 +85,37 @@ export default function RootLayout({
         "opens": "08:00",
         "closes": "16:45"
       }
+    ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "52"
+    },
+    "review": [
+      {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Siyabonga Patrick"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5"
+        },
+        "reviewBody": "Friendly place to meet up with stuff. They are friendly. Great service and attention to detail on my signs."
+      },
+      {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "karriem simons"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5"
+        },
+        "reviewBody": "Excellent quality vehicle branding. The team was professional and the finish was perfect. Highly recommended."
+      }
     ]
   };
 
@@ -96,6 +128,7 @@ export default function RootLayout({
         />
 
         <Navbar />
+        <ReviewBadge />
 
         <div className="flex-grow">
           {children}

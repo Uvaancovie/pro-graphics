@@ -2,12 +2,27 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/app/components/ui/Button";
 import { HeroCarousel } from "@/app/components/ui/HeroCarousel";
+import { SocialProof } from "@/app/components/ui/SocialProof";
 
 export default function HomePage() {
   return (
     <main className="min-h-screen">
       {/* Hero Section with Carousel */}
       <HeroCarousel />
+
+      {/* Promotional Banner */}
+      <section className="bg-amber-500 py-4 relative z-30 shadow-lg">
+        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-center gap-4 text-center md:text-left">
+          <div className="font-bold text-blue-950 text-lg md:text-xl">
+            🚀 <span className="underline decoration-blue-950/30 underline-offset-4">Limited Time Offer:</span> Get <span className="bg-blue-950 text-white px-2 py-0.5 rounded mx-1">10% OFF</span> your first Fleet Branding order!
+          </div>
+          <Link href="/quote">
+            <Button size="sm" className="bg-blue-950 hover:bg-blue-900 text-white border-none shadow-md font-bold text-sm h-9">
+              Claim Offer
+            </Button>
+          </Link>
+        </div>
+      </section>
 
       {/* Trust Indicators */}
       <section className="py-12 bg-blue-900 text-white border-b border-blue-800 relative z-20">
@@ -36,11 +51,11 @@ export default function HomePage() {
             <h2 className="text-5xl md:text-6xl font-bold text-blue-950 mb-6">
               Our{" "}
               <span className="text-amber-500">
-                Signature Services
+                Signature Branding Solutions
               </span>
             </h2>
             <p className="text-xl text-blue-800/70 max-w-3xl mx-auto">
-              Industry-leading solutions backed by competitive research and proven conversion strategies
+              Durban's preferred choice for professional vehicle branding, signage, and custom printing.
             </p>
           </div>
 
@@ -51,7 +66,7 @@ export default function HomePage() {
                 <div className="h-64 relative">
                   <Image
                     src="/images/ads/vehicle-branding.jpeg"
-                    alt="Vehicle Branding"
+                    alt="Professional Vehicle Branding and Car Wraps Durban"
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
@@ -83,7 +98,7 @@ export default function HomePage() {
                 <div className="h-64 relative">
                   <Image
                     src="/images/ads/custom-sign-boards.jpeg"
-                    alt="Custom Sign Boards"
+                    alt="Custom Sign Boards and Corporate Signage Durban"
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
@@ -115,7 +130,7 @@ export default function HomePage() {
                 <div className="h-64 relative">
                   <Image
                     src="/images/ads/contravisions.jpeg"
-                    alt="Contravisions"
+                    alt="One-Way Vision Contravisions Window Graphics Durban"
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
@@ -147,7 +162,7 @@ export default function HomePage() {
                 <div className="h-64 relative">
                   <Image
                     src="/images/ads/custom-cutout-stickers.jpeg"
-                    alt="Custom Stickers"
+                    alt="Custom Die-Cut Vinyl Stickers Durban"
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
@@ -199,7 +214,7 @@ export default function HomePage() {
               <div className="h-64 relative">
                 <Image
                   src="/images/ads/shop-front-office-branding.jpeg"
-                  alt="Promotional Materials"
+                  alt="Shop Front and Office Branding Phoenix Durban"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
@@ -226,6 +241,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Social Proof Section */}
+      <SocialProof />
 
       {/* Why Choose Us */}
       <section className="py-20 bg-white border-t border-blue-50">
@@ -263,9 +281,9 @@ export default function HomePage() {
                 <div className="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:bg-blue-100 transition-colors">
                   <span className="text-5xl">💰</span>
                 </div>
-                <h3 className="text-2xl font-bold text-blue-950 mb-4">Transparent Pricing</h3>
+                <h3 className="text-2xl font-bold text-blue-950 mb-4">Value-Driven Pricing</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Following Ctrl P's model - no hidden fees, no surprises. You see exactly what you're paying for and why.
+                  We offer competitive, volume-based estimates. No hidden fees, no surprises. You get the best possible ROI on your branding investment.
                 </p>
               </div>
             </div>

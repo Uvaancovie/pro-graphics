@@ -10,7 +10,7 @@ const tiers = [
         name: "Standard Impact",
         level: "Good",
         description: "Essential branding for visibility.",
-        price: "From R3,500",
+        price: "Entry Level",
         features: [
             "Spot Graphics / Decals",
             "Door Magnets",
@@ -25,7 +25,7 @@ const tiers = [
         name: "Professional Fleet",
         level: "Better",
         description: "Maximum coverage within budget.",
-        price: "From R8,500",
+        price: "Best Value",
         features: [
             "Partial Wrap (Half Vehicle)",
             "Contravision Windows",
@@ -40,7 +40,7 @@ const tiers = [
         name: "Brand Dominance",
         level: "Best",
         description: "Complete transformation & protection.",
-        price: "From R15,000",
+        price: "Premium",
         features: [
             "Full Vehicle Wrap",
             "Paint Protection Film",
@@ -90,8 +90,11 @@ export function PricingMatrix() {
                     </CardHeader>
 
                     <CardContent>
-                        <div className="text-3xl font-bold text-blue-900 mb-6 font-mono">
+                        <div className="text-3xl font-bold text-blue-900 mb-2 font-mono">
                             {tier.price}
+                        </div>
+                        <div className="text-sm text-green-600 font-bold mb-6 bg-green-50 inline-block px-2 py-1 rounded-md border border-green-100">
+                            {tier.level === "Good" ? "Standard Efficiency" : tier.level === "Better" ? "30% More Effective" : "Max Brand Impact"}
                         </div>
 
                         <ul className="space-y-3 mb-8">
