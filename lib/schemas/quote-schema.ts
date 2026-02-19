@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const quoteSchema = z.object({
+const baseSchema = z.object({
     // Personal Information
     fullName: z.string().min(2, "Name must be at least 2 characters"),
     email: z.string().email("Please enter a valid email address"),
@@ -19,6 +19,14 @@ export const quoteSchema = z.object({
         message: "Please select a service type",
     }),
 
+    // Additional (Optional in both)
+    additionalNotes: z.string().optional(),
+    hearAboutUs: z.string().optional(),
+});
+
+export const quickQuoteSchema = baseSchema;
+
+export const detailedQuoteSchema = baseSchema.extend({
     // Service-Specific Fields
     vehicleType: z.string().optional(),
     coverageLevel: z.enum(["spot", "partial", "full"]).optional(),
@@ -40,10 +48,8 @@ export const quoteSchema = z.object({
 
     // File Uploads (handled separately in form)
     hasDesignFiles: z.boolean().default(false),
-
-    // Additional
-    hearAboutUs: z.string().optional(),
-    additionalNotes: z.string().optional(),
 });
 
-export type QuoteFormData = z.infer<typeof quoteSchema>;
+export type QuickQuoteFormData = z.infer<typeof quickQuoteSchema>;
+export type DetailedQuoteFormData = z.infer<typeof detailedQuoteSchema>;
+export type QuoteFormData = DetailedQuoteFormData; // For backward compatibility

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/app/components/ui/Button";
 import { cn } from "@/lib/utils";
+import { motion, AnimatePresence } from "framer-motion";
 
 const heroImages = [
     "/images/content/1.jpeg",
@@ -30,35 +31,51 @@ export function HeroCarousel() {
         return () => clearInterval(interval);
     }, [nextSlide]);
 
+    const swipeConfidenceThreshold = 10000;
+    const swipePower = (offset: number, velocity: number) => {
+        return Math.abs(offset) * velocity;
+    };
+
     return (
-        <section className="relative h-[85vh] min-h-[600px] w-full overflow-hidden bg-blue-950 flex flex-col">
+        <section className="relative h-[85vh] min-h-[600px] w-full overflow-hidden bg-blue-950 flex flex-col group">
             {/* Background Slider */}
-            <div className="absolute inset-0 z-0">
-                {heroImages.map((src, index) => (
-                    <div
-                        key={src}
-                        className={cn(
-                            "absolute inset-0 transition-opacity duration-1000 ease-in-out",
-                            index === currentImageIndex ? "opacity-100" : "opacity-0"
-                        )}
-                    >
-                        <Image
-                            src={src}
-                            alt={`Hero Background ${index + 1}`}
-                            fill
-                            className="object-cover"
-                            priority={index === 0}
-                        />
-                        {/* Elegant Dark Overlay */}
-                        <div className="absolute inset-0 bg-blue-950/70 mix-blend-multiply"></div>
-                    </div>
-                ))}
-            </div>
+            <AnimatePresence initial={false} mode="popLayout">
+                <motion.div
+                    key={currentImageIndex}
+                    className="absolute inset-0 z-0"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 1 }}
+                    drag="x"
+                    dragConstraints={{ left: 0, right: 0 }}
+                    dragElastic={1}
+                    onDragEnd={(e, { offset, velocity }) => {
+                        const swipe = swipePower(offset.x, velocity.x);
+
+                        if (swipe < -swipeConfidenceThreshold) {
+                            nextSlide();
+                        } else if (swipe > swipeConfidenceThreshold) {
+                            prevSlide();
+                        }
+                    }}
+                >
+                    <Image
+                        src={heroImages[currentImageIndex]}
+                        alt={`Hero Background ${currentImageIndex + 1}`}
+                        fill
+                        className="object-cover"
+                        priority={true}
+                    />
+                    {/* Elegant Dark Overlay */}
+                    <div className="absolute inset-0 bg-blue-950/70 mix-blend-multiply pointer-events-none"></div>
+                </motion.div>
+            </AnimatePresence>
 
             {/* Slider Controls (Arrows) */}
             <button
                 onClick={prevSlide}
-                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-2 text-white/50 hover:text-white transition-colors hover:bg-black/20 rounded-full"
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-4 text-white/50 hover:text-white transition-colors hover:bg-black/20 rounded-full md:opacity-0 md:group-hover:opacity-100 duration-300"
                 aria-label="Previous Slide"
             >
                 <svg className="w-10 h-10 md:w-12 md:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -67,7 +84,7 @@ export function HeroCarousel() {
             </button>
             <button
                 onClick={nextSlide}
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-2 text-white/50 hover:text-white transition-colors hover:bg-black/20 rounded-full"
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-4 text-white/50 hover:text-white transition-colors hover:bg-black/20 rounded-full md:opacity-0 md:group-hover:opacity-100 duration-300"
                 aria-label="Next Slide"
             >
                 <svg className="w-10 h-10 md:w-12 md:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -76,7 +93,7 @@ export function HeroCarousel() {
             </button>
 
             {/* Main Content Overlay */}
-            <div className="relative z-10 flex-grow flex flex-col items-center justify-center px-4 text-center mt-[-60px]"> {/* Offset up slightly */}
+            <div className="relative z-10 flex-grow flex flex-col items-center justify-center px-4 text-center mt-[-60px] pointer-events-none">
                 {/* Logo Animation */}
                 <div className="mb-6 relative w-40 h-40 md:w-48 md:h-48 animate-fade-in-up">
                     <div className="absolute inset-0 bg-white/5 rounded-full blur-2xl transform scale-125 animate-pulse"></div>
@@ -100,8 +117,8 @@ export function HeroCarousel() {
                 </div>
             </div>
 
-            {/* CTA Buttons - Moved to bottom area */}
-            <div className="relative z-20 pb-16 pt-4 flex flex-col sm:flex-row gap-4 justify-center items-center w-full bg-gradient-to-t from-blue-950/90 to-transparent">
+            {/* CTA Buttons */}
+            <div className="relative z-20 pb-16 pt-4 flex flex-col sm:flex-row gap-4 justify-center items-center w-full bg-gradient-to-t from-blue-950/90 to-transparent pointer-events-auto">
                 <Link href="/quote">
                     <Button className="bg-amber-500 hover:bg-amber-600 text-white font-semibold px-8 py-4 text-lg rounded-full transition-all shadow-lg hover:shadow-amber-500/30 hover:-translate-y-1 min-w-[200px]">
                         Get Free Quote
@@ -115,13 +132,13 @@ export function HeroCarousel() {
             </div>
 
             {/* Slider Indicators */}
-            <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-2 z-20">
+            <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-2 z-20 pointer-events-auto">
                 {heroImages.map((_, index) => (
                     <button
                         key={index}
                         onClick={() => setCurrentImageIndex(index)}
                         className={cn(
-                            "h-1.5 rounded-full transition-all duration-300",
+                            "h-1.5 rounded-full transition-all duration-300 p-1 bg-clip-content border-transparent border-4", // Increased touch target
                             index === currentImageIndex ? "bg-amber-500 w-8" : "bg-white/30 w-4 hover:bg-white/50"
                         )}
                         aria-label={`Go to slide ${index + 1}`}
