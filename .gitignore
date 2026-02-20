@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Agent Generated Work
+.playwright-mcp/
+website_screenshot.png
+website_snapshot.md

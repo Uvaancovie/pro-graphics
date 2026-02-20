@@ -13,6 +13,7 @@ const navLinks = [
     { href: "/contravisions", label: "Contravisions" },
     { href: "/custom-stickers", label: "Stickers" },
     { href: "/gallery", label: "Gallery" }, // New Gallery Link
+    { href: "/blog", label: "Blog" },
 ];
 
 export function Navbar() {
