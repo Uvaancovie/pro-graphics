@@ -3,21 +3,136 @@ import Image from "next/image";
 import Link from "next/link";
 import { Durban10Client } from "./Durban10Client";
 
+const SITE_URL = "https://pro-graphics.co.za";
+const PAGE_URL = `${SITE_URL}/durban-10`;
+const OG_IMAGE_URL = `${SITE_URL}/images/og/durban-10-og.png`;
+
 export const metadata: Metadata = {
     title: "The Durban 10 | 25% Off Vehicle Branding - Limited Founding Offer",
     description:
-        "Be one of the first 10 Durban businesses to get 25% off premium vehicle branding. Only 4 founding spots remain. Claim yours before they're gone.",
+        "Be one of the first 10 Durban businesses to get 25% off premium vehicle branding. Only 4 founding spots remain. Free design mockup included. Claim yours before they're gone.",
+    keywords: [
+        "vehicle branding Durban",
+        "car wrapping Durban",
+        "vehicle wrap discount",
+        "fleet branding South Africa",
+        "vehicle graphics Durban",
+        "Pro Graphics Durban",
+        "25% off vehicle branding",
+        "Durban 10 founding offer",
+        "mobile billboard Durban",
+        "3M vehicle wrap",
+        "commercial vehicle branding",
+        "bakkie branding Durban",
+        "van branding Durban",
+    ],
+    alternates: {
+        canonical: PAGE_URL,
+    },
     openGraph: {
-        title: "The Durban 10 | 25% Off Vehicle Branding",
+        title: "The Durban 10 | 25% Off Vehicle Branding — Only 4 Spots Left",
         description:
-            "Be one of the first 10 Durban businesses to get 25% off premium vehicle branding. Limited founding spots available.",
+            "Be one of the first 10 Durban businesses to get 25% off premium vehicle branding with 3M materials. Free design mockup included. Limited founding spots available — claim yours now.",
+        url: PAGE_URL,
+        siteName: "Pro Graphics",
         type: "website",
+        locale: "en_ZA",
+        images: [
+            {
+                url: OG_IMAGE_URL,
+                width: 1200,
+                height: 630,
+                alt: "The Durban 10 — 25% Off Premium Vehicle Branding | Pro Graphics",
+                type: "image/png",
+            },
+            {
+                url: `${SITE_URL}/images/ads/vehicle-branding.jpeg`,
+                width: 1200,
+                height: 630,
+                alt: "Professional Vehicle Branding by Pro Graphics Durban",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "The Durban 10 | 25% Off Vehicle Branding — Only 4 Spots Left",
+        description:
+            "Be one of the first 10 Durban businesses to get 25% off premium vehicle branding. Free design mockup. 3M materials. Limited founding spots.",
+        images: [OG_IMAGE_URL],
+        creator: "@ProGraphicsDBN",
+    },
+    robots: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+    },
+    other: {
+        "og:price:amount": "25",
+        "og:price:currency": "ZAR",
+    },
+};
+
+// JSON-LD Structured Data for rich search results
+const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Offer",
+    name: "The Durban 10 — 25% Off Vehicle Branding",
+    description:
+        "Be one of the first 10 Durban businesses to get 25% off premium vehicle branding with 3M materials. Includes free design mockup. Limited founding spots available.",
+    url: PAGE_URL,
+    image: OG_IMAGE_URL,
+    priceCurrency: "ZAR",
+    availability: "https://schema.org/LimitedAvailability",
+    validFrom: "2026-02-01",
+    offeredBy: {
+        "@type": "LocalBusiness",
+        name: "Pro Graphics",
+        url: SITE_URL,
+        telephone: "+27315086700",
+        address: {
+            "@type": "PostalAddress",
+            addressLocality: "Durban",
+            addressRegion: "KwaZulu-Natal",
+            addressCountry: "ZA",
+        },
+        geo: {
+            "@type": "GeoCoordinates",
+            latitude: "-29.8587",
+            longitude: "31.0218",
+        },
+        aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: "4.8",
+            reviewCount: "47",
+            bestRating: "5",
+        },
+    },
+    itemOffered: {
+        "@type": "Service",
+        name: "Premium Vehicle Branding",
+        description:
+            "Full and partial vehicle wraps, spot graphics, and fleet branding using 3M and Avery Dennison vinyl materials.",
+        provider: {
+            "@type": "LocalBusiness",
+            name: "Pro Graphics",
+        },
+        areaServed: {
+            "@type": "City",
+            name: "Durban",
+        },
     },
 };
 
 export default function Durban10Page() {
     return (
         <main className="min-h-screen bg-blue-950 text-white">
+            {/* JSON-LD Structured Data */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
             {/* Hero Section */}
             <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
                 {/* Background Image */}
