@@ -23,7 +23,7 @@ export function Navbar() {
     const toggleMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
     return (
-        <nav className="bg-white shadow-md sticky top-0 z-50 border-b border-blue-100 h-24">
+        <nav className="bg-white shadow-md border-b border-blue-100 h-24">
             <div className="container mx-auto px-4 h-full">
                 <div className="flex items-center justify-between h-full">
                     {/* Logo */}

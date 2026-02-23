@@ -10,20 +10,6 @@ export default function HomePage() {
       {/* Hero Section with Carousel */}
       <HeroCarousel />
 
-      {/* Promotional Banner */}
-      <section className="bg-amber-500 py-4 relative z-30 shadow-lg">
-        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-center gap-4 text-center md:text-left">
-          <div className="font-bold text-blue-950 text-lg md:text-xl">
-            🚀 <span className="underline decoration-blue-950/30 underline-offset-4">Limited Time Offer:</span> Get <span className="bg-blue-950 text-white px-2 py-0.5 rounded mx-1">10% OFF</span> your first Fleet Branding order!
-          </div>
-          <Link href="/quote">
-            <Button size="sm" className="bg-blue-950 hover:bg-blue-900 text-white border-none shadow-md font-bold text-sm h-9">
-              Claim Offer
-            </Button>
-          </Link>
-        </div>
-      </section>
-
       {/* Trust Indicators */}
       <section className="py-12 bg-blue-900 text-white border-b border-blue-800 relative z-20">
         <div className="container mx-auto px-4">

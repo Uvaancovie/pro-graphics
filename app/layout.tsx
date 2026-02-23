@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Navbar } from "@/app/components/ui/Navbar";
 import { ReviewBadge } from "@/app/components/ui/ReviewBadge";
+import PromotionBanner from "@/app/components/ui/PromotionBanner";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://pro-graphics.co.za"),
@@ -127,7 +128,11 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
 
-        <Navbar />
+        <header className="sticky top-0 z-50">
+          <PromotionBanner />
+          <Navbar />
+        </header>
+
         <ReviewBadge />
 
         <div className="flex-grow">

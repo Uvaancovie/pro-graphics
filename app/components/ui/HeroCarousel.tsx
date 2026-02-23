@@ -93,7 +93,20 @@ export function HeroCarousel() {
             </button>
 
             {/* Main Content Overlay */}
-            <div className="relative z-10 flex-grow flex flex-col items-center justify-center px-4 text-center mt-[-60px] pointer-events-none">
+            <div className="relative z-10 flex-grow flex flex-col items-center justify-center px-4 text-center mt-[-40px] pointer-events-none">
+                {/* The Durban 10 Scarcity Badge - Above Logo */}
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.5, type: "spring" }}
+                    className="inline-flex items-center gap-2 bg-amber-500 text-blue-950 px-4 py-2 rounded-full mb-6 shadow-[0_0_25px_rgba(245,158,11,0.5)] border-2 border-white/20"
+                >
+                    <span className="flex h-2 w-2 rounded-full bg-blue-950 animate-ping"></span>
+                    <span className="font-black uppercase tracking-widest text-xs md:text-sm">
+                        The Durban 10: 4 Founding Spots Left
+                    </span>
+                </motion.div>
+
                 {/* Logo Animation */}
                 <div className="mb-6 relative w-40 h-40 md:w-48 md:h-48 animate-fade-in-up">
                     <div className="absolute inset-0 bg-white/5 rounded-full blur-2xl transform scale-125 animate-pulse"></div>
