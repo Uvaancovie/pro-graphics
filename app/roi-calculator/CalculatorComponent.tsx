@@ -138,9 +138,9 @@ export default function CalculatorComponent() {
     // Get the redirect URL for the magic link
     const getRedirectUrl = () => {
         if (typeof window !== 'undefined') {
-            return `${window.location.origin}/roi-calculator`;
+            return `${window.location.origin}/auth/callback?next=/roi-calculator`;
         }
-        return 'http://localhost:3000/roi-calculator';
+        return 'https://pro-graphics.vercel.app/auth/callback?next=/roi-calculator';
     };
 
     // ─── COMBINED FORM SUBMIT: Save data + Send magic link ───
