@@ -94,7 +94,7 @@ export function HeroCarousel() {
 
             {/* Main Content Overlay */}
             <div className="relative z-10 flex-grow flex flex-col items-center justify-center px-4 text-center mt-[-40px] pointer-events-none">
-                {/* The Durban 10 Scarcity Badge - Above Logo */}
+                {/* Price Beat Guarantee Badge - Above Logo */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -103,7 +103,7 @@ export function HeroCarousel() {
                 >
                     <span className="flex h-2 w-2 rounded-full bg-blue-950 animate-ping"></span>
                     <span className="font-black uppercase tracking-widest text-xs md:text-sm">
-                        The Durban 10: 4 Founding Spots Left
+                        PRICE BEAT GUARANTEE: WE'LL BEAT ANY QUOTE BY 10%
                     </span>
                 </motion.div>
 

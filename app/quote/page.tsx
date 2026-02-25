@@ -12,11 +12,11 @@ export default function QuotePage() {
         <main className="min-h-screen bg-white py-16">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-12">
-                    {/* The Durban 10 Scarcity Badge on Quote Page - CSS/Tailwind Only */}
+                    {/* Price Beat Badge on Quote Page */}
                     <div className="inline-flex items-center gap-2 bg-blue-950 text-amber-500 px-5 py-2.5 rounded-full mb-8 shadow-xl border border-amber-500/20 animate-bounce">
                         <span className="flex h-2 w-2 rounded-full bg-amber-500 animate-ping"></span>
                         <span className="font-black uppercase tracking-widest text-xs md:text-sm">
-                            CLAIM YOUR 25% DISCOUNT: 4 FOUNDING SPOTS LEFT
+                            PRICE BEAT GUARANTEE: WE'LL BEAT ANY QUOTE BY 10%
                         </span>
                     </div>
 

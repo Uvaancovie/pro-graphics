@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Button } from "@/app/components/ui/Button";
 import { HeroCarousel } from "@/app/components/ui/HeroCarousel";
 import { SocialProof } from "@/app/components/ui/SocialProof";
+import { ROICalculatorPromo } from "@/app/components/ui/ROICalculatorPromo";
 
 export default function HomePage() {
   return (
@@ -29,6 +30,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ROI Calculator Promo */}
+      <ROICalculatorPromo />
 
       {/* Services Grid */}
       <section className="py-20 bg-gray-50">
