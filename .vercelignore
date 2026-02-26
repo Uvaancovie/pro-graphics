@@ -1,0 +1,7 @@
+playwright-mcp/
+.playwright-mcp/
+sanity-mcp/
+documentation/
+*.png
+website_snapshot.md
+storage.json

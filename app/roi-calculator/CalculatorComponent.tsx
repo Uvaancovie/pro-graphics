@@ -136,11 +136,14 @@ export default function CalculatorComponent() {
     };
 
     // Get the redirect URL for the magic link
+    // Redirect directly to /roi-calculator — the client-side Supabase JS
+    // automatically picks up the session from the URL hash fragment via onAuthStateChange
     const getRedirectUrl = () => {
-        if (typeof window !== 'undefined') {
-            return `${window.location.origin}/auth/callback?next=/roi-calculator`;
-        }
-        return 'https://pro-graphics.vercel.app/auth/callback?next=/roi-calculator';
+        // Always use the production URL for magic links to avoid localhost issues
+        const origin = typeof window !== 'undefined' && window.location.hostname !== 'localhost'
+            ? window.location.origin
+            : 'https://pro-graphics.vercel.app';
+        return `${origin}/roi-calculator`;
     };
 
     // ─── COMBINED FORM SUBMIT: Save data + Send magic link ───

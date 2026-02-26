@@ -1,6 +1,6 @@
 # Pro Graphics - Durban's Premier Printing & Signage Solutions
 
-Pro Graphics is a high-end web application for a Durban-based printing and signage company positioned in Phoenix Industrial Park. The platform showcases premium services including vehicle branding, custom signage, contravisions, and custom stickers with a focus on professional quality, transparent pricing, and education-first customer service.
+Pro Graphics is a high-end web application for a Durban-based printing and signage company positioned in Phoenix Industrial Park. The platform showcases premium services including vehicle branding, custom signage, and window graphics, with a strong focus on ROI-driven branding and automated lead generation.
 
 ## 🚀 Vision & Branding
 
@@ -8,37 +8,42 @@ The application follows a strict **Blue & Gold** branding palette (Blue 900/950 
 
 ## ✨ Key Features
 
-- **Dynamic Hero Experience**: Interactive carousel featuring actual project work and high-impact call-to-actions.
-- **Service Pages**: Comprehensive niche-specific pages for:
-  - **Vehicle Branding**: Spot graphics, partial wraps, and full wraps with pricing matrices and care guides.
-  - **Sign Boards**: Detailed comparisons between Chromadek, ABS, and Perspex materials.
-  - **Contravisions**: Before/After interactive slider demonstrating one-way vision window graphics.
-  - **Custom Stickers**: Bulk pricing tables and high-volume order optimizations.
-- **Interactive Gallery**: A full-screen interactive portfolio showcasing successfully completed projects with a built-in lightbox viewer.
-- **Smart Quote System**: A sophisticated multi-step quote form with dynamic fields based on service selection and file upload capabilities.
-- **SEO Optimized**: Fully implemented metadata, JSON-LD structured data (LocalBusiness), and automated sitemap/robots.txt generation for maximum search visibility in the Durban region.
+- **Dynamic Hero Experience**: High-impact carousel showcasing real-world projects and a value-first ROI calculator.
+- **ROI Calculator**: Interactive tool for businesses to estimate daily impressions and revenue impact from vehicle branding.
+- **Service Pages**: Comprehensive niche-specific pages for Vehicle Branding, Sign Boards, Contravisions, and Custom Stickers.
+- **Price Beat Guarantee**: Dedicated offer page with integrated lead capture and file upload for competitive quotes.
+- **Lead Magnet System**: Strategy-driven funnel using Hormozi's "$100M Leads" framework to capture and nurture prospects.
+- **CRM Integration**: Automated lead sync with Brevo CRM for transactional email workflows and contact management.
+- **Interactive Gallery**: Portfolio with lightbox viewer displaying 10+ years of successfully completed projects.
+- **Smart Quote System**: Multi-step quote form with dynamic routing and Supabase-backed data persistence.
+- **SEO Optimized**: Advanced metadata, JSON-LD (LocalBusiness), and automated sitemap/robots.txt generation for maximum search visibility.
 
 ## 🛠 Tech Stack
 
-- **Framework**: [Next.js 14+](https://nextjs.org/) (App Router)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Components**: Custom UI library built for high performance and premium aesthetics.
-- **Icons/Graphics**: Custom SVG icons and professional project imagery.
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router)
+- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
+- **Database/Auth**: [Supabase](https://supabase.com/)
+- **Email/CRM**: [Brevo](https://www.brevo.com/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Icons**: [Lucide React](https://lucide.dev/)
 
 ## 📂 Project Structure
 
 ```text
 app/
 ├── (services)/          # niche service pages (vehicle-branding, sign-boards, etc.)
-├── gallery/             # interactive portfolio
-├── quote/               # lead generation funnel
-├── components/          # reusable UI & business-logic components
-│   ├── ui/              # primitive components (Button, Card, Carousel)
-│   ├── gallery/         # gallery-specific components (Lightbox)
-│   └── ...              # service-specific components
-├── layout.tsx           # global layout, nav, and metadata
-└── page.tsx             # high-conversion homepage
+├── api/                 # Lead capture and CRM integration routes
+├── auth/                # Supabase magic link authentication flow
+├── blog/                # Educational content and branding guides
+├── gallery/             # Interactive portfolio
+├── price-beat/          # High-conversion offer page
+├── roi-calculator/      # ROI-driven lead magnet tool
+├── quote/               # Main multi-step lead funnel
+├── components/          # Design system and business logic
+│   ├── ui/              # Primitive components (Button, Card, Carousel)
+│   └── ...              # Domain-specific components
+└── layout.tsx           # Global configuration and viewport/SEO metadata
+
 public/
 └── images/
     ├── content/         # actual logo and project photography
@@ -55,24 +60,30 @@ public/
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone [repository-url]
    ```
+
 2. Install dependencies:
+
    ```bash
    npm install
    ```
+
 3. Run the development server:
+
    ```bash
    npm run dev
    ```
+
 4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## 📈 SEO & Business Details
 
 - **Location**: 158 Phoenix Industrial Park, 160 Aberdare Dr, Phoenix, Durban, 4090.
 - **Phone**: 031 508 6700
-- **Email**: info@prographics.co.za
+- **Email**: <info@prographics.co.za>
 - **Hours**: Mon - Fri: 8:00 AM - 4:45 PM
 
 The site utilizes `next/metadata` for page-specific titles and descriptions tailored to "Printing Durban" and "Vehicle Branding South Africa" keywords.
@@ -80,4 +91,3 @@ The site utilizes `next/metadata` for page-specific titles and descriptions tail
 ## 📄 License
 
 Internal Project - All Rights Reserved by Pro Graphics.
-#
