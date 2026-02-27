@@ -113,8 +113,72 @@ export async function POST(req: Request) {
 
     if (!emailRes.ok) {
       const emailErrorData = await emailRes.json();
-      console.error('Brevo Email error:', emailErrorData);
+      console.error('Brevo Email error (notification):', emailErrorData);
       return NextResponse.json({ error: 'Failed to send the email notification' }, { status: 500 });
+    }
+
+    // 3. Send a Thank You Email to the Customer
+    const thankYouRes = await fetch('https://api.brevo.com/v3/smtp/email', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'api-key': apiKey
+      },
+      body: JSON.stringify({
+        sender: {
+          name: "Pro Graphics",
+          email: "a2dec4001@smtp-brevo.com"
+        },
+        to: [
+          {
+            email: email,
+            name: name || "Valued Customer"
+          }
+        ],
+        subject: "We've received your Price Beat Challenge! 🤝",
+        htmlContent: `
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <style>
+              body { font-family: 'Inter', Arial, sans-serif; line-height: 1.6; color: #333; }
+              .container { padding: 40px 20px; max-width: 600px; margin: 0 auto; background-color: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb; }
+              .header { text-align: center; margin-bottom: 30px; background-color: #d97706; color: white; padding: 20px; border-radius: 6px; }
+              .header h2 { margin: 0; }
+              .content { background: white; padding: 30px; border-radius: 6px; border: 1px solid #e5e7eb; }
+              .footer { margin-top: 30px; font-size: 13px; color: #6b7280; text-align: center; border-top: 1px solid #e5e7eb; padding-top: 20px; }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <div class="header">
+                <h2>Thank You for Your Request! 🎉</h2>
+              </div>
+              
+              <div class="content">
+                <p>Hi ${firstName || 'there'},</p>
+                <p>We've successfully received your Price Beat submission and attached quote.</p>
+                <p>Our team is reviewing the competitor's quote to ensure equal material specifications. We will get back to you within <strong>24 hours</strong> with your new proposal, guaranteed to be 10% cheaper!</p>
+                <p>If you have any immediate questions, feel free to reply directly to this email or call us at <strong>031 508 6700</strong>.</p>
+                <p>Best regards,<br><strong>The Pro Graphics Team</strong></p>
+              </div>
+
+              <div class="footer">
+                <p>© Pro Graphics | Durban, South Africa</p>
+                <p>158 Phoenix Industrial Park, 160 Aberdare Dr, Phoenix, Durban, 4090</p>
+              </div>
+            </div>
+          </body>
+          </html>
+        `
+      })
+    });
+
+    if (!thankYouRes.ok) {
+      const thankYouErrorData = await thankYouRes.json();
+      console.error('Brevo Email error (thank you):', thankYouErrorData);
+      // We won't block the 200 Success if the thank you fails, but we'll log it.
     }
 
     return NextResponse.json({ message: 'Success' });
