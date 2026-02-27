@@ -55,8 +55,8 @@ export async function POST(req: Request) {
       },
       body: JSON.stringify({
         sender: {
-          name: "Pro Graphics Price Beat Bot",
-          email: "a2dec4001@smtp-brevo.com"
+          name: "Pro Graphics",
+          email: "i.t.safuneralsupplies@gmail.com"
         },
         to: [
           {
@@ -128,7 +128,7 @@ export async function POST(req: Request) {
       body: JSON.stringify({
         sender: {
           name: "Pro Graphics",
-          email: "a2dec4001@smtp-brevo.com"
+          email: "i.t.safuneralsupplies@gmail.com"
         },
         to: [
           {
