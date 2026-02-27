@@ -2,6 +2,13 @@ playwright-mcp/
 .playwright-mcp/
 sanity-mcp/
 documentation/
-*.png
 website_snapshot.md
 storage.json
+
+# Ignore screenshot/documentation PNGs at root level (not in app/ or public/)
+/page.png
+/roi-calculator-current.png
+/roi-calculator-gated.png
+/roi-calculator-with-signin.png
+/roi-signin-flow.png
+/roi-updated-flow.png
