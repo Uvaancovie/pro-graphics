@@ -80,7 +80,27 @@ export function PriceBeatClient() {
 
             if (dbError) throw new Error(`Database error: ${dbError.message}`);
 
-            console.log("Price Beat Lead saved successfully.");
+            // 4. Send to Brevo API endpoint for contact creation and email notification
+            const apiResponse = await fetch('/api/price-beat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: formData.name,
+                    business: formData.business,
+                    phone: formData.phone,
+                    email: formData.email,
+                    vehicleType: formData.vehicleType,
+                    message: formData.message,
+                    quoteFileUrl: fileUrl
+                })
+            });
+
+            if (!apiResponse.ok) {
+                const apiError = await apiResponse.json();
+                throw new Error(`Email sending failed: ${apiError.error || 'Server error'}`);
+            }
+
+            console.log("Price Beat Lead saved and notification sent successfully.");
             setIsSubmitted(true);
         } catch (err: any) {
             console.error(err);

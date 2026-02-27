@@ -12,6 +12,15 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/quote',
+        destination: '/price-beat',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
