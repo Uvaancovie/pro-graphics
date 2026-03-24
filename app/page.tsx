@@ -58,6 +58,8 @@ export default function HomePage() {
                     src="/images/ads/vehicle-branding.jpeg"
                     alt="Professional Vehicle Branding and Car Wraps Durban"
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    quality={70}
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent"></div>
@@ -90,6 +92,8 @@ export default function HomePage() {
                     src="/images/ads/custom-sign-boards.jpeg"
                     alt="Custom Sign Boards and Corporate Signage Durban"
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    quality={70}
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent"></div>
@@ -122,6 +126,8 @@ export default function HomePage() {
                     src="/images/ads/contravisions.jpeg"
                     alt="One-Way Vision Contravisions Window Graphics Durban"
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    quality={70}
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent"></div>
@@ -154,6 +160,8 @@ export default function HomePage() {
                     src="/images/ads/custom-cutout-stickers.jpeg"
                     alt="Custom Die-Cut Vinyl Stickers Durban"
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    quality={70}
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent"></div>
@@ -206,6 +214,8 @@ export default function HomePage() {
                   src="/images/ads/shop-front-office-branding.jpeg"
                   alt="Shop Front and Office Branding Phoenix Durban"
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  quality={70}
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent"></div>

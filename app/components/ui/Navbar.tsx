@@ -35,7 +35,8 @@ export function Navbar() {
                                 fill
                                 className="object-contain" // Preserves aspect ratio
                                 priority
-                                sizes="(max-width: 768px) 150px, 200px"
+                                quality={70}
+                                sizes="(max-width: 768px) 150px, 192px"
                             />
                         </div>
                     </Link>

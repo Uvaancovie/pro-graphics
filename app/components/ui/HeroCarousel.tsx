@@ -64,6 +64,8 @@ export function HeroCarousel() {
                         src={heroImages[currentImageIndex]}
                         alt={`Hero Background ${currentImageIndex + 1}`}
                         fill
+                        sizes="100vw"
+                        quality={60}
                         className="object-cover"
                         priority={true}
                     />
