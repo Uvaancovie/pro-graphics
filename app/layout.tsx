@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import Image from "next/image";
 import { Navbar } from "@/app/components/ui/Navbar";
 import { ReviewBadge } from "@/app/components/ui/ReviewBadge";
 import PromotionBanner from "@/app/components/ui/PromotionBanner";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://pro-graphics.co.za"),
@@ -122,7 +129,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className="antialiased min-h-screen flex flex-col font-sans">
+      <body className={`${poppins.className} antialiased min-h-screen flex flex-col font-sans`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
