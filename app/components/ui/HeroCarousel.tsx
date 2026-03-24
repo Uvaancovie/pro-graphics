@@ -117,6 +117,8 @@ export function HeroCarousel() {
                         src="/images/content/logo.png"
                         alt="Pro Graphics Logo"
                         fill
+                        sizes="(max-width: 768px) 150px, 192px"
+                        quality={70}
                         className="object-contain drop-shadow-2xl relative z-10"
                         priority
                     />
