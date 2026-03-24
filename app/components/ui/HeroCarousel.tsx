@@ -68,6 +68,7 @@ export function HeroCarousel() {
                         quality={60}
                         className="object-cover"
                         priority={true}
+                        fetchPriority="high"
                     />
                     {/* Elegant Dark Overlay */}
                     <div className="absolute inset-0 bg-blue-950/70 mix-blend-multiply pointer-events-none"></div>
