@@ -97,18 +97,7 @@ export function HeroCarousel() {
 
             {/* Main Content Overlay */}
             <div className="relative z-10 flex-grow flex flex-col items-center justify-center px-4 text-center mt-[-40px] pointer-events-none">
-                {/* Price Beat Guarantee Badge - Above Logo */}
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.5, type: "spring" }}
-                    className="inline-flex items-center gap-2 bg-amber-500 text-blue-950 px-4 py-2 rounded-full mb-6 shadow-[0_0_25px_rgba(245,158,11,0.5)] border-2 border-white/20"
-                >
-                    <span className="flex h-2 w-2 rounded-full bg-blue-950 animate-ping"></span>
-                    <span className="font-black uppercase tracking-widest text-xs md:text-sm">
-                        PRICE BEAT GUARANTEE: WE'LL BEAT ANY QUOTE BY 10%
-                    </span>
-                </motion.div>
+
 
                 {/* Logo Animation */}
                 <div className="mb-6 relative w-40 h-40 md:w-48 md:h-48 animate-fade-in-up">
@@ -126,7 +115,7 @@ export function HeroCarousel() {
 
                 <div className="max-w-4xl mx-auto space-y-4">
                     <h1 className="text-4xl md:text-6xl font-bold text-white drop-shadow-lg leading-tight tracking-tight">
-                        Transform Your Brand Into <span className="text-amber-400 block mt-1">Visual Impact</span>
+                        Vehicle Wraps & Signage That <span className="text-amber-400 block mt-1">Stop Traffic in Durban</span>
                     </h1>
 
                     <p className="text-lg md:text-xl text-blue-100 font-light max-w-xl mx-auto drop-shadow-md">
@@ -155,12 +144,14 @@ export function HeroCarousel() {
                     <button
                         key={index}
                         onClick={() => setCurrentImageIndex(index)}
-                        className={cn(
-                            "h-1.5 rounded-full transition-all duration-300 p-1 bg-clip-content border-transparent border-4", // Increased touch target
-                            index === currentImageIndex ? "bg-amber-500 w-8" : "bg-white/30 w-4 hover:bg-white/50"
-                        )}
+                        className="w-11 h-11 flex items-center justify-center group"
                         aria-label={`Go to slide ${index + 1}`}
-                    />
+                    >
+                        <span className={cn(
+                            "h-1.5 rounded-full transition-all duration-300",
+                            index === currentImageIndex ? "bg-amber-500 w-8" : "bg-white/30 w-4 group-hover:bg-white/50"
+                        )} />
+                    </button>
                 ))}
             </div>
         </section>

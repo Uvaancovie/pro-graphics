@@ -114,7 +114,7 @@ export function SocialProof() {
                     {/* Navigation Buttons */}
                     <button
                         onClick={prevSlide}
-                        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 p-2 bg-white rounded-full shadow-lg hover:bg-gray-50 text-blue-950 transition-all z-10"
+                        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 min-w-[44px] min-h-[44px] flex items-center justify-center p-2 bg-white rounded-full shadow-lg hover:bg-gray-50 text-blue-950 transition-all z-10"
                         aria-label="Previous testimonial"
                     >
                         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -124,7 +124,7 @@ export function SocialProof() {
 
                     <button
                         onClick={nextSlide}
-                        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 p-2 bg-white rounded-full shadow-lg hover:bg-gray-50 text-blue-950 transition-all z-10"
+                        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 min-w-[44px] min-h-[44px] flex items-center justify-center p-2 bg-white rounded-full shadow-lg hover:bg-gray-50 text-blue-950 transition-all z-10"
                         aria-label="Next testimonial"
                     >
                         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -133,15 +133,17 @@ export function SocialProof() {
                     </button>
 
                     {/* Dots */}
-                    <div className="flex justify-center gap-2 mt-8">
+                    <div className="flex justify-center flex-wrap mt-8">
                         {testimonials.map((_, index) => (
                             <button
                                 key={index}
                                 onClick={() => setCurrentIndex(index)}
-                                className={`w-3 h-3 rounded-full transition-all ${index === currentIndex ? "bg-amber-500 w-6" : "bg-gray-300 hover:bg-gray-400"
-                                    }`}
+                                className="w-11 h-11 flex items-center justify-center group"
                                 aria-label={`Go to testimonial ${index + 1}`}
-                            />
+                            >
+                                <span className={`h-3 rounded-full transition-all ${index === currentIndex ? "bg-amber-500 w-6" : "bg-gray-300 w-3 group-hover:bg-gray-400"
+                                    }`} />
+                            </button>
                         ))}
                     </div>
                 </div>

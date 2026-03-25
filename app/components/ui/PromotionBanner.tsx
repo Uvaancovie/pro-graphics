@@ -29,7 +29,7 @@ export default function PromotionBanner() {
 
                     <div className="flex flex-wrap items-center justify-center gap-4 lg:gap-6">
                         <Link href="/price-beat">
-                            <button className="bg-amber-500 hover:bg-amber-600 text-blue-950 font-black py-2 px-8 rounded-full text-sm transition-all transform hover:scale-105 hover:shadow-[0_0_20px_rgba(245,158,11,0.5)] active:scale-95 uppercase tracking-widest shadow-lg border-b-4 border-amber-700">
+                            <button className="bg-amber-500 hover:bg-amber-600 text-blue-950 font-black py-3 px-8 rounded-full text-sm transition-all transform hover:scale-105 hover:shadow-[0_0_20px_rgba(245,158,11,0.5)] active:scale-95 uppercase tracking-widest shadow-lg border-b-4 border-amber-700">
                                 CLAIM OFFER
                             </button>
                         </Link>
