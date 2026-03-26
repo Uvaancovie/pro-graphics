@@ -2,10 +2,14 @@ import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
     try {
-        const { name, email, company } = await req.json();
+        const { name, email, company, consentGiven, consentTimestamp } = await req.json();
 
         if (!email) {
             return NextResponse.json({ error: 'Email is required' }, { status: 400 });
+        }
+
+        if (!consentGiven) {
+            return NextResponse.json({ error: 'Consent is required' }, { status: 400 });
         }
 
         const apiKey = process.env.BREVO_API_KEY;
@@ -34,7 +38,9 @@ export async function POST(req: Request) {
                 attributes: {
                     FIRSTNAME: firstName,
                     LASTNAME: lastName,
-                    COMPANY: company || ''
+                    COMPANY: company || '',
+                    OPT_IN: true,                 // Assuming you have an OPT_IN attribute in Brevo
+                    CONSENT_DATE: consentTimestamp // Assuming you have a CONSENT_DATE attribute
                 },
                 listIds: [2] // You can change this to your actual Brevo list ID for Leads
             })

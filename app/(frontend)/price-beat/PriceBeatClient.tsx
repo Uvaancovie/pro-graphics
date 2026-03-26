@@ -13,6 +13,7 @@ export function PriceBeatClient() {
         email: "",
         vehicleType: "",
         message: "",
+        consentGiven: false,
     });
     const [quoteFile, setQuoteFile] = useState<File | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -22,7 +23,8 @@ export function PriceBeatClient() {
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
     ) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const value = e.target.type === 'checkbox' ? (e.target as HTMLInputElement).checked : e.target.value;
+        setFormData({ ...formData, [e.target.name]: value });
     };
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,6 +38,10 @@ export function PriceBeatClient() {
         setSubmitError("");
         if (!quoteFile) {
             alert("Please attach your verified quote to claim this offer.");
+            return;
+        }
+        if (!formData.consentGiven) {
+            setSubmitError("You must agree to the privacy policy to continue.");
             return;
         }
 
@@ -91,7 +97,9 @@ export function PriceBeatClient() {
                     email: formData.email,
                     vehicleType: formData.vehicleType,
                     message: formData.message,
-                    quoteFileUrl: fileUrl
+                    quoteFileUrl: fileUrl,
+                    consentGiven: formData.consentGiven,
+                    consentTimestamp: new Date().toISOString(),
                 })
             });
 
@@ -262,6 +270,27 @@ export function PriceBeatClient() {
                                         className="w-full px-4 py-3 bg-blue-900/50 border-2 border-blue-800 rounded-lg text-white font-medium placeholder:text-blue-500 focus:border-amber-500 focus:outline-none transition-colors resize-none"
                                         placeholder="E.g. The quote is for half-wrap on a Toyota Hilux..."
                                     />
+                                </div>
+
+                                <div className="flex items-start gap-3 mt-4">
+                                    <div className="flex items-center h-5 mt-1">
+                                        <input
+                                            id="consentGiven"
+                                            name="consentGiven"
+                                            type="checkbox"
+                                            checked={formData.consentGiven}
+                                            onChange={handleChange}
+                                            className="w-4 h-4 bg-blue-900/50 border-2 border-blue-800 rounded focus:ring-2 focus:ring-amber-500 outline-none cursor-pointer"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <label htmlFor="consentGiven" className="text-sm text-blue-200 leading-tight cursor-pointer">
+                                            I consent to the processing of my personal data as described in the{' '}
+                                            <a href="/privacy-policy" className="text-amber-500 hover:text-amber-400 underline" target="_blank" rel="noopener noreferrer">
+                                                Privacy Policy
+                                            </a>.
+                                        </label>
+                                    </div>
                                 </div>
 
                                 {submitError && (

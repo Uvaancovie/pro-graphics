@@ -22,6 +22,11 @@ const baseSchema = z.object({
     // Additional (Optional in both)
     additionalNotes: z.string().optional(),
     hearAboutUs: z.string().optional(),
+    
+    // GDPR Consent
+    consentGiven: z.boolean().refine((val) => val === true, {
+        message: "You must agree to the privacy policy",
+    }),
 });
 
 export const quickQuoteSchema = baseSchema;

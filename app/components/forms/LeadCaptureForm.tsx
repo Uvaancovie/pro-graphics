@@ -11,6 +11,9 @@ const formSchema = z.object({
     name: z.string().min(2, 'Name must be at least 2 characters'),
     email: z.string().email('Please enter a valid email address'),
     company: z.string().optional(),
+    consentGiven: z.boolean().refine((val) => val === true, {
+        message: 'You must agree to the privacy policy',
+    }),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -33,12 +36,17 @@ export function LeadCaptureForm() {
         setErrorMsg('');
 
         try {
+            const submitData = {
+                ...data,
+                consentTimestamp: new Date().toISOString(),
+            };
+
             const response = await fetch('/api/lead-capture', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(data),
+                body: JSON.stringify(submitData),
             });
 
             if (!response.ok) {
@@ -119,6 +127,28 @@ export function LeadCaptureForm() {
                             placeholder="Acme Corp"
                             className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none text-white placeholder:text-gray-500"
                         />
+                    </div>
+                </div>
+
+                <div className="flex items-start gap-3 mt-4">
+                    <div className="flex items-center h-5 mt-1">
+                        <input
+                            id="consentGiven"
+                            {...register('consentGiven')}
+                            type="checkbox"
+                            className="w-4 h-4 bg-white/5 border border-white/10 rounded focus:ring-2 focus:ring-primary focus:border-transparent outline-none cursor-pointer"
+                        />
+                    </div>
+                    <div className="flex flex-col">
+                        <label htmlFor="consentGiven" className="text-sm text-gray-300 leading-tight cursor-pointer">
+                            I consent to the processing of my personal data as described in the{' '}
+                            <span className="text-blue-400 hover:text-blue-300 underline">
+                                Privacy Policy
+                            </span>.
+                        </label>
+                        {errors.consentGiven && (
+                            <p className="text-red-400 text-sm mt-1">{errors.consentGiven.message}</p>
+                        )}
                     </div>
                 </div>
 

@@ -70,9 +70,16 @@ export function SmartQuoteForm() {
 
     const onSubmit = async (data: any) => {
         setIsSubmitting(true);
+        
+        // Add timestamp for GDPR
+        const submitData = {
+            ...data,
+            consentTimestamp: new Date().toISOString(),
+        };
+
         // Simulate API call
         await new Promise((resolve) => setTimeout(resolve, 2000));
-        console.log("Form Data:", data);
+        console.log("Form Data:", submitData);
         console.log("Uploaded Files:", uploadedFiles);
         setIsSubmitting(false);
         setSubmitSuccess(true);
@@ -413,6 +420,28 @@ export function SmartQuoteForm() {
                             </div>
                         )}
 
+                        {/* GDPR Consent */}
+                        <div className="flex items-start gap-3 mt-4 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <div className="flex items-center h-5 mt-1">
+                                <input
+                                    id="consentGiven"
+                                    {...register('consentGiven')}
+                                    type="checkbox"
+                                    className="w-5 h-5 border-2 border-gray-400 rounded focus:ring-2 focus:ring-black outline-none cursor-pointer text-black"
+                                />
+                            </div>
+                            <div className="flex flex-col">
+                                <label htmlFor="consentGiven" className="text-sm text-black font-medium leading-tight cursor-pointer">
+                                    I consent to the processing of my personal data as described in the{' '}
+                                    <a href="/privacy-policy" className="text-blue-600 hover:text-blue-800 underline" target="_blank" rel="noopener noreferrer">
+                                        Privacy Policy
+                                    </a>.
+                                </label>
+                                {errors.consentGiven && (
+                                    <p className="text-red-600 text-sm mt-1 font-bold">{errors.consentGiven.message}</p>
+                                )}
+                            </div>
+                        </div>
 
                         {/* Submit */}
                         <div className="pt-6">

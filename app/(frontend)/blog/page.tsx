@@ -1,34 +1,12 @@
 import Link from 'next/link';
-import { client } from '@/src/sanity/lib/client';
-import imageUrlBuilder from '@sanity/image-url';
-
-const builder = imageUrlBuilder(client);
-
-function urlFor(source: any) {
-    return builder.image(source);
-}
-
-const POSTS_QUERY = `*[_type == "post"] | order(publishedAt desc) {
-    _id,
-    title,
-    "slug": slug.current,
-    publishedAt,
-    mainImage,
-    "category": categories[0]->title,
-    "excerpt": pt::text(body),
-    "author": author->name
-}`;
+import { blogPosts } from './data';
 
 export const metadata = {
     title: 'Blog & Resources | Pro Graphics',
     description: 'Insights, ROI data, and guides on vehicle branding, fleet marketing, and signage in Durban.',
 };
 
-export const revalidate = 60; // Revalidate every 60 seconds
-
-export default async function BlogIndex() {
-    const posts = await client.fetch(POSTS_QUERY);
-
+export default function BlogIndex() {
     return (
         <div className="min-h-screen bg-background pt-24 pb-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -41,22 +19,22 @@ export default async function BlogIndex() {
                     </p>
                 </div>
 
-                {posts.length === 0 && (
+                {blogPosts.length === 0 && (
                     <div className="text-center py-16">
                         <p className="text-gray-500 text-lg">No blog posts published yet. Check back soon!</p>
                     </div>
                 )}
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {posts.map((post: any) => (
+                    {blogPosts.map((post) => (
                         <article
                             key={post._id}
                             className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col"
                         >
                             {post.mainImage && (
-                                <div className="relative h-48 w-full overflow-hidden">
+                                <div className="relative h-48 w-full overflow-hidden flex-shrink-0">
                                     <img
-                                        src={urlFor(post.mainImage).width(600).height(400).url()}
+                                        src={post.mainImage}
                                         alt={post.title}
                                         className="w-full h-full object-cover"
                                     />
@@ -64,7 +42,7 @@ export default async function BlogIndex() {
                             )}
                             <div className="p-6 flex flex-col flex-grow">
                                 <div className="flex items-center justify-between mb-4">
-                                    <span className="text-sm font-medium text-accent-gold-dark bg-yellow-50 px-3 py-1 rounded-full">
+                                    <span className="text-sm font-medium text-amber-700 bg-amber-50 px-3 py-1 rounded-full">
                                         {post.category || 'Uncategorized'}
                                     </span>
                                     {post.publishedAt && (
@@ -79,18 +57,18 @@ export default async function BlogIndex() {
                                 </div>
 
                                 <h2 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
-                                    <Link href={`/blog/${post.slug}`} className="hover:text-primary-blue transition-colors">
+                                    <Link href={`/blog/${post.slug}`} className="hover:text-blue-900 transition-colors">
                                         {post.title}
                                     </Link>
                                 </h2>
 
-                                <p className="text-gray-600 mb-6 line-clamp-3 flex-grow">
+                                <p className="text-gray-600 mb-6 flex-grow">
                                     {post.excerpt ? post.excerpt.substring(0, 160) + '...' : ''}
                                 </p>
 
                                 <Link
                                     href={`/blog/${post.slug}`}
-                                    className="inline-flex items-center text-primary-blue font-semibold hover:text-accent-gold-dark transition-colors mt-auto"
+                                    className="inline-flex items-center text-blue-900 font-semibold hover:text-amber-600 transition-colors mt-auto pt-4"
                                 >
                                     Read Article
                                     <svg className="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">

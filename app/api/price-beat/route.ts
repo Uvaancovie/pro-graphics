@@ -2,10 +2,14 @@ import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
   try {
-    const { name, business, phone, email, vehicleType, message, quoteFileUrl } = await req.json();
+    const { name, business, phone, email, vehicleType, message, quoteFileUrl, consentGiven, consentTimestamp } = await req.json();
 
     if (!email || !name) {
       return NextResponse.json({ error: 'Name and Email are required' }, { status: 400 });
+    }
+
+    if (!consentGiven) {
+      return NextResponse.json({ error: 'Consent is required' }, { status: 400 });
     }
 
     const apiKey = process.env.BREVO_API_KEY;
@@ -33,7 +37,9 @@ export async function POST(req: Request) {
         updateEnabled: true,
         attributes: {
           FIRSTNAME: firstName,
-          LASTNAME: lastName
+          LASTNAME: lastName,
+          OPT_IN: true,                 // Log consent
+          CONSENT_DATE: consentTimestamp // Date consent was given
         },
         listIds: [2] // Leads list
       })

@@ -1,40 +1,16 @@
-import { client } from '@/src/sanity/lib/client';
-import { PortableText } from '@portabletext/react';
-import imageUrlBuilder from '@sanity/image-url';
 import Link from 'next/link';
 import type { Metadata } from 'next';
-
-const builder = imageUrlBuilder(client);
-
-function urlFor(source: any) {
-    return builder.image(source);
-}
-
-const POST_QUERY = `*[_type == "post" && slug.current == $slug][0] {
-    _id,
-    title,
-    "slug": slug.current,
-    publishedAt,
-    mainImage,
-    body,
-    "category": categories[0]->title,
-    "author": author->name,
-    "authorImage": author->image,
-    "tags": categories[]->title
-}`;
-
-const ALL_SLUGS_QUERY = `*[_type == "post" && defined(slug.current)]{ "slug": slug.current }`;
+import { blogPosts } from '../data';
 
 export async function generateStaticParams() {
-    const posts = await client.fetch(ALL_SLUGS_QUERY);
-    return posts.map((post: { slug: string }) => ({
+    return blogPosts.map((post) => ({
         slug: post.slug,
     }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
-    const post = await client.fetch(POST_QUERY, { slug });
+    const post = blogPosts.find(p => p.slug === slug);
 
     if (!post) {
         return { title: 'Post Not Found' };
@@ -42,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
     return {
         title: `${post.title} | Pro Graphics Blog`,
-        description: post.title,
+        description: post.excerpt,
         openGraph: {
             title: post.title,
             type: 'article',
@@ -52,76 +28,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     };
 }
 
-// Custom Portable Text components for styling
-const portableTextComponents = {
-    types: {
-        image: ({ value }: any) => {
-            if (!value?.asset?._ref) return null;
-            return (
-                <div className="my-8 rounded-lg overflow-hidden shadow-md">
-                    <img
-                        src={urlFor(value).width(800).url()}
-                        alt={value.alt || ''}
-                        className="w-full h-auto"
-                    />
-                </div>
-            );
-        },
-    },
-    block: {
-        h2: ({ children }: any) => (
-            <h2 className="text-3xl font-bold text-blue-950 mt-12 mb-6 pb-2 border-b border-gray-200">
-                {children}
-            </h2>
-        ),
-        h3: ({ children }: any) => (
-            <h3 className="text-2xl font-bold text-blue-950 mt-8 mb-4">{children}</h3>
-        ),
-        blockquote: ({ children }: any) => (
-            <blockquote className="border-l-4 border-amber-500 bg-gray-50 py-4 px-6 italic text-gray-700 rounded-r-lg shadow-sm my-6">
-                {children}
-            </blockquote>
-        ),
-        normal: ({ children }: any) => (
-            <p className="leading-relaxed mb-6 text-gray-600">{children}</p>
-        ),
-    },
-    marks: {
-        strong: ({ children }: any) => (
-            <strong className="text-gray-900 font-bold">{children}</strong>
-        ),
-        link: ({ value, children }: any) => (
-            <a
-                href={value?.href}
-                className="text-black font-semibold underline hover:text-blue-950"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                {children}
-            </a>
-        ),
-    },
-    list: {
-        bullet: ({ children }: any) => (
-            <ul className="list-disc pl-6 mb-6 space-y-2 text-gray-600">{children}</ul>
-        ),
-        number: ({ children }: any) => (
-            <ol className="list-decimal pl-6 mb-6 space-y-2 text-gray-600">{children}</ol>
-        ),
-    },
-};
-
-export const revalidate = 60;
-
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
-    const post = await client.fetch(POST_QUERY, { slug });
+    const post = blogPosts.find(p => p.slug === slug);
 
     if (!post) {
         return (
             <div className="min-h-screen bg-gray-50 pt-32 pb-16 text-center">
                 <h1 className="text-3xl font-bold text-gray-900">Post not found</h1>
-                <Link href="/blog" className="text-primary-blue mt-4 inline-block">
+                <Link href="/blog" className="text-blue-900 font-bold mt-4 inline-block hover:text-amber-500 transition-colors">
                     ← Back to Blog
                 </Link>
             </div>
@@ -135,7 +50,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                     <div className="flex items-center justify-center gap-4 mb-6">
                         <Link
                             href="/blog"
-                            className="text-sm font-medium text-gray-500 hover:text-blue-950 transition-colors flex items-center"
+                            className="text-sm font-medium text-gray-500 hover:text-blue-900 transition-colors flex items-center"
                         >
                             <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -146,7 +61,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
                     {post.category && (
                         <div className="flex items-center justify-center gap-2 mb-4">
-                            <span className="text-sm font-bold tracking-wider text-amber-600 uppercase bg-yellow-50 px-3 py-1 rounded-full">
+                            <span className="text-sm font-bold tracking-wider text-amber-600 uppercase bg-amber-50 px-3 py-1 rounded-full">
                                 {post.category}
                             </span>
                         </div>
@@ -188,15 +103,15 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                 {post.mainImage && (
                     <div className="mb-10 rounded-xl overflow-hidden shadow-md">
                         <img
-                            src={urlFor(post.mainImage).width(800).height(450).url()}
+                            src={post.mainImage}
                             alt={post.title}
                             className="w-full h-auto"
                         />
                     </div>
                 )}
 
-                <article className="prose prose-lg prose-blue max-w-none">
-                    <PortableText value={post.body} components={portableTextComponents} />
+                <article className="prose-lg max-w-none text-gray-700">
+                    {post.body}
                 </article>
 
                 {post.tags && post.tags.length > 0 && (
