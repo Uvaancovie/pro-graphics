@@ -70,11 +70,11 @@ export async function POST(req: Request) {
       body: JSON.stringify({
         sender: {
           name: "Pro Graphics",
-          email: "i.t.safuneralsupplies@gmail.com"
+          email: "gdesigners14@gmail.com"
         },
         to: [
           {
-            email: "i.t.safuneralsupplies@gmail.com",
+            email: "gdesigners14@gmail.com",
             name: "Pro Graphics Sales"
           }
         ],
@@ -142,7 +142,7 @@ export async function POST(req: Request) {
       body: JSON.stringify({
         sender: {
           name: "Pro Graphics",
-          email: "i.t.safuneralsupplies@gmail.com"
+          email: "gdesigners14@gmail.com"
         },
         to: [
           {
@@ -174,7 +174,7 @@ export async function POST(req: Request) {
                 <p>Hi ${firstName || 'there'},</p>
                 <p>We've successfully received your Price Beat submission and attached quote.</p>
                 <p>Our team is reviewing the competitor's quote to ensure equal material specifications. We will get back to you within <strong>24 hours</strong> with your new proposal, guaranteed to be 10% cheaper!</p>
-                <p>If you have any immediate questions, feel free to reply directly to this email or call us at <strong>031 508 6700</strong>.</p>
+                <p>If you have any immediate questions, feel free to reply directly to this email or call us at <strong>067 0897 759 / 065 9424 036</strong>.</p>
                 <p>Best regards,<br><strong>The Pro Graphics Team</strong></p>
               </div>
 

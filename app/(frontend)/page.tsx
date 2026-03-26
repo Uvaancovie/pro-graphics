@@ -307,7 +307,7 @@ export default function HomePage() {
             </Button>
           </Link>
           <p className="mt-8 text-blue-200 text-lg">
-            Or call us at <strong className="text-amber-400 text-xl hover:text-white transition-colors"><a href="tel:0315086700">031 508 6700</a></strong>
+            Or call us at <strong className="text-amber-400 text-xl hover:text-white transition-colors"><a href="tel:0670897759">067 0897 759</a></strong>
           </p>
         </div>
       </section>

@@ -82,8 +82,8 @@ public/
 ## 📈 SEO & Business Details
 
 - **Location**: 158 Phoenix Industrial Park, 160 Aberdare Dr, Phoenix, Durban, 4090.
-- **Phone**: 031 508 6700
-- **Email**: <info@prographics.co.za>
+- **Phone**: 067 0897 759 / 065 9424 036
+- **Email**: <gdesigners14@gmail.com>
 - **Hours**: Mon - Fri: 8:00 AM - 4:45 PM
 
 The site utilizes `next/metadata` for page-specific titles and descriptions tailored to "Printing Durban" and "Vehicle Branding South Africa" keywords.

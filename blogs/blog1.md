@@ -260,8 +260,8 @@ Don't let another month of revenue evaporate.
 Durban's premier fleet branding specialists based in Phoenix Industrial Park. We've branded 500+ commercial vehicles for Durban businesses, from single vans to 50-vehicle fleets. All work guaranteed with 3M/Avery Dennison materials.
 
 📍 158 Phoenix Industrial Park, 160 Aberdare Dr, Phoenix, Durban  
-📞 031 508 6700  
-📧 <info@prographics.co.za>
+📞 067 0897 759 / 065 9424 036  
+📧 <gdesigners14@gmail.com>
 
 *Mon - Fri: 8:00 AM - 4:45 PM*
 
