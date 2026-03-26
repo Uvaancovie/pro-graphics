@@ -1,22 +1,30 @@
 import { NextResponse } from 'next/server';
+import { securityMiddleware, corsHeaders } from '@/lib/security';
+
+export async function OPTIONS() {
+  return NextResponse.json({}, { headers: corsHeaders });
+}
 
 export async function POST(req: Request) {
   try {
+    const securityResponse = await securityMiddleware(req);
+    if (securityResponse) return securityResponse;
+
     const { name, business, phone, email, vehicleType, message, quoteFileUrl, consentGiven, consentTimestamp } = await req.json();
 
     if (!email || !name) {
-      return NextResponse.json({ error: 'Name and Email are required' }, { status: 400 });
+      return NextResponse.json({ error: 'Name and Email are required' }, { status: 400, headers: corsHeaders });
     }
 
     if (!consentGiven) {
-      return NextResponse.json({ error: 'Consent is required' }, { status: 400 });
+      return NextResponse.json({ error: 'Consent is required' }, { status: 400, headers: corsHeaders });
     }
 
     const apiKey = process.env.BREVO_API_KEY;
 
     if (!apiKey) {
       console.error('Missing BREVO_API_KEY');
-      return NextResponse.json({ error: 'Server configuration error' }, { status: 500 });
+      return NextResponse.json({ error: 'Server configuration error' }, { status: 500, headers: corsHeaders });
     }
 
     // Split name into first and last name for Brevo attributes
@@ -120,7 +128,7 @@ export async function POST(req: Request) {
     if (!emailRes.ok) {
       const emailErrorData = await emailRes.json();
       console.error('Brevo Email error (notification):', emailErrorData);
-      return NextResponse.json({ error: 'Failed to send the email notification' }, { status: 500 });
+      return NextResponse.json({ error: 'Failed to send the email notification' }, { status: 500, headers: corsHeaders });
     }
 
     // 3. Send a Thank You Email to the Customer
@@ -187,10 +195,10 @@ export async function POST(req: Request) {
       // We won't block the 200 Success if the thank you fails, but we'll log it.
     }
 
-    return NextResponse.json({ message: 'Success' });
+    return NextResponse.json({ message: 'Success' }, { headers: corsHeaders });
 
   } catch (error) {
     console.error('Price beat capture error:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500, headers: corsHeaders });
   }
 }
