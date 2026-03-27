@@ -8,7 +8,40 @@ export const metadata: Metadata = {
     description: "Browse our portfolio of vehicle branding, custom signage, vehicle wraps, and shop front branding projects in Durban.",
 };
 
-const galleryImages = Array.from({ length: 13 }, (_, i) => `/images/content/${i + 1}.jpeg`);
+const adImages = [
+    "/images/ads/AD-1.png",
+    "/images/ads/AD-3.png",
+    "/images/ads/AD-4.png",
+    "/images/ads/AD-5.png",
+    "/images/ads/AD-6.png",
+    "/images/ads/vehicle-branding.jpeg",
+    "/images/ads/full-vehicle-wraps.jpeg",
+    "/images/ads/custom-sign-boards.jpeg",
+    "/images/ads/contravisions.jpeg",
+    "/images/ads/custom-cutout-stickers.jpeg",
+    "/images/ads/shop-front-office-branding.jpeg",
+];
+
+const portfolioImages = Array.from({ length: 13 }, (_, i) => `/images/content/${i + 1}.jpeg`);
+
+const clientImages = [
+    "/images/client/client-1.jpg",
+    "/images/client/client-2.png",
+];
+
+const testimonialImages = [
+    "/testimonials/black-roof-wraps.jpg",
+    "/testimonials/custom-canvas.jpg",
+    "/testimonials/custom-wallpaper.jpg",
+    "/testimonials/laminex-headlight-film.jpg",
+];
+
+const galleryItems = [
+    ...adImages.map((src) => ({ src, category: "Ads" as const })),
+    ...portfolioImages.map((src) => ({ src, category: "Portfolio" as const })),
+    ...clientImages.map((src) => ({ src, category: "Portfolio" as const })),
+    ...testimonialImages.map((src) => ({ src, category: "Testimonials" as const })),
+];
 
 export default function GalleryPage() {
     return (
@@ -23,7 +56,7 @@ export default function GalleryPage() {
                         Our Work <span className="text-amber-400">Gallery</span>
                     </h1>
                     <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto font-light">
-                        See the quality we deliver. From massive fleet wraps to precise custom stickers.
+                        Browse our ad creatives, installs, and client branding projects across vehicles, signage, wallpaper, and custom print.
                     </p>
                 </div>
             </section>
@@ -31,7 +64,7 @@ export default function GalleryPage() {
             {/* Interactive Gallery Grid */}
             <section className="py-16">
                 <div className="container mx-auto px-4">
-                    <GalleryGrid images={galleryImages} />
+                    <GalleryGrid items={galleryItems} />
                 </div>
             </section>
 

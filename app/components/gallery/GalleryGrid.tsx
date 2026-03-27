@@ -4,12 +4,27 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-interface GalleryGridProps {
-    images: string[];
+type GalleryCategory = "Ads" | "Portfolio" | "Testimonials";
+
+interface GalleryItem {
+    src: string;
+    category: GalleryCategory;
 }
 
-export function GalleryGrid({ images }: GalleryGridProps) {
+interface GalleryGridProps {
+    items: GalleryItem[];
+}
+
+const filterOptions = ["All", "Ads", "Portfolio", "Testimonials"] as const;
+type FilterOption = (typeof filterOptions)[number];
+
+export function GalleryGrid({ items }: GalleryGridProps) {
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
+    const [activeFilter, setActiveFilter] = useState<FilterOption>("All");
+
+    const filteredItems = activeFilter === "All"
+        ? items
+        : items.filter((item) => item.category === activeFilter);
 
     // Lock body scroll when modal is open
     useEffect(() => {
@@ -25,15 +40,33 @@ export function GalleryGrid({ images }: GalleryGridProps) {
 
     return (
         <>
+            <div className="flex flex-wrap justify-center gap-3 mb-8">
+                {filterOptions.map((option) => (
+                    <button
+                        key={option}
+                        onClick={() => setActiveFilter(option)}
+                        className={cn(
+                            "px-5 py-2 rounded-full text-sm font-semibold transition-all border",
+                            activeFilter === option
+                                ? "bg-blue-950 text-white border-blue-950"
+                                : "bg-white text-blue-950 border-gray-200 hover:border-amber-400 hover:text-amber-600"
+                        )}
+                        aria-pressed={activeFilter === option}
+                    >
+                        {option}
+                    </button>
+                ))}
+            </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {images.map((src, index) => (
+                {filteredItems.map((item, index) => (
                     <div
-                        key={index}
+                        key={`${item.src}-${index}`}
                         className="group relative aspect-square overflow-hidden rounded-xl bg-gray-200 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer"
-                        onClick={() => setSelectedImage(src)}
+                        onClick={() => setSelectedImage(item.src)}
                     >
                         <Image
-                            src={src}
+                            src={item.src}
                             alt={`Pro Graphics Project ${index + 1}`}
                             fill
                             className="object-cover transition-transform duration-500 group-hover:scale-110"
