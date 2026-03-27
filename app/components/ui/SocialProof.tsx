@@ -1,41 +1,25 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Card, CardContent } from "@/app/components/ui/Card";
 
 const testimonials = [
     {
-        name: "Siyabonga Patrick",
-        role: "Local Guide",
-        content: "Friendly place to meet up with stuff. They are friendly. Great service and attention to detail on my signs.",
-        rating: 5,
-        initial: "S",
-        color: "bg-blue-100 text-blue-700"
+        title: "Black Roof Wraps",
+        image: "/testimonials/black-roof-wraps.jpg"
     },
     {
-        name: "karriem simons",
-        role: "Verified Customer",
-        content: "Excellent quality vehicle branding. The team was professional and the finish was perfect. Highly recommended.",
-        rating: 5,
-        initial: "K",
-        color: "bg-amber-100 text-amber-700"
+        title: "Custom Canvas",
+        image: "/testimonials/custom-canvas.jpg"
     },
     {
-        name: "Zaheeda Kadir",
-        role: "Business Owner",
-        content: "We ordered custom stickers for our shop and they turned out amazing. Fast turnaround and great pricing strategy.",
-        rating: 5,
-        initial: "Z",
-        color: "bg-green-100 text-green-700"
+        title: "Custom Wallpaper",
+        image: "/testimonials/custom-wallpaper.jpg"
     },
     {
-        name: "Kaelin Munsamy",
-        role: "Verified Customer",
-        content: "Pro Graphics handled our office signage with extreme care. The materials used are clearly premium quality.",
-        rating: 5,
-        initial: "K",
-        color: "bg-purple-100 text-purple-700"
+        title: "Lamin-X Headlight Film",
+        image: "/testimonials/laminex-headlight-film.jpg"
     },
 ];
 
@@ -77,37 +61,21 @@ export function SocialProof() {
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -20 }}
                             transition={{ duration: 0.5 }}
-                            className="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-gray-100 text-center"
+                            className="bg-white p-4 md:p-6 rounded-2xl shadow-xl border border-gray-100"
                         >
-                            <div className="flex justify-center gap-1 mb-6">
-                                {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
-                                    <svg
-                                        key={i}
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="currentColor"
-                                        className="text-amber-500"
-                                    >
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                                    </svg>
-                                ))}
+                            <div className="relative w-full aspect-[4/3] md:aspect-[16/10] overflow-hidden rounded-xl border border-gray-200">
+                                <Image
+                                    src={testimonials[currentIndex].image}
+                                    alt={`${testimonials[currentIndex].title} testimonial`}
+                                    fill
+                                    className="object-contain"
+                                    sizes="(max-width: 768px) 100vw, 896px"
+                                    priority={currentIndex === 0}
+                                />
                             </div>
-
-                            <p className="text-xl md:text-2xl text-gray-700 italic mb-8 leading-relaxed font-light">
-                                "{testimonials[currentIndex].content}"
+                            <p className="text-center text-sm md:text-base text-gray-600 mt-4 font-medium">
+                                {testimonials[currentIndex].title}
                             </p>
-
-                            <div className="flex items-center justify-center gap-4">
-                                <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg ${testimonials[currentIndex].color}`}>
-                                    {testimonials[currentIndex].initial}
-                                </div>
-                                <div className="text-left">
-                                    <div className="font-bold text-blue-950 text-lg">{testimonials[currentIndex].name}</div>
-                                    <div className="text-sm text-amber-600 font-semibold uppercase tracking-wider">{testimonials[currentIndex].role}</div>
-                                </div>
-                            </div>
                         </motion.div>
                     </AnimatePresence>
 

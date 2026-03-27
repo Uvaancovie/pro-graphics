@@ -174,7 +174,7 @@ export async function POST(req: Request) {
                 <p>Hi ${firstName || 'there'},</p>
                 <p>We've successfully received your Price Beat submission and attached quote.</p>
                 <p>Our team is reviewing the competitor's quote to ensure equal material specifications. We will get back to you within <strong>24 hours</strong> with your new proposal, guaranteed to be 10% cheaper!</p>
-                <p>If you have any immediate questions, feel free to reply directly to this email or call us at <strong>067 0897 759 / 065 9424 036</strong>.</p>
+                <p>If you have any immediate questions, feel free to reply directly to this email or call us at <strong>065 9424 036</strong>.</p>
                 <p>Best regards,<br><strong>The Pro Graphics Team</strong></p>
               </div>
 

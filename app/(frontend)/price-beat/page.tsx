@@ -118,9 +118,9 @@ export default function PriceBeatPage() {
                                 🚀 CLAIM GUARANTEE
                             </button>
                         </Link>
-                        <a href="tel:0670897759">
+                        <a href="tel:0659424036">
                             <button className="bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white hover:bg-white hover:text-blue-950 font-bold py-5 px-12 rounded-full text-xl transition-all hover:scale-105 min-w-[280px]">
-                                📞 Call 067 0897 759
+                                📞 Call 065 9424 036
                             </button>
                         </a>
                     </div>

@@ -20,7 +20,7 @@ export default function HomePage() {
               <div className="text-blue-200 uppercase tracking-widest text-xs font-semibold">Quote Response</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-amber-400 mb-2">10+</div>
+              <div className="text-4xl md:text-5xl font-bold text-amber-400 mb-2">8</div>
               <div className="text-blue-200 uppercase tracking-widest text-xs font-semibold">Years Experience</div>
             </div>
             <div className="text-center">
@@ -238,6 +238,142 @@ export default function HomePage() {
                 </Link>
               </div>
             </div>
+
+            {/* Black Roof Wraps */}
+            <Link href="/black-roof-wraps" className="group">
+              <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden hover:-translate-y-2 border border-gray-100 hover:border-amber-400">
+                <div className="h-64 relative">
+                  <Image
+                    src="/testimonials/black-roof-wraps.jpg"
+                    alt="Black Roof Wrap Service Durban"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    quality={70}
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent"></div>
+                  <div className="absolute bottom-4 left-4 text-white">
+                    <span className="text-4xl">🖤</span>
+                  </div>
+                </div>
+                <div className="p-8">
+                  <h3 className="text-2xl font-bold text-blue-950 mb-3 group-hover:text-amber-600 transition-colors">
+                    Black Roof Wraps
+                  </h3>
+                  <p className="text-gray-600 mb-4 leading-relaxed line-clamp-2">
+                    Premium gloss, satin, or matte black roof wraps for a clean sport finish and paint protection.
+                  </p>
+                  <div className="flex items-center text-amber-600 font-bold uppercase tracking-wider text-sm group-hover:gap-3 gap-2 transition-all">
+                    Learn More
+                    <svg className="w-5 h-5 group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </Link>
+
+            {/* Custom Canvas */}
+            <Link href="/custom-canvas" className="group">
+              <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden hover:-translate-y-2 border border-gray-100 hover:border-amber-400">
+                <div className="h-64 relative">
+                  <Image
+                    src="/testimonials/custom-canvas.jpg"
+                    alt="Custom Canvas Printing Durban"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    quality={70}
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent"></div>
+                  <div className="absolute bottom-4 left-4 text-white">
+                    <span className="text-4xl">🖼️</span>
+                  </div>
+                </div>
+                <div className="p-8">
+                  <h3 className="text-2xl font-bold text-blue-950 mb-3 group-hover:text-amber-600 transition-colors">
+                    Custom Canvas
+                  </h3>
+                  <p className="text-gray-600 mb-4 leading-relaxed line-clamp-2">
+                    High-resolution custom canvas prints for office walls, reception areas, and branded interiors.
+                  </p>
+                  <div className="flex items-center text-amber-600 font-bold uppercase tracking-wider text-sm group-hover:gap-3 gap-2 transition-all">
+                    Learn More
+                    <svg className="w-5 h-5 group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </Link>
+
+            {/* Custom Wallpaper */}
+            <Link href="/custom-wallpaper" className="group">
+              <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden hover:-translate-y-2 border border-gray-100 hover:border-amber-400">
+                <div className="h-64 relative">
+                  <Image
+                    src="/testimonials/custom-wallpaper.jpg"
+                    alt="Custom Wallpaper Printing Durban"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    quality={70}
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent"></div>
+                  <div className="absolute bottom-4 left-4 text-white">
+                    <span className="text-4xl">🧱</span>
+                  </div>
+                </div>
+                <div className="p-8">
+                  <h3 className="text-2xl font-bold text-blue-950 mb-3 group-hover:text-amber-600 transition-colors">
+                    Custom Wallpaper
+                  </h3>
+                  <p className="text-gray-600 mb-4 leading-relaxed line-clamp-2">
+                    Branded wall graphics and wallpaper for retail, offices, and feature walls with professional installation.
+                  </p>
+                  <div className="flex items-center text-amber-600 font-bold uppercase tracking-wider text-sm group-hover:gap-3 gap-2 transition-all">
+                    Learn More
+                    <svg className="w-5 h-5 group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </Link>
+
+            {/* Lamin-X Headlight Film */}
+            <Link href="/laminex-headlight-film" className="group">
+              <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden hover:-translate-y-2 border border-gray-100 hover:border-amber-400">
+                <div className="h-64 relative">
+                  <Image
+                    src="/testimonials/laminex-headlight-film.jpg"
+                    alt="Lamin-X Headlight Film Durban"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    quality={70}
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent"></div>
+                  <div className="absolute bottom-4 left-4 text-white">
+                    <span className="text-4xl">💡</span>
+                  </div>
+                </div>
+                <div className="p-8">
+                  <h3 className="text-2xl font-bold text-blue-950 mb-3 group-hover:text-amber-600 transition-colors">
+                    Lamin-X Headlight Film
+                  </h3>
+                  <p className="text-gray-600 mb-4 leading-relaxed line-clamp-2">
+                    Durable tinted and clear protective headlight film to reduce chips, haze, and UV wear.
+                  </p>
+                  <div className="flex items-center text-amber-600 font-bold uppercase tracking-wider text-sm group-hover:gap-3 gap-2 transition-all">
+                    Learn More
+                    <svg className="w-5 h-5 group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </Link>
           </div>
         </div>
       </section>
@@ -307,7 +443,7 @@ export default function HomePage() {
             </Button>
           </Link>
           <p className="mt-8 text-blue-200 text-lg">
-            Or call us at <strong className="text-amber-400 text-xl hover:text-white transition-colors"><a href="tel:0670897759">067 0897 759</a></strong>
+            Or call us at <strong className="text-amber-400 text-xl hover:text-white transition-colors"><a href="tel:0659424036">065 9424 036</a></strong>
           </p>
         </div>
       </section>

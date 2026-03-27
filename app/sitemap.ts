@@ -40,5 +40,29 @@ export default function sitemap(): MetadataRoute.Sitemap {
             changeFrequency: 'yearly',
             priority: 0.5,
         },
+        {
+            url: `${baseUrl}/black-roof-wraps`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.7,
+        },
+        {
+            url: `${baseUrl}/custom-canvas`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.7,
+        },
+        {
+            url: `${baseUrl}/custom-wallpaper`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.7,
+        },
+        {
+            url: `${baseUrl}/laminex-headlight-film`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.7,
+        },
     ]
 }

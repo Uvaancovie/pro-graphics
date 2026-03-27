@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     default: "Pro Graphics | Professional Printing, Signage & Vehicle Branding Durban",
     template: "%s | Pro Graphics Durban"
   },
-  description: "Durban's premier printing and signage company in Phoenix Industrial Park. Specialists in vehicle branding, custom signs, stickers, banners, and promotional materials. Get high-quality, affordable branding with 24hr quotes. Call 067 0897 759.",
+  description: "Durban's premier printing and signage company in Phoenix Industrial Park. Specialists in vehicle branding, custom signs, stickers, banners, and promotional materials. Get high-quality, affordable branding with 24hr quotes. Call 065 9424 036.",
   keywords: ["printing company Durban", "vehicle branding Phoenix", "signage Durban", "custom stickers Durban", "Pro Graphics", "Phoenix Industrial Park printers", "car wraps Durban", "sign boards Durban", "branded office signage"],
   icons: {
     icon: '/images/content/logo.png',

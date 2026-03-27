@@ -29,7 +29,7 @@ export default function FrontendLayout({
       "longitude": 31.0
     },
     "url": "https://pro-graphics.co.za",
-    "telephone": "+27670897759",
+    "telephone": "+27659424036",
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",
@@ -146,7 +146,7 @@ export default function FrontendLayout({
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="text-amber-500">📞</span>
-                  <span><a href="tel:0670897759" className="hover:text-white transition-colors">067 0897 759</a> / <a href="tel:0659424036" className="hover:text-white transition-colors">065 9424 036</a></span>
+                  <span><a href="tel:0659424036" className="hover:text-white transition-colors">065 9424 036</a></span>
                 </li>
                 <li className="flex items-center gap-3">
                   <span className="text-amber-500">🕒</span>
@@ -171,7 +171,7 @@ export default function FrontendLayout({
       </footer>
       {/* Floating WhatsApp Button */}
       <a
-        href="https://wa.me/27670897759"
+        href="https://wa.me/27659424036"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-all hover:scale-110 flex items-center justify-center group"

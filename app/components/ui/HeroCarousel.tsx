@@ -131,9 +131,9 @@ export function HeroCarousel() {
                         Get Free Quote
                     </Button>
                 </Link>
-                <a href="tel:0670897759">
+                <a href="tel:0659424036">
                     <Button variant="outline" className="bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white hover:text-blue-950 px-8 py-4 text-lg rounded-full transition-all hover:-translate-y-1 min-w-[200px]">
-                        Call 067 0897 759
+                        Call 065 9424 036
                     </Button>
                 </a>
             </div>
