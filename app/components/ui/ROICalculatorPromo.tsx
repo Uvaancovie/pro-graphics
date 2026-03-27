@@ -30,7 +30,7 @@ export function ROICalculatorPromo() {
                 </div>
 
                 {/* Main Headline */}
-                <h2 className="text-center text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 leading-tight max-w-5xl mx-auto">
+                <h2 className="text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 leading-tight max-w-5xl mx-auto">
                     Your Unbranded Vehicles Are{" "}
                     <span className="relative inline-block">
                         <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-500">
@@ -42,7 +42,7 @@ export function ROICalculatorPromo() {
                 </h2>
 
                 {/* Sub-headline */}
-                <p className="text-center text-lg md:text-xl text-blue-200/80 max-w-3xl mx-auto mb-14 leading-relaxed">
+                <p className="text-center text-base sm:text-lg md:text-xl text-blue-200/80 max-w-3xl mx-auto mb-14 leading-relaxed">
                     Every kilometre your plain white van drives through Durban, you&apos;re throwing away
                     <strong className="text-white font-bold"> thousands of rand</strong> in free advertising.
                     Our calculator shows you <em>exactly</em> how much.
@@ -60,7 +60,7 @@ export function ROICalculatorPromo() {
                                         <span className="text-3xl">📉</span>
                                     </div>
                                     <div>
-                                        <div className="text-3xl font-black text-white mb-1">R127,500</div>
+                                        <div className="text-2xl sm:text-3xl font-black text-white mb-1">R127,500</div>
                                         <p className="text-blue-300 text-sm leading-relaxed">
                                             Average <strong className="text-amber-400">annual brand value lost</strong> per unbranded vehicle driving 50km/day in Durban CBD
                                         </p>
@@ -75,7 +75,7 @@ export function ROICalculatorPromo() {
                                         <span className="text-3xl">👀</span>
                                     </div>
                                     <div>
-                                        <div className="text-3xl font-black text-white mb-1">42,500+</div>
+                                        <div className="text-2xl sm:text-3xl font-black text-white mb-1">42,500+</div>
                                         <p className="text-blue-300 text-sm leading-relaxed">
                                             <strong className="text-amber-400">Daily impressions wasted</strong> — that&apos;s 42,500 people who could see your brand but don&apos;t
                                         </p>
@@ -90,7 +90,7 @@ export function ROICalculatorPromo() {
                                         <span className="text-3xl">🔄</span>
                                     </div>
                                     <div>
-                                        <div className="text-3xl font-black text-white mb-1">30x ROI</div>
+                                        <div className="text-2xl sm:text-3xl font-black text-white mb-1">30x ROI</div>
                                         <p className="text-blue-300 text-sm leading-relaxed">
                                             Vehicle branding delivers <strong className="text-amber-400">the highest ROI</strong> of any advertising medium — and it works 24/7
                                         </p>
@@ -117,7 +117,7 @@ export function ROICalculatorPromo() {
                                         <span className="text-amber-400 font-bold text-sm uppercase tracking-widest">ROI Calculator</span>
                                     </div>
 
-                                    <h3 className="text-2xl md:text-3xl font-black text-white mb-4 leading-tight">
+                                    <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-white mb-4 leading-tight">
                                         See <span className="text-amber-400">Exactly</span> How Much Your Fleet Is Losing
                                     </h3>
 
@@ -146,7 +146,7 @@ export function ROICalculatorPromo() {
                                     {/* CTA Button */}
                                     <Link
                                         href="/roi-calculator"
-                                        className="group block w-full text-center bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-blue-950 font-black py-5 px-8 rounded-2xl text-xl uppercase tracking-wider shadow-2xl shadow-amber-500/25 transition-all duration-300 hover:shadow-amber-500/40 hover:scale-[1.02] active:scale-[0.98] border-b-4 border-amber-700 hover:border-amber-600"
+                                        className="group block w-full text-center bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-blue-950 font-black py-4 sm:py-5 px-6 sm:px-8 rounded-2xl text-base sm:text-xl uppercase tracking-wider shadow-2xl shadow-amber-500/25 transition-all duration-300 hover:shadow-amber-500/40 hover:scale-[1.02] active:scale-[0.98] border-b-4 border-amber-700 hover:border-amber-600"
                                     >
                                         <span className="flex items-center justify-center gap-3">
                                             🚀 Calculate My Lost Revenue
@@ -191,7 +191,7 @@ export function ROICalculatorPromo() {
                         <div className="flex flex-col md:flex-row items-center gap-6">
                             <div className="flex-shrink-0 text-5xl">💡</div>
                             <div className="flex-1 text-center md:text-left">
-                                <h4 className="text-lg font-bold text-white mb-1">
+                                <h4 className="text-base sm:text-lg font-bold text-white mb-1">
                                     Think about it: You&apos;re already paying for fuel, insurance, and maintenance.
                                 </h4>
                                 <p className="text-blue-300/80 text-sm leading-relaxed">

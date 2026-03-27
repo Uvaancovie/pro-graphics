@@ -42,13 +42,13 @@ export function SocialProof() {
     };
 
     return (
-        <section className="py-24 bg-gray-50 border-t border-gray-100 overflow-hidden">
+        <section className="py-16 md:py-24 bg-gray-50 border-t border-gray-100 overflow-hidden">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-12">
-                    <h2 className="text-4xl md:text-5xl font-bold text-blue-950 mb-4">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-blue-950 mb-4 leading-tight">
                         What Our <span className="text-amber-500">Customers Say</span>
                     </h2>
-                    <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                    <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
                         Trusted by hundreds of businesses in Durban for quality branding and signage solutions.
                     </p>
                 </div>
@@ -73,7 +73,7 @@ export function SocialProof() {
                                     priority={currentIndex === 0}
                                 />
                             </div>
-                            <p className="text-center text-sm md:text-base text-gray-600 mt-4 font-medium">
+                            <p className="text-center text-xs sm:text-sm md:text-base text-gray-600 mt-4 font-medium">
                                 {testimonials[currentIndex].title}
                             </p>
                         </motion.div>

@@ -113,12 +113,12 @@ export function HeroCarousel() {
                     />
                 </div>
 
-                <div className="max-w-4xl mx-auto space-y-4">
-                    <h1 className="text-4xl md:text-6xl font-bold text-white drop-shadow-lg leading-tight tracking-tight">
+                <div className="max-w-4xl mx-auto space-y-3 md:space-y-4">
+                    <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white drop-shadow-lg leading-tight tracking-tight">
                         Vehicle Wraps & Signage That <span className="text-amber-400 block mt-1">Stop Traffic in Durban</span>
                     </h1>
 
-                    <p className="text-lg md:text-xl text-blue-100 font-light max-w-xl mx-auto drop-shadow-md">
+                    <p className="text-base sm:text-lg md:text-xl text-blue-100 font-light max-w-xl mx-auto drop-shadow-md">
                         Durban's Premier Printing & Signage Specialists
                     </p>
                 </div>
@@ -127,12 +127,12 @@ export function HeroCarousel() {
             {/* CTA Buttons */}
             <div className="relative z-20 pb-16 pt-4 flex flex-col sm:flex-row gap-4 justify-center items-center w-full bg-gradient-to-t from-blue-950/90 to-transparent pointer-events-auto">
                 <Link href="/quote">
-                    <Button className="bg-amber-500 hover:bg-amber-600 text-white font-semibold px-8 py-4 text-lg rounded-full transition-all shadow-lg hover:shadow-amber-500/30 hover:-translate-y-1 min-w-[200px]">
+                    <Button className="bg-amber-500 hover:bg-amber-600 text-white font-semibold px-8 py-4 text-base sm:text-lg rounded-full transition-all shadow-lg hover:shadow-amber-500/30 hover:-translate-y-1 min-w-[200px]">
                         Get Free Quote
                     </Button>
                 </Link>
                 <a href="tel:0659424036">
-                    <Button variant="outline" className="bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white hover:text-blue-950 px-8 py-4 text-lg rounded-full transition-all hover:-translate-y-1 min-w-[200px]">
+                    <Button variant="outline" className="bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white hover:text-blue-950 px-8 py-4 text-base sm:text-lg rounded-full transition-all hover:-translate-y-1 min-w-[200px]">
                         Call 065 9424 036
                     </Button>
                 </a>
