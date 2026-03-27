@@ -99,20 +99,6 @@ export function HeroCarousel() {
             <div className="relative z-10 flex-grow flex flex-col items-center justify-center px-4 text-center mt-[-40px] pointer-events-none">
 
 
-                {/* Logo Animation */}
-                <div className="mb-6 relative w-40 h-40 md:w-48 md:h-48 animate-fade-in-up">
-                    <div className="absolute inset-0 bg-white/5 rounded-full blur-2xl transform scale-125 animate-pulse"></div>
-                    <Image
-                        src="/images/content/logo.png"
-                        alt="Pro Graphics Logo"
-                        fill
-                        sizes="(max-width: 768px) 150px, 192px"
-                        quality={70}
-                        className="object-contain drop-shadow-2xl relative z-10"
-                        priority
-                    />
-                </div>
-
                 <div className="max-w-4xl mx-auto space-y-3 md:space-y-4">
                     <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white drop-shadow-lg leading-tight tracking-tight">
                         Vehicle Wraps & Signage That <span className="text-amber-400 block mt-1">Stop Traffic in Durban</span>
