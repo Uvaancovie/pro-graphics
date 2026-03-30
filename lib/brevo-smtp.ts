@@ -1,50 +1,14 @@
-import nodemailer from 'nodemailer';
+/**
+ * Brevo Transactional Email via HTTP API
+ * Uses the same BREVO_API_KEY that works for contact management.
+ * More reliable than SMTP relay — no sender rewriting, proper delivery tracking.
+ */
 
-const SMTP_HOST = process.env.BREVO_SMTP_HOST || 'smtp-relay.brevo.com';
-const SMTP_PORT = Number(process.env.BREVO_SMTP_PORT || 587);
-const SMTP_LOGIN = process.env.BREVO_SMTP_LOGIN || process.env.BREVO_SMTP_USER || 'a2dec4001@smtp-brevo.com';
-const SMTP_PASSWORD =
-  process.env.BREVO_SMTP_PASSWORD ||
-  process.env.BREVO_SMTP_PASS ||
-  process.env.BREVO_SMTP_KEY ||
-  process.env.SMTP_KEY ||
-  process.env['SMTP-KEY'] ||
-  '';
-const FROM_EMAIL = process.env.BREVO_SMTP_FROM_EMAIL || 'gdesigners14@gmail.com';
+const API_URL = 'https://api.brevo.com/v3/smtp/email';
+const FROM_EMAIL = process.env.BREVO_SMTP_FROM_EMAIL || 'i.t.safuneralsupplies@gmail.com';
 const FROM_NAME = process.env.BREVO_SMTP_FROM_NAME || 'Pro Graphics';
 
-let transporter: nodemailer.Transporter | null = null;
-
-function getTransporter() {
-  if (!SMTP_PASSWORD) {
-    throw new Error('Missing BREVO_SMTP_PASSWORD for SMTP email delivery');
-  }
-
-  if (!transporter) {
-    transporter = nodemailer.createTransport({
-      host: SMTP_HOST,
-      port: SMTP_PORT,
-      secure: SMTP_PORT === 465,
-      auth: {
-        user: SMTP_LOGIN,
-        pass: SMTP_PASSWORD,
-      },
-    });
-  }
-
-  return transporter;
-}
-
 type Recipient = { email: string; name?: string };
-
-function formatRecipients(recipients: Recipient[]) {
-  return recipients.map((recipient) => {
-    if (recipient.name) {
-      return `"${recipient.name}" <${recipient.email}>`;
-    }
-    return recipient.email;
-  }).join(', ');
-}
 
 type SendBrevoSmtpEmailArgs = {
   to: Recipient[];
@@ -54,13 +18,52 @@ type SendBrevoSmtpEmailArgs = {
 };
 
 export async function sendBrevoSmtpEmail({ to, subject, html, text }: SendBrevoSmtpEmailArgs) {
-  const mailer = getTransporter();
+  const apiKey = process.env.BREVO_API_KEY;
 
-  return mailer.sendMail({
-    from: `"${FROM_NAME}" <${FROM_EMAIL}>`,
-    to: formatRecipients(to),
+  if (!apiKey) {
+    throw new Error('Missing BREVO_API_KEY for email delivery');
+  }
+
+  const body: Record<string, unknown> = {
+    sender: {
+      name: FROM_NAME,
+      email: FROM_EMAIL,
+    },
+    to: to.map((r) => ({
+      email: r.email,
+      name: r.name || r.email,
+    })),
     subject,
-    html,
-    text,
+    htmlContent: html,
+  };
+
+  if (text) {
+    body.textContent = text;
+  }
+
+  const response = await fetch(API_URL, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'api-key': apiKey,
+    },
+    body: JSON.stringify(body),
   });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    console.error('Brevo Transactional Email API error:', {
+      status: response.status,
+      statusText: response.statusText,
+      error: errorData,
+    });
+    throw new Error(
+      `Brevo email failed (${response.status}): ${errorData?.message || response.statusText}`
+    );
+  }
+
+  const result = await response.json();
+  console.log('Brevo email sent successfully:', { messageId: result.messageId, subject });
+  return result;
 }
