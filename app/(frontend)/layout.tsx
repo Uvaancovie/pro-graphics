@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Navbar } from "@/app/components/ui/Navbar";
-import { ReviewBadge } from "@/app/components/ui/ReviewBadge";
 import PromotionBanner from "@/app/components/ui/PromotionBanner";
 
 export default function FrontendLayout({
@@ -88,8 +87,6 @@ export default function FrontendLayout({
         <PromotionBanner />
         <Navbar />
       </header>
-
-      <ReviewBadge />
 
       <div className="flex-grow">
         {children}
