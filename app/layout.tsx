@@ -49,6 +49,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { Analytics } from "@vercel/analytics/next";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -58,6 +60,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.className} antialiased min-h-screen flex flex-col font-sans`}>
         {children}
+        <Analytics />
       </body>
     </html>
   );

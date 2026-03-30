@@ -14,7 +14,8 @@ make sure to use the brevo mcp to help get this done
 
 ## ✅ STATUS: COMPLETED (2026-03-30)
 
-### What was done:
+### What was done
+
 1. **Replaced nodemailer SMTP with Brevo HTTP Transactional API** (`lib/brevo-smtp.ts`)
    - Old: Used nodemailer + SMTP relay → emails were being rewritten to `@brevosend.com` and not delivered
    - New: Uses Brevo's `POST /v3/smtp/email` API with your `BREVO_API_KEY` → reliable delivery
@@ -24,14 +25,18 @@ make sure to use the brevo mcp to help get this done
    - `BREVO_SMTP_FROM_EMAIL=i.t.safuneralsupplies@gmail.com`
    - `BREVO_SMTP_FROM_NAME=Pro Graphics`
 
-3. **Verified end-to-end flow:**
+3. **Verified end-to-end flow**
+
    - Direct API test email → ✅ Delivered (messageId confirmed)
    - `/api/general-submission` test → ✅ Status 200, Brevo contact updated
    - Brevo contact restored after test
 
-### Architecture:
-```
-Customer submits form
+
+### Architecture
+
+```mermaid
+flowchart TD
+submits form
     → Frontend validates + saves to Supabase
     → POST to /api/{price-beat|general-submission}
         → Save/update Brevo contact (List 2)
@@ -40,7 +45,9 @@ Customer submits form
         → Return success
 ```
 
-### Environment Variables Required (Vercel + .env.local):
+
+### Environment Variables Required (Vercel + .env.local)
+
 - `BREVO_API_KEY` — Used for both contacts API and email sending
 - `BREVO_SMTP_FROM_EMAIL` — Verified sender email
 - `BREVO_SMTP_FROM_NAME` — Sender display name
