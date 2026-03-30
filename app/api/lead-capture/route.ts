@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { securityMiddleware, corsHeaders } from '@/lib/security';
+import { sendBrevoSmtpEmail } from '@/lib/brevo-smtp';
 
 export async function OPTIONS() {
   return NextResponse.json({}, { headers: corsHeaders });
@@ -21,6 +22,7 @@ export async function POST(req: Request) {
         }
 
         const apiKey = process.env.BREVO_API_KEY;
+        const adminNotificationEmail = process.env.ADMIN_NOTIFICATION_EMAIL || 'i.t.safuneralsupplies@gmail.com';
 
         if (!apiKey) {
             console.error('Missing BREVO_API_KEY');
@@ -60,19 +62,39 @@ export async function POST(req: Request) {
             // We don't fail here because the contact might just exist, updateEnabled should handle it though
         }
 
-        // 2. Send the Transactional Email with the Lead Magnet Link
-        const emailRes = await fetch('https://api.brevo.com/v3/smtp/email', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'api-key': apiKey
-            },
-            body: JSON.stringify({
-                sender: {
-                    name: "Pro Graphics",
-                    email: "gdesigners14@gmail.com"
-                },
+        // 2. Send admin notification for this lead capture submission
+        try {
+            await sendBrevoSmtpEmail({
+                to: [
+                    {
+                        email: adminNotificationEmail,
+                        name: "Pro Graphics Admin"
+                    }
+                ],
+                subject: "New Lead Capture Submission",
+                html: `
+          <!DOCTYPE html>
+          <html>
+          <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; background: #f9fafb; padding: 24px;">
+            <div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 8px; border: 1px solid #e5e7eb; padding: 28px;">
+              <h2 style="color: #1e3a8a; margin-top: 0;">New Lead Capture Submission</h2>
+              <p><strong>Name:</strong> ${name || 'N/A'}</p>
+              <p><strong>Email:</strong> ${email}</p>
+              <p><strong>Company:</strong> ${company || 'N/A'}</p>
+              <p><strong>Consent Timestamp:</strong> ${consentTimestamp || new Date().toISOString()}</p>
+            </div>
+          </body>
+          </html>
+        `
+            });
+        } catch (adminNotificationError) {
+            console.error('Brevo SMTP Admin Notification error:', adminNotificationError);
+        }
+
+        // 3. Send the Transactional Email with the Lead Magnet Link
+        let emailErrorData: unknown = null;
+        try {
+            await sendBrevoSmtpEmail({
                 to: [
                     {
                         email: email,
@@ -80,7 +102,7 @@ export async function POST(req: Request) {
                     }
                 ],
                 subject: "Your 10 Signage Mistakes Guide from Pro Graphics 🚀",
-                htmlContent: `
+                html: `
           <!DOCTYPE html>
           <html>
           <head>
@@ -118,11 +140,12 @@ export async function POST(req: Request) {
           </body>
           </html>
         `
-            })
-        });
+            });
+        } catch (smtpEmailError) {
+            emailErrorData = smtpEmailError;
+        }
 
-        if (!emailRes.ok) {
-            const emailErrorData = await emailRes.json();
+        if (emailErrorData) {
             console.error('Brevo Email error:', emailErrorData);
             return NextResponse.json({ error: 'Failed to send the email' }, { status: 500, headers: corsHeaders });
         }

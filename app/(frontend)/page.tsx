@@ -62,10 +62,7 @@ export default function HomePage() {
                     quality={70}
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 text-white">
-                    <span className="text-4xl">🚗</span>
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/65 to-transparent"></div>
                 </div>
                 <div className="p-6 md:p-8">
                   <h3 className="text-xl sm:text-2xl font-bold text-blue-950 mb-3 group-hover:text-amber-600 transition-colors">
@@ -96,10 +93,7 @@ export default function HomePage() {
                     quality={70}
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 text-white">
-                    <span className="text-4xl">📋</span>
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/65 to-transparent"></div>
                 </div>
                 <div className="p-6 md:p-8">
                   <h3 className="text-xl sm:text-2xl font-bold text-blue-950 mb-3 group-hover:text-amber-600 transition-colors">
@@ -130,10 +124,7 @@ export default function HomePage() {
                     quality={70}
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 text-white">
-                    <span className="text-4xl">🪟</span>
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/65 to-transparent"></div>
                 </div>
                 <div className="p-6 md:p-8">
                   <h3 className="text-xl sm:text-2xl font-bold text-blue-950 mb-3 group-hover:text-amber-600 transition-colors">
@@ -164,10 +155,7 @@ export default function HomePage() {
                     quality={70}
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 text-white">
-                    <span className="text-4xl">✂️</span>
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/65 to-transparent"></div>
                 </div>
                 <div className="p-6 md:p-8">
                   <h3 className="text-xl sm:text-2xl font-bold text-blue-950 mb-3 group-hover:text-amber-600 transition-colors">
@@ -186,27 +174,6 @@ export default function HomePage() {
               </div>
             </Link>
 
-            {/* Banners & Flags - Coming Soon visual update */}
-            <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden group">
-              <div className="h-64 relative bg-blue-50 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
-                <span className="text-8xl opacity-20">🚩</span>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="bg-amber-500 text-white px-6 py-2 rounded-full transform -rotate-12 font-bold shadow-lg">COMING SOON</span>
-                </div>
-              </div>
-              <div className="p-6 md:p-8">
-                <h3 className="text-xl sm:text-2xl font-bold text-blue-950 mb-3">
-                  Banners & Flags
-                </h3>
-                <p className="text-sm sm:text-base text-gray-600 mb-4 leading-relaxed">
-                  Eye-catching banners and flags for events, promotions, and permanent installations.
-                </p>
-                <div className="text-gray-400 font-bold text-sm uppercase tracking-wider">
-                  Expanding our range soon
-                </div>
-              </div>
-            </div>
-
             {/* Promotional Materials */}
             <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden group hover:border-amber-400 transition-all">
               <div className="h-64 relative">
@@ -218,10 +185,7 @@ export default function HomePage() {
                   quality={70}
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent"></div>
-                <div className="absolute bottom-4 left-4 text-white">
-                  <span className="text-4xl">🎁</span>
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/65 to-transparent"></div>
               </div>
               <div className="p-6 md:p-8">
                 <h3 className="text-xl sm:text-2xl font-bold text-blue-950 mb-3">
@@ -251,10 +215,7 @@ export default function HomePage() {
                     quality={70}
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 text-white">
-                    <span className="text-4xl">🖤</span>
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/65 to-transparent"></div>
                 </div>
                 <div className="p-6 md:p-8">
                   <h3 className="text-xl sm:text-2xl font-bold text-blue-950 mb-3 group-hover:text-amber-600 transition-colors">
@@ -285,10 +246,7 @@ export default function HomePage() {
                     quality={70}
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 text-white">
-                    <span className="text-4xl">🖼️</span>
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/65 to-transparent"></div>
                 </div>
                 <div className="p-6 md:p-8">
                   <h3 className="text-xl sm:text-2xl font-bold text-blue-950 mb-3 group-hover:text-amber-600 transition-colors">
@@ -319,10 +277,7 @@ export default function HomePage() {
                     quality={70}
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 text-white">
-                    <span className="text-4xl">🧱</span>
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/65 to-transparent"></div>
                 </div>
                 <div className="p-6 md:p-8">
                   <h3 className="text-xl sm:text-2xl font-bold text-blue-950 mb-3 group-hover:text-amber-600 transition-colors">
@@ -353,10 +308,7 @@ export default function HomePage() {
                     quality={70}
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 text-white">
-                    <span className="text-4xl">💡</span>
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/65 to-transparent"></div>
                 </div>
                 <div className="p-6 md:p-8">
                   <h3 className="text-xl sm:text-2xl font-bold text-blue-950 mb-3 group-hover:text-amber-600 transition-colors">

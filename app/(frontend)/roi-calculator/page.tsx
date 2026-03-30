@@ -83,7 +83,7 @@ export default function ROIEducationalPage() {
                     <div className="mt-16 bg-gradient-to-br from-blue-950 to-blue-900 rounded-3xl p-10 md:p-14 text-center text-white shadow-2xl relative overflow-hidden">
                         <Car className="w-48 h-48 text-white/[0.03] absolute -bottom-10 -right-10 pointer-events-none transform -scale-x-100 rotate-12" />
                         
-                        <h2 className="text-3xl md:text-4xl font-extrabold mb-6">Ready to Stop Losing Money?</h2>
+                        <h2 className="text-3xl md:text-4xl font-extrabold mb-6 text-white">Ready to Stop Losing Money?</h2>
                         <p className="text-lg text-blue-200 mb-10 max-w-2xl mx-auto">
                             Transform your fleet into a 24/7 lead-generation machine. Get a custom mock-up and quote for your vehicle branding today.
                         </p>

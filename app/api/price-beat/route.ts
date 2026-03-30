@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { securityMiddleware, corsHeaders } from '@/lib/security';
+import { sendBrevoSmtpEmail } from '@/lib/brevo-smtp';
 
 export async function OPTIONS() {
   return NextResponse.json({}, { headers: corsHeaders });
@@ -21,6 +22,7 @@ export async function POST(req: Request) {
     }
 
     const apiKey = process.env.BREVO_API_KEY;
+    const adminNotificationEmail = process.env.ADMIN_NOTIFICATION_EMAIL || 'i.t.safuneralsupplies@gmail.com';
 
     if (!apiKey) {
       console.error('Missing BREVO_API_KEY');
@@ -60,26 +62,16 @@ export async function POST(req: Request) {
     }
 
     // 2. Send the Notification Email to the business owner
-    const emailRes = await fetch('https://api.brevo.com/v3/smtp/email', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'api-key': apiKey
-      },
-      body: JSON.stringify({
-        sender: {
-          name: "Pro Graphics",
-          email: "gdesigners14@gmail.com"
-        },
+    try {
+      await sendBrevoSmtpEmail({
         to: [
           {
-            email: "gdesigners14@gmail.com",
-            name: "Pro Graphics Sales"
+            email: adminNotificationEmail,
+            name: "Pro Graphics Admin"
           }
         ],
         subject: "🚨 NEW PRICE BEAT CHALLENGE RECEIVED! 🚨",
-        htmlContent: `
+        html: `
           <!DOCTYPE html>
           <html>
           <head>
@@ -122,28 +114,15 @@ export async function POST(req: Request) {
           </body>
           </html>
         `
-      })
-    });
-
-    if (!emailRes.ok) {
-      const emailErrorData = await emailRes.json();
-      console.error('Brevo Email error (notification):', emailErrorData);
+      });
+    } catch (emailError) {
+      console.error('Brevo SMTP Email error (notification):', emailError);
       return NextResponse.json({ error: 'Failed to send the email notification' }, { status: 500, headers: corsHeaders });
     }
 
     // 3. Send a Thank You Email to the Customer
-    const thankYouRes = await fetch('https://api.brevo.com/v3/smtp/email', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'api-key': apiKey
-      },
-      body: JSON.stringify({
-        sender: {
-          name: "Pro Graphics",
-          email: "gdesigners14@gmail.com"
-        },
+    try {
+      await sendBrevoSmtpEmail({
         to: [
           {
             email: email,
@@ -151,7 +130,7 @@ export async function POST(req: Request) {
           }
         ],
         subject: "We've received your Price Beat Challenge! 🤝",
-        htmlContent: `
+        html: `
           <!DOCTYPE html>
           <html>
           <head>
@@ -186,12 +165,9 @@ export async function POST(req: Request) {
           </body>
           </html>
         `
-      })
-    });
-
-    if (!thankYouRes.ok) {
-      const thankYouErrorData = await thankYouRes.json();
-      console.error('Brevo Email error (thank you):', thankYouErrorData);
+      });
+    } catch (thankYouError) {
+      console.error('Brevo SMTP Email error (thank you):', thankYouError);
       // We won't block the 200 Success if the thank you fails, but we'll log it.
     }
 

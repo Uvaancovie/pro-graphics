@@ -240,10 +240,6 @@ export default function PriceBeatPage() {
                             <div className="text-4xl md:text-5xl font-black text-amber-500 mb-1">100%</div>
                             <div className="text-sm uppercase tracking-widest text-gray-500 font-bold">Satisfaction</div>
                         </div>
-                        <div>
-                            <div className="text-4xl md:text-5xl font-black text-amber-500 mb-1">4.8★</div>
-                            <div className="text-sm uppercase tracking-widest text-gray-500 font-bold">Google Rating</div>
-                        </div>
                     </div>
                 </div>
             </section>

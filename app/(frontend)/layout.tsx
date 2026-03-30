@@ -126,6 +126,7 @@ export default function FrontendLayout({
             <div>
               <h4 className="font-bold text-lg mb-6 text-amber-400">Quick Links</h4>
               <ul className="space-y-3 text-sm text-blue-100">
+                <li><Link href="/general-submission" className="hover:text-white hover:translate-x-1 transition-all inline-block">General Submission</Link></li>
                 <li><Link href="/quote" className="hover:text-white hover:translate-x-1 transition-all inline-block">Request a Quote</Link></li>
                 <li><Link href="#" className="hover:text-white hover:translate-x-1 transition-all inline-block">Portfolio Gallery</Link></li>
                 <li><Link href="#" className="hover:text-white hover:translate-x-1 transition-all inline-block">About Us</Link></li>
