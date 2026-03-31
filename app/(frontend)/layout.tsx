@@ -135,7 +135,7 @@ export default function FrontendLayout({
               <h4 className="font-bold text-lg mb-6 text-amber-400">Contact Us</h4>
               <ul className="space-y-4 text-sm text-blue-100">
                 <li className="flex items-start gap-3">
-                  <span className="text-amber-500 mt-1">📍</span>
+                  <span className="text-amber-500 mt-1">Address</span>
                   <span>
                     158 Phoenix Industrial Park,<br />
                     160 Aberdare Dr, Phoenix,<br />
@@ -143,15 +143,15 @@ export default function FrontendLayout({
                   </span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <span className="text-amber-500">📞</span>
+                  <span className="text-amber-500">Phone</span>
                   <span><a href="tel:0659424036" className="hover:text-white transition-colors">065 9424 036</a></span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <span className="text-amber-500">🕒</span>
+                  <span className="text-amber-500">Hours</span>
                   <span>Mon - Fri: 8:00 AM - 4:45 PM</span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <span className="text-amber-500">📧</span>
+                  <span className="text-amber-500">Email</span>
                   <a href="mailto:gdesigners14@gmail.com" className="hover:text-white transition-colors">gdesigners14@gmail.com</a>
                 </li>
               </ul>

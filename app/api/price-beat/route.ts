@@ -70,7 +70,7 @@ export async function POST(req: Request) {
             name: "Pro Graphics Admin"
           }
         ],
-        subject: "🚨 NEW PRICE BEAT CHALLENGE RECEIVED! 🚨",
+        subject: "NEW PRICE BEAT CHALLENGE RECEIVED",
         html: `
           <!DOCTYPE html>
           <html>
@@ -89,7 +89,7 @@ export async function POST(req: Request) {
           <body>
             <div class="container">
               <div class="header">
-                <h2>New Price Beat Request 📈</h2>
+                <h2>New Price Beat Request</h2>
               </div>
               <p>A new prospect has submitted a quote for you to beat!</p>
               
@@ -129,7 +129,7 @@ export async function POST(req: Request) {
             name: name || "Valued Customer"
           }
         ],
-        subject: "We've received your Price Beat Challenge! 🤝",
+        subject: "We've received your Price Beat Challenge",
         html: `
           <!DOCTYPE html>
           <html>
@@ -146,7 +146,7 @@ export async function POST(req: Request) {
           <body>
             <div class="container">
               <div class="header">
-                <h2>Thank You for Your Request! 🎉</h2>
+                <h2>Thank You for Your Request!</h2>
               </div>
               
               <div class="content">

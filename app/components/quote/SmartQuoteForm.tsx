@@ -10,12 +10,12 @@ import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 
 const serviceOptions = [
-    { value: "vehicle-branding", label: "🚗 Vehicle Branding", icon: "🚗" },
-    { value: "sign-boards", label: "📋 Custom Sign Boards", icon: "📋" },
-    { value: "contravisions", label: "🪟 Contravisions (Window Graphics)", icon: "🪟" },
-    { value: "custom-stickers", label: "✂️ Custom Cutout Stickers", icon: "✂️" },
-    { value: "banners-flags", label: "🚩 Banners & Flags", icon: "🚩" },
-    { value: "promotional-materials", label: "🎁 Promotional Materials", icon: "🎁" },
+    { value: "vehicle-branding", label: "Vehicle Branding", icon: "V" },
+    { value: "sign-boards", label: "Custom Sign Boards", icon: "S" },
+    { value: "contravisions", label: "Contravisions (Window Graphics)", icon: "C" },
+    { value: "custom-stickers", label: "Custom Cutout Stickers", icon: "CS" },
+    { value: "banners-flags", label: "Banners & Flags", icon: "B" },
+    { value: "promotional-materials", label: "Promotional Materials", icon: "P" },
 ];
 
 export function SmartQuoteForm() {
@@ -107,7 +107,7 @@ export function SmartQuoteForm() {
             {submitSuccess && (
                 <div className="mb-6 p-6 bg-green-50 border-2 border-green-500 rounded-xl animate-pulse">
                     <div className="flex items-center gap-3">
-                        <span className="text-3xl">✅</span>
+                        <span className="text-3xl">OK</span>
                         <div>
                             <h3 className="text-lg font-bold text-black">Quote Request Submitted!</h3>
                             <p className="text-black font-medium">We'll get back to you within 24 hours with a detailed quote.</p>
@@ -153,7 +153,7 @@ export function SmartQuoteForm() {
                         {/* Personal Information */}
                         <div>
                             <h3 className="text-xl font-bold text-black mb-4 flex items-center gap-2 border-b-2 border-black pb-2">
-                                <span className="text-2xl">👤</span> Your Information
+                                Your Information
                             </h3>
                             <div className="grid md:grid-cols-2 gap-6">
                                 <div>
@@ -225,7 +225,7 @@ export function SmartQuoteForm() {
                         {/* Service Selection */}
                         <div>
                             <h3 className="text-xl font-bold text-black mb-4 flex items-center gap-2 border-b-2 border-black pb-2">
-                                <span className="text-2xl">🎯</span> What Service Do You Need?
+                                What Service Do You Need?
                             </h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                 {serviceOptions.map((service) => (
@@ -246,7 +246,7 @@ export function SmartQuoteForm() {
                                         />
                                         <span className="text-2xl mr-3">{service.icon}</span>
                                         <span className="font-bold text-sm text-black">
-                                            {service.label.replace(service.icon + " ", "")}
+                                            {service.label}
                                         </span>
                                         {selectedService === service.value && (
                                             <div className="absolute top-2 right-2 w-3 h-3 bg-amber-500 rounded-full"></div>
@@ -315,7 +315,7 @@ export function SmartQuoteForm() {
                                     {/* Project Details */}
                                     <div>
                                         <h3 className="text-xl font-bold text-black mb-4 flex items-center gap-2 border-b-2 border-black pb-2">
-                                            <span className="text-2xl">📝</span> Project Details
+                                            Project Details
                                         </h3>
                                         <div className="space-y-4">
                                             <div>
@@ -382,12 +382,12 @@ export function SmartQuoteForm() {
                                     {/* File Upload */}
                                     <div>
                                         <h3 className="text-xl font-bold text-black mb-4 flex items-center gap-2 border-b-2 border-black pb-2">
-                                            <span className="text-2xl">📎</span> Files
+                                            Files
                                         </h3>
                                         <div className="border-2 border-dashed border-gray-400 rounded-xl p-8 text-center hover:border-black transition-all group bg-gray-50">
                                             <input type="file" multiple onChange={handleFileUpload} className="hidden" id="file-upload" accept=".pdf,.ai,.psd,.jpg,.jpeg,.png,.svg" />
                                             <label htmlFor="file-upload" className="cursor-pointer">
-                                                <div className="text-5xl mb-3 text-gray-400 group-hover:text-black transition-colors">📁</div>
+                                                <div className="text-5xl mb-3 text-gray-400 group-hover:text-black transition-colors">FILE</div>
                                                 <p className="text-black font-bold mb-2">Click to upload</p>
                                                 <p className="text-sm text-black font-medium">PDF, AI, PSD, JPG, PNG (Max 10MB)</p>
                                             </label>
@@ -446,7 +446,7 @@ export function SmartQuoteForm() {
                         {/* Submit */}
                         <div className="pt-6">
                             <Button type="submit" size="lg" className="w-full text-xl py-6 bg-black hover:bg-gray-800 text-white border-2 border-black font-bold shadow-lg" disabled={isSubmitting}>
-                                {isSubmitting ? "Submitting..." : (isQuickQuote ? "🚀 Request Quick Quote" : "🚀 Get Detailed Quote")}
+                                {isSubmitting ? "Submitting..." : (isQuickQuote ? "Request Quick Quote" : "Get Detailed Quote")}
                             </Button>
                         </div>
                     </form>

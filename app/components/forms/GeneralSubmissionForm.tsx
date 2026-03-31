@@ -10,14 +10,14 @@ import { cn } from "@/lib/utils";
 import { generalSubmissionSchema, type GeneralSubmissionFormData } from "@/lib/schemas/general-submission-schema";
 
 const queryOptions = [
-    { value: "general-question", label: "General Question", icon: "💬" },
-    { value: "quote-request", label: "Quote Request", icon: "🧾" },
-    { value: "support-request", label: "Support Request", icon: "🛠️" },
-    { value: "privacy-request", label: "Privacy Request", icon: "🛡️" },
-    { value: "security-concern", label: "Security Concern", icon: "🔒" },
-    { value: "billing", label: "Billing", icon: "💳" },
-    { value: "partnership", label: "Partnership", icon: "🤝" },
-    { value: "other", label: "Other", icon: "📝" },
+    { value: "general-question", label: "General Question", icon: "G" },
+    { value: "quote-request", label: "Quote Request", icon: "Q" },
+    { value: "support-request", label: "Support Request", icon: "S" },
+    { value: "privacy-request", label: "Privacy Request", icon: "P" },
+    { value: "security-concern", label: "Security Concern", icon: "SC" },
+    { value: "billing", label: "Billing", icon: "B" },
+    { value: "partnership", label: "Partnership", icon: "PR" },
+    { value: "other", label: "Other", icon: "O" },
 ];
 
 const urgencyOptions = [

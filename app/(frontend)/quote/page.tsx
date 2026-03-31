@@ -33,22 +33,22 @@ export default function QuotePage() {
                 {/* Trust Indicators */}
                 <div className="mt-16 grid md:grid-cols-4 gap-8 max-w-5xl mx-auto">
                     <div className="text-center">
-                        <div className="text-4xl mb-3">⚡</div>
+                        <div className="text-4xl mb-3">24h</div>
                         <h3 className="font-bold text-black mb-2">24-Hour Response</h3>
                         <p className="text-sm text-black font-medium">Fast, professional quotes</p>
                     </div>
                     <div className="text-center">
-                        <div className="text-4xl mb-3">💰</div>
+                        <div className="text-4xl mb-3">R</div>
                         <h3 className="font-bold text-black mb-2">Transparent Pricing</h3>
                         <p className="text-sm text-black font-medium">No hidden fees ever</p>
                     </div>
                     <div className="text-center">
-                        <div className="text-4xl mb-3">🎨</div>
+                        <div className="text-4xl mb-3">Design</div>
                         <h3 className="font-bold text-black mb-2">Free Design Mockup</h3>
                         <p className="text-sm text-black font-medium">See before you commit</p>
                     </div>
                     <div className="text-center">
-                        <div className="text-4xl mb-3">✅</div>
+                        <div className="text-4xl mb-3">No</div>
                         <h3 className="font-bold text-black mb-2">No Obligation</h3>
                         <p className="text-sm text-black font-medium">Zero pressure sales</p>
                     </div>

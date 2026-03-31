@@ -134,7 +134,7 @@ export function PriceBeatClient() {
                     {isSubmitted ? (
                         <div className="bg-green-900/30 border-2 border-green-500 rounded-2xl p-12 text-center">
                             <CheckCircle size={64} className="mx-auto mb-4 text-green-400" />
-                            <h3 className="text-3xl font-black mb-3 text-green-400">Quote Received! 🎉</h3>
+                            <h3 className="text-3xl font-black mb-3 text-green-400">Quote Received!</h3>
                             <p className="text-xl text-green-100 mb-2">
                                 We've received your request and the attached quote. A Pro Graphics specialist will verify it and contact you within <strong>24 hours</strong> with your new beaten price.
                             </p>
@@ -310,7 +310,7 @@ export function PriceBeatClient() {
                                             SUBMITTING...
                                         </>
                                     ) : (
-                                        "🚀 CLAIM MY 10% DISCOUNT"
+                                        "CLAIM MY 10% DISCOUNT"
                                     )}
                                 </button>
 

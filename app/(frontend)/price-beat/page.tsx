@@ -115,12 +115,12 @@ export default function PriceBeatPage() {
                     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
                         <Link href="#claim-spot">
                             <button className="bg-amber-500 hover:bg-amber-600 text-blue-950 font-black py-5 px-12 rounded-full text-xl transition-all transform hover:scale-105 hover:shadow-[0_0_40px_rgba(245,158,11,0.6)] active:scale-95 uppercase tracking-widest shadow-2xl border-b-4 border-amber-700 min-w-[280px]">
-                                🚀 CLAIM GUARANTEE
+                                CLAIM GUARANTEE
                             </button>
                         </Link>
                         <a href="tel:0659424036">
                             <button className="bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white hover:bg-white hover:text-blue-950 font-bold py-5 px-12 rounded-full text-xl transition-all hover:scale-105 min-w-[280px]">
-                                📞 Call 065 9424 036
+                                Call 065 9424 036
                             </button>
                         </a>
                     </div>
@@ -149,7 +149,7 @@ export default function PriceBeatPage() {
 
                     <div className="grid md:grid-cols-3 gap-8">
                         <div className="bg-blue-50 rounded-2xl p-8 border-2 border-blue-100 hover:border-amber-400 transition-all hover:-translate-y-1 hover:shadow-xl">
-                            <div className="text-5xl mb-4">💰</div>
+                            <div className="text-5xl mb-4">10%</div>
                             <h3 className="text-2xl font-black mb-3">Save 10% Guaranteed</h3>
                             <p className="text-gray-600 leading-relaxed">
                                 Provide us with a verified written quote from another reputable signage company, and we'll apply a direct 10% discount on their total price.
@@ -157,7 +157,7 @@ export default function PriceBeatPage() {
                         </div>
 
                         <div className="bg-blue-50 rounded-2xl p-8 border-2 border-blue-100 hover:border-amber-400 transition-all hover:-translate-y-1 hover:shadow-xl">
-                            <div className="text-5xl mb-4">🎨</div>
+                            <div className="text-5xl mb-4">Design</div>
                             <h3 className="text-2xl font-black mb-3">Free Design Mockup</h3>
                             <p className="text-gray-600 leading-relaxed">
                                 See exactly what your branded vehicle will look like before you commit. Our designers create a custom visual mockup — completely free.
@@ -165,7 +165,7 @@ export default function PriceBeatPage() {
                         </div>
 
                         <div className="bg-blue-50 rounded-2xl p-8 border-2 border-blue-100 hover:border-amber-400 transition-all hover:-translate-y-1 hover:shadow-xl">
-                            <div className="text-5xl mb-4">💎</div>
+                            <div className="text-5xl mb-4">3M</div>
                             <h3 className="text-2xl font-black mb-3">Premium 3M Materials</h3>
                             <p className="text-gray-600 leading-relaxed">
                                 We only use industry-leading 3M and Avery Dennison vinyl. No cheap alternatives. Your branding lasts 5+ years, even in Durban's sun.

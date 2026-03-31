@@ -75,7 +75,7 @@ export default function GalleryPage() {
                     <div className="flex flex-col sm:flex-row gap-6 justify-center">
                         <Link href="/quote">
                             <Button size="lg" className="text-xl px-12 py-6 bg-amber-500 hover:bg-amber-600 text-white font-bold shadow-xl border-none">
-                                🚀 Get Free Quote
+                                Get Free Quote
                             </Button>
                         </Link>
                     </div>

@@ -59,10 +59,10 @@ export default function ContravisionsPage() {
 
                     <div className="grid md:grid-cols-4 gap-8 max-w-6xl mx-auto">
                         {[
-                            { icon: "🏪", title: "Storefronts", desc: "Turn windows into advertising space" },
-                            { icon: "🚗", title: "Vehicle Windows", desc: "Rear window branding with visibility" },
-                            { icon: "🏢", title: "Office Partitions", desc: "Privacy with natural light" },
-                            { icon: "🚌", title: "Fleet Graphics", desc: "Bus and taxi advertising" },
+                            { icon: "S", title: "Storefronts", desc: "Turn windows into advertising space" },
+                            { icon: "V", title: "Vehicle Windows", desc: "Rear window branding with visibility" },
+                            { icon: "O", title: "Office Partitions", desc: "Privacy with natural light" },
+                            { icon: "F", title: "Fleet Graphics", desc: "Bus and taxi advertising" },
                         ].map((app, i) => (
                             <div key={i} className="text-center p-8 bg-blue-50 rounded-2xl hover:bg-amber-50 transition-colors group">
                                 <div className="text-6xl mb-6 group-hover:scale-110 transition-transform">{app.icon}</div>
@@ -104,7 +104,7 @@ export default function ContravisionsPage() {
                                 <ul className="space-y-2 mb-8">
                                     {tier.features.map((f, j) => (
                                         <li key={j} className="flex items-center gap-2 text-sm text-gray-700">
-                                            <span className="text-green-500">✓</span> {f}
+                                            <span className="text-green-500">-</span> {f}
                                         </li>
                                     ))}
                                 </ul>

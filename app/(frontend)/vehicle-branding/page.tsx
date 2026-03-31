@@ -65,7 +65,7 @@ export default function VehicleBrandingPage() {
                     <div className="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
                         <div className="text-center group p-6 rounded-2xl hover:bg-blue-50 transition-colors">
                             <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6 text-blue-600 group-hover:bg-blue-200 group-hover:scale-110 transition-all">
-                                <span className="text-4xl">👁️</span>
+                                <span className="text-4xl">1</span>
                             </div>
                             <h3 className="text-2xl font-bold text-blue-950 mb-3">High Visibility</h3>
                             <p className="text-gray-600">
@@ -75,7 +75,7 @@ export default function VehicleBrandingPage() {
 
                         <div className="text-center group p-6 rounded-2xl hover:bg-amber-50 transition-colors">
                             <div className="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6 text-amber-600 group-hover:bg-amber-200 group-hover:scale-110 transition-all">
-                                <span className="text-4xl">🛡️</span>
+                                <span className="text-4xl">2</span>
                             </div>
                             <h3 className="text-2xl font-bold text-blue-950 mb-3">Paint Protection</h3>
                             <p className="text-gray-600">
@@ -85,7 +85,7 @@ export default function VehicleBrandingPage() {
 
                         <div className="text-center group p-6 rounded-2xl hover:bg-blue-50 transition-colors">
                             <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6 text-blue-600 group-hover:bg-blue-200 group-hover:scale-110 transition-all">
-                                <span className="text-4xl">💰</span>
+                                <span className="text-4xl">3</span>
                             </div>
                             <h3 className="text-2xl font-bold text-blue-950 mb-3">Cost Effective</h3>
                             <p className="text-gray-600">

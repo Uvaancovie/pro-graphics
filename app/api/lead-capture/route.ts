@@ -101,7 +101,7 @@ export async function POST(req: Request) {
                         name: name || "Valued Customer"
                     }
                 ],
-                subject: "Your 10 Signage Mistakes Guide from Pro Graphics 🚀",
+                subject: "Your 10 Signage Mistakes Guide from Pro Graphics",
                 html: `
           <!DOCTYPE html>
           <html>
@@ -118,7 +118,7 @@ export async function POST(req: Request) {
           <body>
             <div class="container">
               <div class="header">
-                <h2>Your Signage Mistakes Guide is Here! 🎯</h2>
+                <h2>Your Signage Mistakes Guide is Here!</h2>
               </div>
               <p>Hi ${firstName || 'there'},</p>
               <p>Thank you for requesting our exclusive guide! Discovering these <strong>10 Common Signage Mistakes</strong> will help you save time, reduce costs, and ensure your brand stands out for all the right reasons.</p>

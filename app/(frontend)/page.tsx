@@ -347,7 +347,7 @@ export default function HomePage() {
             <div className="grid md:grid-cols-3 gap-12">
               <div className="text-center group">
                 <div className="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:bg-blue-100 transition-colors">
-                  <span className="text-5xl">🎓</span>
+                  <span className="text-5xl">01</span>
                 </div>
                 <h3 className="text-xl sm:text-2xl font-bold text-blue-950 mb-4">Education-First Approach</h3>
                 <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
@@ -357,7 +357,7 @@ export default function HomePage() {
 
               <div className="text-center group">
                 <div className="w-24 h-24 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:bg-amber-100 transition-colors">
-                  <span className="text-5xl">💎</span>
+                  <span className="text-5xl">02</span>
                 </div>
                 <h3 className="text-xl sm:text-2xl font-bold text-blue-950 mb-4">Premium Quality Materials</h3>
                 <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
@@ -367,7 +367,7 @@ export default function HomePage() {
 
               <div className="text-center group">
                 <div className="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:bg-blue-100 transition-colors">
-                  <span className="text-5xl">💰</span>
+                  <span className="text-5xl">03</span>
                 </div>
                 <h3 className="text-xl sm:text-2xl font-bold text-blue-950 mb-4">Value-Driven Pricing</h3>
                 <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
@@ -391,7 +391,7 @@ export default function HomePage() {
           </p>
           <Link href="/quote">
             <Button variant="secondary" size="lg" className="text-lg sm:text-2xl px-10 sm:px-16 py-6 sm:py-8 shadow-2xl hover:scale-105 transition-transform bg-amber-500 hover:bg-amber-600 text-white border-none font-bold">
-              🚀 Get Your Free Quote Now
+              Get Your Free Quote Now
             </Button>
           </Link>
           <p className="mt-8 text-blue-200 text-base sm:text-lg">

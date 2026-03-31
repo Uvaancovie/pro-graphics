@@ -31,7 +31,7 @@ const materials: Material[] = [
         bestFor: ["Outdoor signage", "Harsh weather areas", "Long-term installations", "Coastal regions"],
         color: "blue",
         gradient: "from-blue-600 to-blue-800",
-        icon: "🛡️",
+        icon: "C",
         properties: [
             { label: "Weather Resistance", value: "Excellent", rating: 5 },
             { label: "Durability", value: "10+ years", rating: 5 },
@@ -59,7 +59,7 @@ const materials: Material[] = [
         bestFor: ["Indoor signage", "Temporary displays", "Budget-conscious projects", "Retail environments"],
         color: "amber",
         gradient: "from-amber-400 to-amber-600",
-        icon: "💰",
+        icon: "A",
         properties: [
             { label: "Weather Resistance", value: "Fair (Indoor)", rating: 2 },
             { label: "Durability", value: "3-5 years", rating: 3 },
@@ -88,7 +88,7 @@ const materials: Material[] = [
         bestFor: ["High-end retail", "Reception areas", "Illuminated signs", "Luxury branding"],
         color: "blue",
         gradient: "from-blue-800 to-blue-950",
-        icon: "✨",
+        icon: "P",
         properties: [
             { label: "Weather Resistance", value: "Good", rating: 4 },
             { label: "Durability", value: "7-10 years", rating: 4 },
@@ -217,7 +217,7 @@ export function MaterialComparison() {
                                     <ul className="space-y-3">
                                         {selected.pros.map((pro, index) => (
                                             <li key={index} className="flex items-start gap-3 text-gray-700 bg-green-50/50 p-2 rounded-lg">
-                                                <span className="text-green-600 font-bold mt-0.5">✓</span>
+                                                <span className="text-green-600 font-bold mt-0.5">-</span>
                                                 <span>{pro}</span>
                                             </li>
                                         ))}
@@ -252,17 +252,17 @@ export function MaterialComparison() {
                     </h3>
                     <div className="grid md:grid-cols-3 gap-6">
                         <div className="text-center p-6 bg-blue-950/50 rounded-xl border border-blue-800">
-                            <div className="text-4xl mb-3">🌊</div>
+                            <div className="text-4xl mb-3">1</div>
                             <h4 className="font-bold text-white mb-2">Outdoor/Coastal?</h4>
                             <p className="text-sm text-blue-200">Choose <strong className="text-amber-400">Chromadek</strong> for rust-proof durability</p>
                         </div>
                         <div className="text-center p-6 bg-blue-950/50 rounded-xl border border-blue-800">
-                            <div className="text-4xl mb-3">🏢</div>
+                            <div className="text-4xl mb-3">2</div>
                             <h4 className="font-bold text-white mb-2">Indoor/Budget?</h4>
                             <p className="text-sm text-blue-200">Choose <strong className="text-amber-400">ABS</strong> for cost-effective signage</p>
                         </div>
                         <div className="text-center p-6 bg-blue-950/50 rounded-xl border border-blue-800">
-                            <div className="text-4xl mb-3">💎</div>
+                            <div className="text-4xl mb-3">3</div>
                             <h4 className="font-bold text-white mb-2">Premium/Backlit?</h4>
                             <p className="text-sm text-blue-200">Choose <strong className="text-amber-400">Perspex</strong> for luxury appeal</p>
                         </div>

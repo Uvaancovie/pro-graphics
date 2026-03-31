@@ -57,7 +57,7 @@ export function ROICalculatorPromo() {
                             <div className="group bg-white/[0.04] backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:bg-white/[0.07] transition-all duration-300 hover:border-amber-500/30">
                                 <div className="flex items-start gap-4">
                                     <div className="flex-shrink-0 w-14 h-14 bg-red-500/15 rounded-xl flex items-center justify-center">
-                                        <span className="text-3xl">📉</span>
+                                        <span className="text-3xl">1</span>
                                     </div>
                                     <div>
                                         <div className="text-2xl sm:text-3xl font-black text-white mb-1">R127,500</div>
@@ -72,7 +72,7 @@ export function ROICalculatorPromo() {
                             <div className="group bg-white/[0.04] backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:bg-white/[0.07] transition-all duration-300 hover:border-amber-500/30">
                                 <div className="flex items-start gap-4">
                                     <div className="flex-shrink-0 w-14 h-14 bg-amber-500/15 rounded-xl flex items-center justify-center">
-                                        <span className="text-3xl">👀</span>
+                                        <span className="text-3xl">2</span>
                                     </div>
                                     <div>
                                         <div className="text-2xl sm:text-3xl font-black text-white mb-1">42,500+</div>
@@ -87,7 +87,7 @@ export function ROICalculatorPromo() {
                             <div className="group bg-white/[0.04] backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:bg-white/[0.07] transition-all duration-300 hover:border-amber-500/30">
                                 <div className="flex items-start gap-4">
                                     <div className="flex-shrink-0 w-14 h-14 bg-green-500/15 rounded-xl flex items-center justify-center">
-                                        <span className="text-3xl">🔄</span>
+                                        <span className="text-3xl">3</span>
                                     </div>
                                     <div>
                                         <div className="text-2xl sm:text-3xl font-black text-white mb-1">30x ROI</div>
@@ -149,7 +149,7 @@ export function ROICalculatorPromo() {
                                         className="group block w-full text-center bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-blue-950 font-black py-4 sm:py-5 px-6 sm:px-8 rounded-2xl text-base sm:text-xl uppercase tracking-wider shadow-2xl shadow-amber-500/25 transition-all duration-300 hover:shadow-amber-500/40 hover:scale-[1.02] active:scale-[0.98] border-b-4 border-amber-700 hover:border-amber-600"
                                     >
                                         <span className="flex items-center justify-center gap-3">
-                                            🚀 Calculate My Lost Revenue
+                                            Calculate My Lost Revenue
                                             <svg className="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                                             </svg>
@@ -189,7 +189,7 @@ export function ROICalculatorPromo() {
                 <div className="max-w-4xl mx-auto mt-14">
                     <div className="bg-white/[0.04] backdrop-blur-sm border border-white/10 rounded-2xl p-6 md:p-8">
                         <div className="flex flex-col md:flex-row items-center gap-6">
-                            <div className="flex-shrink-0 text-5xl">💡</div>
+                            <div className="flex-shrink-0 text-5xl">TIP</div>
                             <div className="flex-1 text-center md:text-left">
                                 <h4 className="text-base sm:text-lg font-bold text-white mb-1">
                                     Think about it: You&apos;re already paying for fuel, insurance, and maintenance.

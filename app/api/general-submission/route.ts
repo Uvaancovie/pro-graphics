@@ -185,13 +185,13 @@ export async function POST(req: Request) {
             name: fullName || 'Valued Customer',
           },
         ],
-        subject: 'Welcome to Pro Graphics! 🚀 We received your submission',
+        subject: 'Welcome to Pro Graphics! We received your submission',
         html: `
           <!DOCTYPE html>
           <html>
           <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #1f2937; background: #f9fafb; padding: 24px;">
             <div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 8px; border: 1px solid #e5e7eb; padding: 32px;">
-              <h2 style="color: #1e3a8a; margin-top: 0;">Welcome, ${escapeHtml(firstName || 'there')}! 🎉</h2>
+              <h2 style="color: #1e3a8a; margin-top: 0;">Welcome, ${escapeHtml(firstName || 'there')}!</h2>
               <p>Thanks for getting in touch with us at Pro Graphics.</p>
               <p>We’ve received your general submission and will review it shortly to connect you with the right team member.</p>
               <p>If your request involves privacy or security, rest assured it will be handled with priority.</p>

@@ -181,7 +181,7 @@ export function BulkPricingTable() {
                     {/* Additional Information */}
                     <div className="mt-12 grid md:grid-cols-3 gap-8">
                         <div className="p-8 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                            <div className="text-4xl mb-4 text-blue-600">✂️</div>
+                            <div className="text-4xl mb-4 text-blue-600">A</div>
                             <h4 className="text-xl font-bold text-blue-950 mb-3">Custom Cut to Shape</h4>
                             <p className="text-gray-600 leading-relaxed">
                                 Die-cut to your exact design. No boring rectangles - we cut around your logo perfectly for a premium look.
@@ -189,7 +189,7 @@ export function BulkPricingTable() {
                         </div>
 
                         <div className="p-8 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                            <div className="text-4xl mb-4 text-blue-600">🌞</div>
+                            <div className="text-4xl mb-4 text-blue-600">B</div>
                             <h4 className="text-xl font-bold text-blue-950 mb-3">Weatherproof Vinyl</h4>
                             <p className="text-gray-600 leading-relaxed">
                                 UV-resistant, waterproof, and durable. Lasts 3-5 years outdoors, even longer indoors.
@@ -197,7 +197,7 @@ export function BulkPricingTable() {
                         </div>
 
                         <div className="p-8 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                            <div className="text-4xl mb-4 text-blue-600">🚚</div>
+                            <div className="text-4xl mb-4 text-blue-600">C</div>
                             <h4 className="text-xl font-bold text-blue-950 mb-3">Fast Turnaround</h4>
                             <p className="text-gray-600 leading-relaxed">
                                 Standard orders: 3-5 business days. Rush service available for urgent needs.
@@ -210,7 +210,7 @@ export function BulkPricingTable() {
                         <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl -mr-32 -mt-32 group-hover:bg-amber-500/20 transition-all"></div>
                         <div className="relative z-10">
                             <h3 className="text-3xl font-bold mb-4">
-                                💡 Pro Tip: Order in Bulk and Save Up to 60%
+                                Pro Tip: Order in Bulk and Save Up to 60%
                             </h3>
                             <p className="text-blue-200 text-xl mb-6 font-light">
                                 High-volume orders significantly reduce the unit cost. Request a quote to see how much you can save on your batch!

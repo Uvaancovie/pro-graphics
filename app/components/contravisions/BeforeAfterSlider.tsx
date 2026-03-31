@@ -75,7 +75,7 @@ export function BeforeAfterSlider() {
                             <div className="absolute inset-0 opacity-20 bg-[url('/images/ads/contravisions.jpeg')] bg-cover bg-center"></div>
 
                             <div className="text-center p-8 relative z-10">
-                                <div className="text-6xl mb-4 text-amber-400">🏢</div>
+                                <div className="text-6xl mb-4 text-amber-400">OUT</div>
                                 <h3 className="text-4xl font-bold mb-4 text-white">OUTSIDE VIEW</h3>
                                 <p className="text-2xl text-blue-200 mb-6">Bold Branding Visible to Everyone</p>
                                 <div className="bg-blue-950/80 backdrop-blur-sm rounded-xl p-8 border border-amber-500/50 shadow-xl">
@@ -92,13 +92,13 @@ export function BeforeAfterSlider() {
                         >
                             {/* Note: clipPath logic was inverted in original, assuming 'After' is on right */}
                             <div className="text-center p-8 text-gray-800">
-                                <div className="text-6xl mb-4 text-blue-500">👁️</div>
+                                <div className="text-6xl mb-4 text-blue-500">IN</div>
                                 <h3 className="text-4xl font-bold mb-4 text-blue-950">INSIDE VIEW</h3>
                                 <p className="text-2xl text-gray-600 mb-6">Crystal Clear Visibility Maintained</p>
                                 <div className="bg-white/80 backdrop-blur-sm rounded-xl p-8 border border-blue-200 shadow-xl">
-                                    <p className="text-lg font-semibold text-blue-900">✓ See outside clearly</p>
-                                    <p className="text-lg font-semibold text-blue-900">✓ Natural light flows through</p>
-                                    <p className="text-lg font-semibold text-blue-900">✓ No privacy compromise</p>
+                                    <p className="text-lg font-semibold text-blue-900">- See outside clearly</p>
+                                    <p className="text-lg font-semibold text-blue-900">- Natural light flows through</p>
+                                    <p className="text-lg font-semibold text-blue-900">- No privacy compromise</p>
                                 </div>
                             </div>
                         </div>
@@ -139,14 +139,14 @@ export function BeforeAfterSlider() {
                     {/* Instructions */}
                     <div className="mt-8 text-center animate-pulse">
                         <p className="text-blue-200 flex items-center justify-center gap-2 text-lg">
-                            <span className="text-2xl">↔️</span> Drag the slider to compare views
+                            <span className="text-2xl">Slide</span> Drag the slider to compare views
                         </p>
                     </div>
 
                     {/* Technical Explanation */}
                     <div className="mt-16 grid md:grid-cols-3 gap-8">
                         <div className="bg-blue-900/40 backdrop-blur-sm rounded-2xl p-8 border border-blue-800 hover:border-amber-500/50 transition-colors">
-                            <div className="text-4xl mb-4">🔬</div>
+                            <div className="text-4xl mb-4">01</div>
                             <h4 className="text-xl font-bold mb-3 text-white">How It Works</h4>
                             <p className="text-blue-200 leading-relaxed font-light">
                                 Micro-perforated vinyl with thousands of tiny holes allows light through from inside,
@@ -155,7 +155,7 @@ export function BeforeAfterSlider() {
                         </div>
 
                         <div className="bg-blue-900/40 backdrop-blur-sm rounded-2xl p-8 border border-blue-800 hover:border-amber-500/50 transition-colors">
-                            <div className="text-4xl mb-4">🎯</div>
+                            <div className="text-4xl mb-4">02</div>
                             <h4 className="text-xl font-bold mb-3 text-white">Perfect For</h4>
                             <p className="text-blue-200 leading-relaxed font-light">
                                 Storefronts, office windows, vehicle rear windows, glass partitions - anywhere you need
@@ -164,7 +164,7 @@ export function BeforeAfterSlider() {
                         </div>
 
                         <div className="bg-blue-900/40 backdrop-blur-sm rounded-2xl p-8 border border-blue-800 hover:border-amber-500/50 transition-colors">
-                            <div className="text-4xl mb-4">⚡</div>
+                            <div className="text-4xl mb-4">03</div>
                             <h4 className="text-xl font-bold mb-3 text-white">Key Benefits</h4>
                             <p className="text-blue-200 leading-relaxed font-light">
                                 50/50 or 70/30 perforation ratios available. UV resistant, weatherproof,
