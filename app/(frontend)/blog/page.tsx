@@ -1,14 +1,45 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import { blogPosts } from './data';
 
-export const metadata = {
-    title: 'Blog & Resources | Pro Graphics',
-    description: 'Insights, ROI data, and guides on vehicle branding, fleet marketing, and signage in Durban.',
+export const metadata: Metadata = {
+    title: 'Durban Signage Blog | Vehicle Branding Durban & Sign Boards Durban',
+    description: 'SEO-focused guides on vehicle branding Durban, sign boards Durban, and local signage strategy to help businesses generate more organic leads.',
+    keywords: [
+        'vehicle branding Durban',
+        'sign boards Durban',
+        'Durban signage',
+        'fleet branding Durban',
+        'storefront signage Durban',
+    ],
+    alternates: {
+        canonical: '/blog',
+    },
 };
 
 export default function BlogIndex() {
+    const blogCollectionSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: 'Pro Graphics Durban Signage Blog',
+        description: 'Blog posts about vehicle branding Durban, sign boards Durban, and signage growth strategies.',
+        url: 'https://pro-graphics.co.za/blog',
+        hasPart: blogPosts.map((post) => ({
+            '@type': 'BlogPosting',
+            headline: post.title,
+            url: `https://pro-graphics.co.za/blog/${post.slug}`,
+            datePublished: post.publishedAt,
+            keywords: post.tags?.join(', '),
+        })),
+    };
+
     return (
         <div className="min-h-screen bg-background pt-24 pb-16">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(blogCollectionSchema) }}
+            />
+
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-16">
                     <h1 className="text-4xl font-bold text-primary-blue mb-4">

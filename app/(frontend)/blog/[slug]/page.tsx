@@ -19,11 +19,24 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     return {
         title: `${post.title} | Pro Graphics Blog`,
         description: post.excerpt,
+        keywords: post.tags,
+        alternates: {
+            canonical: `/blog/${post.slug}`,
+        },
         openGraph: {
             title: post.title,
+            description: post.excerpt,
+            url: `https://pro-graphics.co.za/blog/${post.slug}`,
             type: 'article',
             publishedTime: post.publishedAt,
             authors: post.author ? [post.author] : [],
+            images: post.mainImage ? [post.mainImage] : undefined,
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: post.title,
+            description: post.excerpt,
+            images: post.mainImage ? [post.mainImage] : undefined,
         },
     };
 }
@@ -43,8 +56,37 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         );
     }
 
+    const blogPostSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: post.title,
+        description: post.excerpt,
+        datePublished: post.publishedAt,
+        dateModified: post.publishedAt,
+        author: {
+            '@type': 'Organization',
+            name: post.author || 'Pro Graphics Team',
+        },
+        publisher: {
+            '@type': 'Organization',
+            name: 'Pro Graphics',
+            logo: {
+                '@type': 'ImageObject',
+                url: 'https://pro-graphics.co.za/images/content/logo.png',
+            },
+        },
+        image: post.mainImage ? `https://pro-graphics.co.za${post.mainImage}` : undefined,
+        url: `https://pro-graphics.co.za/blog/${post.slug}`,
+        keywords: post.tags?.join(', '),
+    };
+
     return (
         <div className="min-h-screen bg-gray-50 pt-32 pb-16">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostSchema) }}
+            />
+
             <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 bg-white p-8 sm:p-12 rounded-2xl shadow-sm border border-gray-100">
                 <header className="mb-10 text-center">
                     <div className="flex items-center justify-center gap-4 mb-6">
@@ -113,6 +155,24 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                 <article className="prose-lg max-w-none text-gray-700">
                     {post.body}
                 </article>
+
+                <section className="mt-12 p-6 bg-blue-50 rounded-xl border border-blue-100">
+                    <h2 className="text-xl font-bold text-blue-950 mb-3">Need a Quote in Durban?</h2>
+                    <p className="text-gray-700 mb-4">
+                        Compare your options quickly and get a recommendation from our team.
+                    </p>
+                    <div className="flex flex-wrap gap-3">
+                        <Link href="/vehicle-branding" className="text-blue-900 font-semibold hover:text-amber-600 transition-colors">
+                            Vehicle Branding Durban
+                        </Link>
+                        <Link href="/sign-boards" className="text-blue-900 font-semibold hover:text-amber-600 transition-colors">
+                            Sign Boards Durban
+                        </Link>
+                        <Link href="/quote" className="text-blue-900 font-semibold hover:text-amber-600 transition-colors">
+                            Request Quote
+                        </Link>
+                    </div>
+                </section>
 
                 {post.tags && post.tags.length > 0 && (
                     <div className="mt-16 pt-8 border-t border-gray-100 flex flex-wrap gap-2 text-sm text-gray-600">

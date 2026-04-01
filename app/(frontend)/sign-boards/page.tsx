@@ -5,9 +5,20 @@ import Link from "next/link";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-    title: "Custom Sign Boards | Pro Graphics - Chromadek, ABS & Perspex",
+    title: "Sign Boards Durban | Custom Business Signage | Pro Graphics",
     description:
-        "Professional sign boards in Chromadek (outdoor/rust-proof), ABS (indoor/budget), and Perspex (premium/gloss). Expert guidance on material selection.",
+        "Custom sign boards Durban businesses trust for storefront visibility. Chromadek, ABS, and Perspex signage with expert design, manufacturing, and installation.",
+    keywords:
+        "sign boards Durban, business signage Durban, custom signs Durban, storefront signage Durban, shop signage Durban",
+    alternates: {
+        canonical: "/sign-boards",
+    },
+    openGraph: {
+        title: "Sign Boards Durban | Pro Graphics",
+        description: "Custom business signage in Durban using durable materials with expert installation.",
+        url: "https://pro-graphics.co.za/sign-boards",
+        type: "website",
+    },
 };
 
 export default function SignBoardsPage() {
@@ -44,6 +55,23 @@ export default function SignBoardsPage() {
 
             {/* Material Comparison Component */}
             <MaterialComparison />
+
+            <section className="py-20 bg-gray-50 border-t border-gray-200">
+                <div className="container mx-auto px-4 max-w-4xl text-center">
+                    <h2 className="text-3xl font-bold text-blue-950 mb-4">Related Durban Signage Articles</h2>
+                    <p className="text-gray-600 mb-8">
+                        See how sign boards and vehicle branding work together to increase local visibility and organic enquiries.
+                    </p>
+                    <div className="flex flex-wrap items-center justify-center gap-4">
+                        <Link href="/blog/vehicle-branding-durban-vs-sign-boards-durban" className="text-blue-900 font-semibold hover:text-amber-600 transition-colors">
+                            Vehicle Branding Durban vs Sign Boards Durban
+                        </Link>
+                        <Link href="/blog/ultimate-guide-vehicle-branding" className="text-blue-900 font-semibold hover:text-amber-600 transition-colors">
+                            Vehicle Branding Guide
+                        </Link>
+                    </div>
+                </div>
+            </section>
 
             {/* CTA Section */}
             <section className="py-24 bg-amber-500 relative overflow-hidden">

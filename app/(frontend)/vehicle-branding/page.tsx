@@ -6,11 +6,20 @@ import Link from "next/link";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-    title: "Vehicle Branding & Wraps | Pro Graphics - Transform Your Fleet into Mobile Billboards",
+    title: "Vehicle Branding Durban | Fleet Wraps & Vehicle Graphics | Pro Graphics",
     description:
-        "Professional vehicle wraps, partial wraps, and spot graphics in South Africa. Get 30,000-70,000 daily impressions. Free design mockup. 7-10 year durability. Expert installation.",
+        "Professional vehicle branding Durban services including full wraps, partial wraps, and decals. Turn fleet vehicles into lead-generating mobile billboards with expert installation.",
     keywords:
-        "vehicle wraps, car branding, fleet graphics, mobile advertising, vehicle signage, South Africa",
+        "vehicle branding Durban, vehicle wraps Durban, fleet branding Durban, car branding Durban, vehicle signage Durban",
+    alternates: {
+        canonical: "/vehicle-branding",
+    },
+    openGraph: {
+        title: "Vehicle Branding Durban | Pro Graphics",
+        description: "Fleet wraps and vehicle graphics for Durban businesses. Built for visibility and lead generation.",
+        url: "https://pro-graphics.co.za/vehicle-branding",
+        type: "website",
+    },
 };
 
 export default function VehicleBrandingPage() {
@@ -160,6 +169,23 @@ export default function VehicleBrandingPage() {
 
             {/* Vehicle Care Guide */}
             <VehicleCareGuide />
+
+            <section className="py-20 bg-gray-50 border-t border-gray-200">
+                <div className="container mx-auto px-4 max-w-4xl text-center">
+                    <h2 className="text-3xl font-bold text-blue-950 mb-4">Related Durban Branding Guides</h2>
+                    <p className="text-gray-600 mb-8">
+                        Learn how to combine on-road branding with storefront visibility for stronger local SEO and more inbound leads.
+                    </p>
+                    <div className="flex flex-wrap items-center justify-center gap-4">
+                        <Link href="/blog/vehicle-branding-durban-vs-sign-boards-durban" className="text-blue-900 font-semibold hover:text-amber-600 transition-colors">
+                            Vehicle Branding Durban vs Sign Boards Durban
+                        </Link>
+                        <Link href="/blog/essential-guide-custom-sign-boards" className="text-blue-900 font-semibold hover:text-amber-600 transition-colors">
+                            Sign Boards Guide
+                        </Link>
+                    </div>
+                </div>
+            </section>
 
             {/* Call to Action */}
             <section className="py-24 bg-amber-500 relative overflow-hidden">
