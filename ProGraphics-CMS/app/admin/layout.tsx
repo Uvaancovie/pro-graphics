@@ -1,6 +1,6 @@
 // app/admin/layout.tsx
 import { redirect } from 'next/navigation'
-import { createSupabaseServerClient } from '@/lib/supabase'
+import { createSupabaseServerClient } from '@/lib/supabase/server'
 import AdminSidebar from '@/components/admin/AdminSidebar'
 
 export const metadata = { title: 'Pro Graphics CMS' }
@@ -10,7 +10,7 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode
 }) {
-  const supabase = createSupabaseServerClient()
+  const supabase = await createSupabaseServerClient()
   const { data: { session } } = await supabase.auth.getSession()
 
   if (!session) redirect('/admin/login')

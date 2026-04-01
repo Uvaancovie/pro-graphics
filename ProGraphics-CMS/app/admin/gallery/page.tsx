@@ -1,7 +1,7 @@
 'use client'
 // app/admin/gallery/page.tsx
 import { useEffect, useState, useRef } from 'react'
-import { createSupabaseBrowserClient } from '@/lib/supabase'
+import { createSupabaseBrowserClient } from '@/lib/supabase/client'
 import type { GalleryImage } from '@/types/cms'
 
 const CATEGORIES = [

@@ -1,7 +1,7 @@
 'use client'
 // app/admin/pricing/page.tsx
 import { useEffect, useState } from 'react'
-import { createSupabaseBrowserClient } from '@/lib/supabase'
+import { createSupabaseBrowserClient } from '@/lib/supabase/client'
 import type { Product, PricingPackage, PricingTier } from '@/types/cms'
 
 const TIERS: { value: PricingTier; label: string; color: string; bg: string }[] = [

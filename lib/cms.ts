@@ -1,12 +1,12 @@
 // lib/cms.ts  — Public data fetching functions for your frontend pages
 // Use these in your existing Next.js service/gallery pages
 
-import { createSupabaseServerClient } from './supabase'
+import { createSupabaseServerClient } from './supabase/server'
 import type { Product, PricingPackage, GalleryImage } from '@/types/cms'
 
 /** Fetch all visible products (for homepage / services section) */
 export async function getProducts(): Promise<Product[]> {
-  const supabase = createSupabaseServerClient()
+  const supabase = await createSupabaseServerClient()
   const { data } = await supabase
     .from('products')
     .select('*')
@@ -17,7 +17,7 @@ export async function getProducts(): Promise<Product[]> {
 
 /** Fetch a single product with its pricing packages */
 export async function getProduct(slug: string): Promise<Product | null> {
-  const supabase = createSupabaseServerClient()
+  const supabase = await createSupabaseServerClient()
   const { data } = await supabase
     .from('products')
     .select('*, pricing_packages(*)')
@@ -30,7 +30,7 @@ export async function getProduct(slug: string): Promise<Product | null> {
 
 /** Fetch pricing packages for a product */
 export async function getPricingPackages(productId: string): Promise<PricingPackage[]> {
-  const supabase = createSupabaseServerClient()
+  const supabase = await createSupabaseServerClient()
   const { data } = await supabase
     .from('pricing_packages')
     .select('*')
@@ -42,7 +42,7 @@ export async function getPricingPackages(productId: string): Promise<PricingPack
 
 /** Fetch gallery images, optionally filtered by category */
 export async function getGalleryImages(category?: string): Promise<GalleryImage[]> {
-  const supabase = createSupabaseServerClient()
+  const supabase = await createSupabaseServerClient()
   let query = supabase
     .from('gallery')
     .select('*')
@@ -57,7 +57,7 @@ export async function getGalleryImages(category?: string): Promise<GalleryImage[
 
 /** Fetch featured gallery images for the homepage */
 export async function getFeaturedImages(): Promise<GalleryImage[]> {
-  const supabase = createSupabaseServerClient()
+  const supabase = await createSupabaseServerClient()
   const { data } = await supabase
     .from('gallery')
     .select('*')

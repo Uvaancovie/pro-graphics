@@ -13,8 +13,8 @@ export function createSupabaseBrowserClient() {
 }
 
 // ── Server client (use in Server Components & Route Handlers) ─────────────
-export function createSupabaseServerClient() {
-  const cookieStore = cookies()
+export async function createSupabaseServerClient() {
+  const cookieStore = await cookies()
   return createServerClient(supabaseUrl, supabaseAnon, {
     cookies: {
       get(name: string) { return cookieStore.get(name)?.value },

@@ -1,18 +1,18 @@
 // app/admin/products/page.tsx
-import { createSupabaseServerClient } from '@/lib/supabase'
+import { createSupabaseServerClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { revalidatePath } from 'next/cache'
 
 async function toggleVisibility(id: string, current: boolean) {
   'use server'
-  const supabase = createSupabaseServerClient()
+  const supabase = await createSupabaseServerClient()
   await supabase.from('products').update({ is_visible: !current }).eq('id', id)
   revalidatePath('/admin/products')
 }
 
 async function deleteProduct(id: string) {
   'use server'
-  const supabase = createSupabaseServerClient()
+  const supabase = await createSupabaseServerClient()
   await supabase.from('products').delete().eq('id', id)
   revalidatePath('/admin/products')
 }
@@ -27,7 +27,7 @@ const CATEGORY_LABELS: Record<string, string> = {
 }
 
 export default async function ProductsPage() {
-  const supabase = createSupabaseServerClient()
+  const supabase = await createSupabaseServerClient()
   const { data: products } = await supabase
     .from('products')
     .select('*, pricing_packages(count)')

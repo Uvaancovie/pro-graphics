@@ -2,7 +2,7 @@
 // components/admin/AdminSidebar.tsx
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { createSupabaseBrowserClient } from '@/lib/supabase'
+import { createSupabaseBrowserClient } from '@/lib/supabase/client'
 
 const NAV = [
   { href: '/admin',          label: 'Dashboard',         icon: '📊' },

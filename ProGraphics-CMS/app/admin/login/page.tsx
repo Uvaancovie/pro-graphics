@@ -2,7 +2,7 @@
 // app/admin/login/page.tsx
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { createSupabaseBrowserClient } from '@/lib/supabase'
+import { createSupabaseBrowserClient } from '@/lib/supabase/client'
 
 export default function AdminLogin() {
   const [email, setEmail]       = useState('')

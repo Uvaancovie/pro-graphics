@@ -1,8 +1,8 @@
 // app/admin/page.tsx
-import { createSupabaseServerClient } from '@/lib/supabase'
+import { createSupabaseServerClient } from '@/lib/supabase/server'
 
 export default async function AdminDashboard() {
-  const supabase = createSupabaseServerClient()
+  const supabase = await createSupabaseServerClient()
 
   const [
     { count: totalProducts },

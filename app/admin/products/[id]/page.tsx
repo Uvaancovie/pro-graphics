@@ -2,7 +2,7 @@
 // app/admin/products/[id]/page.tsx  (also handles /new via id='new')
 import { useEffect, useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
-import { createSupabaseBrowserClient } from '@/lib/supabase'
+import { createSupabaseBrowserClient } from '@/lib/supabase/client'
 import type { Product } from '@/types/cms'
 
 const CATEGORIES = [
