@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { securityMiddleware, corsHeaders } from '@/lib/security';
 import { sendBrevoSmtpEmail } from '@/lib/brevo-smtp';
+import * as Sentry from '@sentry/nextjs';
 
 export async function OPTIONS() {
   return NextResponse.json({}, { headers: corsHeaders });
@@ -8,6 +9,9 @@ export async function OPTIONS() {
 
 export async function POST(req: Request) {
   try {
+    // Top-level test metric as requested
+    Sentry.metrics.count('test_metric', 1);
+
     const securityResponse = await securityMiddleware(req);
     if (securityResponse) return securityResponse;
 
@@ -171,10 +175,12 @@ export async function POST(req: Request) {
       // We won't block the 200 Success if the thank you fails, but we'll log it.
     }
 
+    Sentry.metrics.count('price_beat_success', 1);
     return NextResponse.json({ message: 'Success' }, { headers: corsHeaders });
 
   } catch (error) {
     console.error('Price beat capture error:', error);
+    Sentry.metrics.count('price_beat_error', 1);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500, headers: corsHeaders });
   }
 }

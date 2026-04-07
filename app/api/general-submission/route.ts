@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { securityMiddleware, corsHeaders } from '@/lib/security';
 import { supabase } from '@/lib/supabase';
 import { sendBrevoSmtpEmail } from '@/lib/brevo-smtp';
+import * as Sentry from '@sentry/nextjs';
 
 const queryTypeLabels: Record<string, string> = {
   'general-question': 'General Question',
@@ -207,9 +208,11 @@ export async function POST(req: Request) {
       console.error('Brevo SMTP acknowledgement error (general submission):', acknowledgementError);
     }
 
+    Sentry.metrics.count('general_submission_success', 1);
     return NextResponse.json({ message: 'Success' }, { status: 200, headers: corsHeaders });
   } catch (error) {
     console.error('General submission error:', error);
+    Sentry.metrics.count('general_submission_error', 1);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500, headers: corsHeaders });
   }
 }
