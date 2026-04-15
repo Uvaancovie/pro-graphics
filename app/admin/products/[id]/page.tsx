@@ -1,6 +1,6 @@
 'use client'
 // app/admin/products/[id]/page.tsx  (also handles /new via id='new')
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import { createSupabaseBrowserClient } from '@/lib/supabase/client'
 import type { Product } from '@/types/cms'
@@ -19,11 +19,16 @@ export default function ProductEditPage() {
   const isNew   = id === 'new'
   const router  = useRouter()
   const supabase = createSupabaseBrowserClient()
+  const fileRef = useRef<HTMLInputElement>(null)
 
   const [loading, setSaving] = useState(false)
   const [fetching, setFetching] = useState(!isNew)
   const [error, setError]   = useState('')
   const [success, setSuccess] = useState('')
+  const [uploading, setUploading] = useState(false)
+  const [uploadPct, setUploadPct] = useState(0)
+  const [previewFile, setPreviewFile] = useState<File | null>(null)
+  const [previewUrl, setPreviewUrl] = useState('')
 
   const [form, setForm] = useState({
     name: '', slug: '', category: 'vehicle-branding',
@@ -35,10 +40,13 @@ export default function ProductEditPage() {
     if (!isNew) {
       supabase.from('products').select('*').eq('id', id).single()
         .then(({ data }) => {
-          if (data) setForm({
-            ...data,
-            features: (data.features ?? []).join('\n'),
-          })
+          if (data) {
+            setForm({
+              ...data,
+              features: (data.features ?? []).join('\n'),
+            })
+            if (data.image_url) setPreviewUrl(data.image_url)
+          }
           setFetching(false)
         })
     }
@@ -54,8 +62,43 @@ export default function ProductEditPage() {
     setError('')
     setSuccess('')
 
+    let image_url = form.image_url
+
+    // Upload image if a new file was selected
+    if (previewFile) {
+      setUploading(true)
+      setUploadPct(10)
+
+      try {
+        const ext = previewFile.name.split('.').pop()
+        const path = `products/${Date.now()}-${form.slug || 'product'}.${ext}`
+        setUploadPct(30)
+
+        const { error: upErr } = await supabase.storage
+          .from('product-images')
+          .upload(path, previewFile, { upsert: true })
+
+        if (upErr) throw upErr
+        setUploadPct(70)
+
+        const { data: { publicUrl } } = supabase.storage
+          .from('product-images')
+          .getPublicUrl(path)
+
+        image_url = publicUrl
+        setUploadPct(100)
+      } catch (err: any) {
+        setError(`Image upload failed: ${err.message}`)
+        setUploading(false)
+        setSaving(false)
+        return
+      }
+      setUploading(false)
+    }
+
     const payload = {
       ...form,
+      image_url,
       features: form.features.split('\n').map(f => f.trim()).filter(Boolean),
     }
 
@@ -67,6 +110,8 @@ export default function ProductEditPage() {
       setError(err.message)
     } else {
       setSuccess(isNew ? 'Product created!' : 'Product saved!')
+      setForm(f => ({ ...f, image_url }))
+      setPreviewFile(null)
       if (isNew) setTimeout(() => router.push('/admin/products'), 1000)
     }
     setSaving(false)
@@ -189,14 +234,68 @@ export default function ProductEditPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-[#5A6A7A] mb-1.5">
-              Image URL
+            <label className="block text-sm font-medium text-[#5A6A7A] mb-2">
+              Product Image
             </label>
-            <input value={form.image_url ?? ''}
-              onChange={e => setForm(f => ({ ...f, image_url: e.target.value }))}
-              className="w-full border border-[#E8EEF4] rounded-xl px-4 py-2.5 text-sm
-                         focus:outline-none focus:border-[#FF6B35] text-[#0D1B2A]"
-              placeholder="https://..." />
+
+            {/* Image Preview */}
+            {(previewUrl || form.image_url) && (
+              <div className="relative mb-3 rounded-xl overflow-hidden aspect-video bg-[#F7F8FA] max-w-md">
+                <img
+                  src={previewUrl || form.image_url}
+                  alt="Product preview"
+                  className="w-full h-full object-cover"
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    setPreviewFile(null)
+                    setPreviewUrl('')
+                    setForm(f => ({ ...f, image_url: '' }))
+                  }}
+                  className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white
+                             rounded-full p-1 transition-colors"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            )}
+
+            {/* Upload Area */}
+            <div
+              onClick={() => fileRef.current?.click()}
+              className="border-2 border-dashed border-[#E8EEF4] rounded-xl p-6
+                         text-center cursor-pointer hover:border-[#FF6B35] hover:bg-[#FFF0E8]
+                         transition-colors max-w-md"
+            >
+              <p className="text-3xl mb-2">📁</p>
+              <p className="text-sm text-[#5A6A7A]">
+                {previewFile ? previewFile.name : 'Click to upload product image'}
+              </p>
+              <p className="text-xs text-[#A0B4C8] mt-1">JPG, PNG, WebP · Max 5MB</p>
+            </div>
+            <input
+              ref={fileRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={e => setPreviewFile(e.target.files?.[0] ?? null)}
+            />
+
+            {/* Upload Progress */}
+            {uploading && (
+              <div className="mt-3 max-w-md">
+                <div className="flex justify-between text-xs text-[#5A6A7A] mb-1">
+                  <span>Uploading…</span><span>{uploadPct}%</span>
+                </div>
+                <div className="h-2 bg-[#E8EEF4] rounded-full overflow-hidden">
+                  <div className="h-full bg-[#FF6B35] rounded-full transition-all duration-300"
+                    style={{ width: `${uploadPct}%` }} />
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="flex items-center gap-3 pt-2">
@@ -232,10 +331,10 @@ export default function ProductEditPage() {
             className="text-[#5A6A7A] hover:text-[#0D1B2A] text-sm font-medium">
             Cancel
           </button>
-          <button type="submit" disabled={loading}
+          <button type="submit" disabled={loading || uploading}
             className="bg-[#FF6B35] hover:bg-[#e85c28] disabled:opacity-50 text-white
                        font-bold px-8 py-3 rounded-xl transition-colors">
-            {loading ? 'Saving…' : isNew ? 'Create Product' : 'Save Changes'}
+            {uploading ? `Uploading ${uploadPct}%…` : loading ? 'Saving…' : isNew ? 'Create Product' : 'Save Changes'}
           </button>
         </div>
       </form>

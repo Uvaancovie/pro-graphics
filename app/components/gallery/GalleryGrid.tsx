@@ -4,25 +4,32 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-type GalleryCategory = "Ads" | "Portfolio" | "Testimonials";
-
 interface GalleryItem {
     src: string;
-    category: GalleryCategory;
+    category: string;
     title?: string;
     alt?: string;
 }
 
 interface GalleryGridProps {
     items: GalleryItem[];
+    categories?: string[];
 }
 
-const filterOptions = ["All", "Ads", "Portfolio", "Testimonials"] as const;
-type FilterOption = (typeof filterOptions)[number];
+const formatCategoryLabel = (category: string): string => {
+    return category
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+};
 
-export function GalleryGrid({ items }: GalleryGridProps) {
+export function GalleryGrid({ items, categories = [] }: GalleryGridProps) {
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
-    const [activeFilter, setActiveFilter] = useState<FilterOption>("All");
+    const [activeFilter, setActiveFilter] = useState<string>("All");
+
+    // Build filter options from actual categories in data
+    const uniqueCategories = Array.from(new Set(items.map(item => item.category)));
+    const filterOptions = ["All", ...uniqueCategories];
 
     const filteredItems = activeFilter === "All"
         ? items
@@ -55,7 +62,7 @@ export function GalleryGrid({ items }: GalleryGridProps) {
                         )}
                         aria-pressed={activeFilter === option}
                     >
-                        {option}
+                        {option === "All" ? "All" : formatCategoryLabel(option)}
                     </button>
                 ))}
             </div>

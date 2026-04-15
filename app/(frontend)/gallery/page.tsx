@@ -9,42 +9,6 @@ export const metadata: Metadata = {
     description: "Browse our portfolio of vehicle branding, custom signage, vehicle wraps, and shop front branding projects in Durban.",
 };
 
-// Static fallback images if no database images exist
-const fallbackImages = [
-    { src: "/images/ads/AD-1.png", category: "Ads" as const },
-    { src: "/images/ads/AD-3.png", category: "Ads" as const },
-    { src: "/images/ads/AD-4.png", category: "Ads" as const },
-    { src: "/images/ads/AD-5.png", category: "Ads" as const },
-    { src: "/images/ads/AD-6.png", category: "Ads" as const },
-    { src: "/images/ads/vehicle-branding.jpeg", category: "Ads" as const },
-    { src: "/images/ads/full-vehicle-wraps.jpeg", category: "Ads" as const },
-    { src: "/images/ads/custom-sign-boards.jpeg", category: "Ads" as const },
-    { src: "/images/ads/contravisions.jpeg", category: "Ads" as const },
-    { src: "/images/ads/custom-cutout-stickers.jpeg", category: "Ads" as const },
-    { src: "/images/ads/shop-front-office-branding.jpeg", category: "Ads" as const },
-    ...Array.from({ length: 13 }, (_, i) => ({ src: `/images/content/${i + 1}.jpeg`, category: "Portfolio" as const })),
-    { src: "/images/client/client-1.jpg", category: "Portfolio" as const },
-    { src: "/images/client/client-2.png", category: "Portfolio" as const },
-    { src: "/testimonials/black-roof-wraps.jpg", category: "Testimonials" as const },
-    { src: "/testimonials/custom-canvas.jpg", category: "Testimonials" as const },
-    { src: "/testimonials/custom-wallpaper.jpg", category: "Testimonials" as const },
-    { src: "/testimonials/laminex-headlight-film.jpg", category: "Testimonials" as const },
-];
-
-// Map database categories to frontend display categories
-function mapCategory(dbCategory: string): "Ads" | "Portfolio" | "Testimonials" {
-    switch (dbCategory) {
-        case 'promotional':
-            return 'Ads';
-        case 'vehicle-branding':
-        case 'sign-boards':
-        case 'contravisions':
-        case 'stickers':
-        default:
-            return 'Portfolio';
-    }
-}
-
 async function getGalleryImages() {
     try {
         const supabase = createSupabaseServiceClient();
@@ -56,23 +20,23 @@ async function getGalleryImages() {
 
         if (error) {
             console.error('Error fetching gallery:', error);
-            return fallbackImages;
+            return [];
         }
 
         if (!images || images.length === 0) {
-            return fallbackImages;
+            return [];
         }
 
-        // Map database images to gallery items
+        // Use database categories directly
         return images.map((img) => ({
             src: img.image_url,
-            category: mapCategory(img.category),
+            category: img.category,
             title: img.title,
             alt: img.alt_text || img.title || 'Gallery image',
         }));
     } catch (error) {
         console.error('Error loading gallery:', error);
-        return fallbackImages;
+        return [];
     }
 }
 
@@ -99,7 +63,15 @@ export default async function GalleryPage() {
             {/* Interactive Gallery Grid */}
             <section className="py-16">
                 <div className="container mx-auto px-4">
-                    <GalleryGrid items={galleryItems} />
+                    {galleryItems.length > 0 ? (
+                        <GalleryGrid items={galleryItems} />
+                    ) : (
+                        <div className="text-center py-16">
+                            <p className="text-gray-500 text-lg">
+                                No gallery images yet. Images added in the admin panel will appear here.
+                            </p>
+                        </div>
+                    )}
                 </div>
             </section>
 
