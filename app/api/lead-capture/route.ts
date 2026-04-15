@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { securityMiddleware, corsHeaders } from '@/lib/security';
 import { sendBrevoSmtpEmail } from '@/lib/brevo-smtp';
+import { getBrevoListId, upsertBrevoContact } from '@/lib/brevo';
 
 export async function OPTIONS() {
   return NextResponse.json({}, { headers: corsHeaders });
@@ -21,45 +22,30 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'Consent is required' }, { status: 400, headers: corsHeaders });
         }
 
-        const apiKey = process.env.BREVO_API_KEY;
         const adminNotificationEmail = process.env.ADMIN_NOTIFICATION_EMAIL || 'i.t.safuneralsupplies@gmail.com';
-
-        if (!apiKey) {
-            console.error('Missing BREVO_API_KEY');
-            return NextResponse.json({ error: 'Server configuration error' }, { status: 500, headers: corsHeaders });
-        }
 
         // Split name into first and last name for Brevo attributes
         const nameParts = name ? name.split(' ') : [''];
         const firstName = nameParts[0];
         const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : '';
 
-        // 1. Add contact to Brevo
-        const contactRes = await fetch('https://api.brevo.com/v3/contacts', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'api-key': apiKey
-            },
-            body: JSON.stringify({
-                email: email,
-                updateEnabled: true,
-                attributes: {
-                    FIRSTNAME: firstName,
-                    LASTNAME: lastName,
-                    COMPANY: company || '',
-                    OPT_IN: true,                 // Assuming you have an OPT_IN attribute in Brevo
-                    CONSENT_DATE: consentTimestamp // Assuming you have a CONSENT_DATE attribute
-                },
-                listIds: [2] // You can change this to your actual Brevo list ID for Leads
-            })
-        });
+        const leadCaptureListId = getBrevoListId('BREVO_LEAD_CAPTURE_LIST_ID', getBrevoListId('BREVO_LEADS_LIST_ID', 2));
 
-        if (!contactRes.ok) {
-            const errorData = await contactRes.json();
-            console.error('Brevo Contact error:', errorData);
-            // We don't fail here because the contact might just exist, updateEnabled should handle it though
+        try {
+          await upsertBrevoContact({
+            email,
+            listIds: [leadCaptureListId],
+            attributes: {
+              FIRSTNAME: firstName,
+              LASTNAME: lastName,
+              COMPANY: company || '',
+              OPT_IN: true,
+              CONSENT_DATE: consentTimestamp,
+              LEAD_SOURCE: 'lead-capture',
+            },
+          });
+        } catch (contactError) {
+          console.error('Brevo Contact error:', contactError);
         }
 
         // 2. Send admin notification for this lead capture submission

@@ -4,6 +4,26 @@ import { VehicleCareGuide } from "@/app/components/vehicle-branding/VehicleCareG
 import { Button } from "@/app/components/ui/Button";
 import Link from "next/link";
 import Image from "next/image";
+import { FaqSection } from "@/app/components/ui/FaqSection";
+
+const vehicleBrandingFaqs = [
+    {
+        question: 'How long does vehicle branding last in Durban weather?',
+        answer: 'Premium wraps typically last multiple years when installed and maintained correctly. We recommend regular cleaning and avoiding harsh chemicals to maximize durability.',
+    },
+    {
+        question: 'Do you brand single vehicles and fleets?',
+        answer: 'Yes. We handle both one-off branding for owner-operated vehicles and full fleet rollouts with consistent branding standards.',
+    },
+    {
+        question: 'How long does installation take?',
+        answer: 'Timelines depend on coverage level and vehicle type. Most projects are completed within a few working days after design sign-off.',
+    },
+    {
+        question: 'Can I combine vehicle branding with sign boards?',
+        answer: 'Yes. Many Durban businesses use both for road and storefront visibility. See our sign board service and Durban comparison guide for planning.',
+    },
+];
 
 export const metadata: Metadata = {
     title: "Vehicle Branding Durban | Fleet Wraps & Vehicle Graphics | Pro Graphics",
@@ -182,6 +202,34 @@ export default function VehicleBrandingPage() {
                         </Link>
                         <Link href="/blog/essential-guide-custom-sign-boards" className="text-blue-900 font-semibold hover:text-amber-600 transition-colors">
                             Sign Boards Guide
+                        </Link>
+                    </div>
+                </div>
+            </section>
+
+            <FaqSection
+                title="Vehicle Branding FAQs"
+                intro="Get quick answers before you start your fleet branding project."
+                faqs={vehicleBrandingFaqs}
+                className="py-20 bg-white border-t border-gray-200"
+            />
+
+            <section className="py-16 bg-gray-50 border-t border-gray-200">
+                <div className="container mx-auto px-4 max-w-5xl text-center">
+                    <h2 className="text-3xl font-bold text-blue-950 mb-4">Service Areas</h2>
+                    <p className="text-gray-600 mb-6">Explore area-focused pages for fleet branding in greater Durban.</p>
+                    <div className="flex flex-wrap items-center justify-center gap-4">
+                        <Link href="/vehicle-branding/umhlanga" className="text-blue-900 font-semibold hover:text-amber-600 transition-colors">
+                            Vehicle Branding Umhlanga
+                        </Link>
+                        <Link href="/vehicle-branding/pinetown" className="text-blue-900 font-semibold hover:text-amber-600 transition-colors">
+                            Vehicle Branding Pinetown
+                        </Link>
+                        <Link href="/vehicle-branding/phoenix" className="text-blue-900 font-semibold hover:text-amber-600 transition-colors">
+                            Vehicle Branding Phoenix
+                        </Link>
+                        <Link href="/vehicle-branding/durban-cbd" className="text-blue-900 font-semibold hover:text-amber-600 transition-colors">
+                            Vehicle Branding Durban CBD
                         </Link>
                     </div>
                 </div>

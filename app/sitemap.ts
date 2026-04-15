@@ -1,92 +1,43 @@
 import { MetadataRoute } from 'next'
+import { blogPosts } from './(frontend)/blog/data'
+
+const baseUrl = 'https://pro-graphics.co.za'
+
+const staticRoutes = [
+    '/',
+    '/blog',
+    '/vehicle-branding',
+    '/vehicle-branding/umhlanga',
+    '/vehicle-branding/pinetown',
+    '/vehicle-branding/phoenix',
+    '/vehicle-branding/durban-cbd',
+    '/sign-boards',
+    '/contravisions',
+    '/custom-stickers',
+    '/quote',
+    '/case-studies',
+    '/black-roof-wraps',
+    '/custom-canvas',
+    '/custom-wallpaper',
+    '/laminex-headlight-film',
+]
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://pro-graphics.co.za'
+    const now = new Date()
 
-    return [
-        {
-            url: baseUrl,
-            lastModified: new Date(),
-            changeFrequency: 'yearly',
-            priority: 1,
-        },
-        {
-            url: `${baseUrl}/blog`,
-            lastModified: new Date(),
-            changeFrequency: 'weekly',
-            priority: 0.8,
-        },
-        {
-            url: `${baseUrl}/blog/ultimate-guide-vehicle-branding`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.7,
-        },
-        {
-            url: `${baseUrl}/blog/essential-guide-custom-sign-boards`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.7,
-        },
-        {
-            url: `${baseUrl}/blog/vehicle-branding-durban-vs-sign-boards-durban`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.7,
-        },
-        {
-            url: `${baseUrl}/vehicle-branding`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.8,
-        },
-        {
-            url: `${baseUrl}/sign-boards`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.8,
-        },
-        {
-            url: `${baseUrl}/contravisions`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.8,
-        },
-        {
-            url: `${baseUrl}/custom-stickers`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.8,
-        },
-        {
-            url: `${baseUrl}/quote`,
-            lastModified: new Date(),
-            changeFrequency: 'yearly',
-            priority: 0.5,
-        },
-        {
-            url: `${baseUrl}/black-roof-wraps`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.7,
-        },
-        {
-            url: `${baseUrl}/custom-canvas`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.7,
-        },
-        {
-            url: `${baseUrl}/custom-wallpaper`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.7,
-        },
-        {
-            url: `${baseUrl}/laminex-headlight-film`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.7,
-        },
-    ]
+    const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
+        url: `${baseUrl}${route === '/' ? '' : route}`,
+        lastModified: now,
+        changeFrequency: route === '/' ? 'yearly' : route.startsWith('/blog') ? 'weekly' : 'monthly',
+        priority: route === '/' ? 1 : route === '/quote' ? 0.5 : 0.8,
+    }))
+
+    const blogEntries: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+        url: `${baseUrl}/blog/${post.slug}`,
+        lastModified: post.publishedAt ? new Date(post.publishedAt) : now,
+        changeFrequency: 'monthly',
+        priority: 0.7,
+    }))
+
+    return [...staticEntries, ...blogEntries]
 }

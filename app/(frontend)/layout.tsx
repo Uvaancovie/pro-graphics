@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Navbar } from "@/app/components/ui/Navbar";
 import PromotionBanner from "@/app/components/ui/PromotionBanner";
+import { NewsletterPopup } from "@/app/components/forms/NewsletterPopup";
 
 export default function FrontendLayout({
   children,
@@ -92,6 +93,8 @@ export default function FrontendLayout({
         {children}
       </div>
 
+      <NewsletterPopup />
+
       {/* Footer */}
       <footer className="bg-blue-950 text-white py-16 border-t-4 border-amber-500">
         <div className="container mx-auto px-4">
@@ -125,6 +128,7 @@ export default function FrontendLayout({
               <ul className="space-y-3 text-sm text-blue-100">
                 <li><Link href="/general-submission" className="hover:text-white hover:translate-x-1 transition-all inline-block">General Submission</Link></li>
                 <li><Link href="/quote" className="hover:text-white hover:translate-x-1 transition-all inline-block">Request a Quote</Link></li>
+                <li><Link href="/case-studies" className="hover:text-white hover:translate-x-1 transition-all inline-block">Case Studies</Link></li>
                 <li><Link href="#" className="hover:text-white hover:translate-x-1 transition-all inline-block">Portfolio Gallery</Link></li>
                 <li><Link href="#" className="hover:text-white hover:translate-x-1 transition-all inline-block">About Us</Link></li>
                 <li><Link href="#" className="hover:text-white hover:translate-x-1 transition-all inline-block">Contact Support</Link></li>
@@ -153,6 +157,17 @@ export default function FrontendLayout({
                 <li className="flex items-center gap-3">
                   <span className="text-amber-500">Email</span>
                   <a href="mailto:gdesigners14@gmail.com" className="hover:text-white transition-colors">gdesigners14@gmail.com</a>
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="text-amber-500">Google</span>
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=Pro+Graphics+160+Aberdare+Dr+Phoenix+Durban"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-white transition-colors"
+                  >
+                    Google Business Profile
+                  </a>
                 </li>
               </ul>
             </div>

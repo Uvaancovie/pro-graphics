@@ -3,6 +3,26 @@ import { MaterialComparison } from "@/app/components/sign-boards/MaterialCompari
 import { Button } from "@/app/components/ui/Button";
 import Link from "next/link";
 import Image from "next/image";
+import { FaqSection } from "@/app/components/ui/FaqSection";
+
+const signBoardFaqs = [
+    {
+        question: 'What sign board material is best for Durban weather?',
+        answer: 'For outdoor durability, Chromadek and aluminum-backed options are popular. We recommend materials based on location, sunlight exposure, and expected lifespan.',
+    },
+    {
+        question: 'Do you design and install sign boards?',
+        answer: 'Yes. We handle design, production, and installation to keep quality consistent from concept to final fitment.',
+    },
+    {
+        question: 'Can I pair sign boards with fleet branding?',
+        answer: 'Absolutely. Combining storefront signage and vehicle branding often improves local visibility and lead volume.',
+    },
+    {
+        question: 'How quickly can a sign board project be completed?',
+        answer: 'Production timelines vary by size and material, but most standard projects move from design approval to install within days.',
+    },
+];
 
 export const metadata: Metadata = {
     title: "Sign Boards Durban | Custom Business Signage | Pro Graphics",
@@ -72,6 +92,13 @@ export default function SignBoardsPage() {
                     </div>
                 </div>
             </section>
+
+            <FaqSection
+                title="Sign Board FAQs"
+                intro="Common questions about materials, turnaround, and installation."
+                faqs={signBoardFaqs}
+                className="py-20 bg-white border-t border-gray-200"
+            />
 
             {/* CTA Section */}
             <section className="py-24 bg-amber-500 relative overflow-hidden">

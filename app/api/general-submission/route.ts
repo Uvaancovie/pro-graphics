@@ -3,6 +3,7 @@ import { securityMiddleware, corsHeaders } from '@/lib/security';
 import { supabase } from '@/lib/supabase';
 import { sendBrevoSmtpEmail } from '@/lib/brevo-smtp';
 import * as Sentry from '@sentry/nextjs';
+import { getBrevoListId, upsertBrevoContact } from '@/lib/brevo';
 
 const queryTypeLabels: Record<string, string> = {
   'general-question': 'General Question',
@@ -64,13 +65,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Consent is required' }, { status: 400, headers: corsHeaders });
     }
 
-    const apiKey = process.env.BREVO_API_KEY;
     const adminNotificationEmail = process.env.ADMIN_NOTIFICATION_EMAIL || 'i.t.safuneralsupplies@gmail.com';
-
-    if (!apiKey) {
-      console.error('Missing BREVO_API_KEY');
-      return NextResponse.json({ error: 'Server configuration error' }, { status: 500, headers: corsHeaders });
-    }
 
     const subjectLabel = queryTypeLabels[queryType] || 'General Submission';
     const urgencyLabel = urgencyLabels[urgency] || urgency;
@@ -101,31 +96,24 @@ export async function POST(req: Request) {
     const firstName = nameParts[0];
     const lastName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : '';
 
-    // 2. Save in Brevo Contacts List
-    const contactRes = await fetch('https://api.brevo.com/v3/contacts', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'api-key': apiKey
-      },
-      body: JSON.stringify({
-        email: email,
-        updateEnabled: true,
+    const contactFormListId = getBrevoListId('BREVO_CONTACT_FORM_LIST_ID', getBrevoListId('BREVO_LEADS_LIST_ID', 2));
+
+    try {
+      await upsertBrevoContact({
+        email,
+        listIds: [contactFormListId],
         attributes: {
           FIRSTNAME: firstName,
           LASTNAME: lastName,
           COMPANY: company || '',
           OPT_IN: true,
-          CONSENT_DATE: consentTimestamp || new Date().toISOString()
+          CONSENT_DATE: consentTimestamp || new Date().toISOString(),
+          LEAD_SOURCE: 'general-submission',
+          LAST_QUERY_TYPE: queryType,
         },
-        listIds: [2] // Assuming list ID 2 is used for standard lead captures
-      })
-    });
-
-    if (!contactRes.ok) {
-      const errorData = await contactRes.json();
-      console.error('Brevo Contact error:', errorData);
+      });
+    } catch (contactError) {
+      console.error('Brevo Contact error:', contactError);
     }
 
     try {

@@ -3,6 +3,22 @@ import { BulkPricingTable } from "@/app/components/stickers/BulkPricingTable";
 import { Button } from "@/app/components/ui/Button";
 import Link from "next/link";
 import Image from "next/image";
+import { FaqSection } from "@/app/components/ui/FaqSection";
+
+const customStickerFaqs = [
+    {
+        question: 'What sticker materials do you offer?',
+        answer: 'We produce durable vinyl stickers suitable for indoor and outdoor use, including die-cut options for branded shapes and logo packs.',
+    },
+    {
+        question: 'Do you offer bulk pricing for Durban businesses?',
+        answer: 'Yes. Unit rates improve at higher quantities, making custom sticker runs ideal for product labels, promos, and fleet kits.',
+    },
+    {
+        question: 'How fast can sticker orders be completed?',
+        answer: 'Turnaround depends on quantity and finishing, but standard orders are typically completed within a few working days after artwork approval.',
+    },
+];
 
 export const metadata: Metadata = {
     title: "Custom Cutout Stickers | Pro Graphics - Bulk Pricing & Fast Turnaround",
@@ -44,6 +60,13 @@ export default function CustomStickersPage() {
 
             {/* Bulk Pricing Table Component */}
             <BulkPricingTable />
+
+            <FaqSection
+                title="Custom Sticker FAQs"
+                intro="Everything you need to know about material options, pricing, and turnaround."
+                faqs={customStickerFaqs}
+                className="py-20 bg-white border-t border-gray-200"
+            />
 
             {/* CTA */}
             <section className="py-24 bg-amber-500 relative overflow-hidden">

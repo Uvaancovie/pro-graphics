@@ -3,6 +3,22 @@ import { BeforeAfterSlider } from "@/app/components/contravisions/BeforeAfterSli
 import { Button } from "@/app/components/ui/Button";
 import Link from "next/link";
 import Image from "next/image";
+import { FaqSection } from "@/app/components/ui/FaqSection";
+
+const contravisionFaqs = [
+    {
+        question: 'What is contravision used for?',
+        answer: 'Contravision is used for one-way window branding so customers see your message outside while visibility from inside remains intact.',
+    },
+    {
+        question: 'Is contravision suitable for vehicle rear windows?',
+        answer: 'Yes. It is commonly installed on rear windows and storefront glass where advertising and privacy are both required.',
+    },
+    {
+        question: 'How durable is one-way vision film?',
+        answer: 'With quality print and lamination, contravision performs well in sun and rain and can last for years depending on exposure and care.',
+    },
+];
 
 export const metadata: Metadata = {
     title: "Contravision Window Graphics | Pro Graphics - See-Through Advertising",
@@ -116,6 +132,13 @@ export default function ContravisionsPage() {
                     </div>
                 </div>
             </section>
+
+            <FaqSection
+                title="Contravision FAQs"
+                intro="Quick answers for storefront and vehicle one-way vision projects."
+                faqs={contravisionFaqs}
+                className="py-20 bg-white border-t border-gray-200"
+            />
 
             {/* CTA */}
             <section className="py-24 bg-amber-500 relative overflow-hidden">

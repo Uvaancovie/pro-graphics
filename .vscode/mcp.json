@@ -1,15 +1,28 @@
 {
-  "servers": {
-    "supabase": {
-      "type": "http",
-      "url": "https://mcp.supabase.com/mcp?project_ref=hcestxaffzsqlkiedvfx"
-    },
-    "brevo": {
-      "type": "http",
-      "url": "https://mcp.brevo.com/v1/brevo/mcp",
-      "headers": {
-        "Authorization": "${env:BREVO_MCP_API_KEY}"
-      }
-    }
-  }
+	"servers": {
+		"supabase": {
+			"type": "http",
+			"url": "https://mcp.supabase.com/mcp?project_ref=hcestxaffzsqlkiedvfx"
+		},
+		"brevo": {
+			"type": "http",
+			"url": "https://mcp.brevo.com/v1/brevo/mcp",
+			"headers": {
+				"Authorization": "eyJhcGlfa2V5IjoieGtleXNpYi0xMzA1NDEzNDdmNWYzZTQyNTUzYjdkNmRlN2YzMmM4NDM3ZDVkNzMwNTViYzg5OWNkYTA4ZWIyMTJiYTY0YThmLUlrdk9seEU5Q2hGTGd5V0MifQ=="
+			}
+		},
+		"next-devtools": {
+			"command": "npx",
+			"args": [
+				"-y",
+				"next-devtools-mcp@latest"
+			],
+			"type": "stdio"
+		},
+		"my-mcp-server-42f98252": {
+			"url": "https://mcp.brevo.com/v1/brevo/mcp",
+			"type": "http"
+		}
+	},
+	"inputs": []
 }

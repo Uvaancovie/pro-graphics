@@ -5,6 +5,30 @@ import { HeroCarousel } from "@/app/components/ui/HeroCarousel";
 import { SocialProof } from "@/app/components/ui/SocialProof";
 import { ROICalculatorPromo } from "@/app/components/ui/ROICalculatorPromo";
 import { ProcessTikToks } from "@/app/components/ui/ProcessTikToks";
+import { FaqSection } from "@/app/components/ui/FaqSection";
+
+const homeFaqs = [
+  {
+    question: "How much does vehicle branding cost in Durban?",
+    answer:
+      "Pricing depends on coverage and vehicle size. Most Durban fleet branding projects start with partial branding and scale up to full wraps based on your campaign goals and route exposure.",
+  },
+  {
+    question: "How long do wraps and signage last?",
+    answer:
+      "With proper materials and installation, vehicle wraps and sign boards typically last several years in Durban conditions. We also provide care guidance to help maximize lifespan.",
+  },
+  {
+    question: "Do you work with businesses in Umhlanga and Pinetown?",
+    answer:
+      "Yes. We support businesses across Durban including Umhlanga, Pinetown, Phoenix, and the CBD with vehicle branding, signage, and print solutions.",
+  },
+  {
+    question: "Can you help me choose between sign boards and vehicle branding?",
+    answer:
+      "Yes. We compare your goals, budget, and audience movement to recommend the right mix. You can also use our ROI calculator and service guides to make an informed choice.",
+  },
+];
 
 export default function HomePage() {
   return (
@@ -382,6 +406,13 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <FaqSection
+        title="Frequently Asked Questions"
+        intro="Answers to the most common Durban branding questions before you request a quote."
+        faqs={homeFaqs}
+        className="py-20 bg-gray-50 border-t border-gray-200"
+      />
 
       {/* CTA Section */}
       <section className="py-24 bg-blue-950 text-white relative overflow-hidden">
