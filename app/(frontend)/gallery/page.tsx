@@ -2,48 +2,83 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/app/components/ui/Button";
 import { GalleryGrid } from "@/app/components/gallery/GalleryGrid";
+import { createSupabaseServiceClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
     title: "Our Work Gallery | Pro Graphics - Vehicle Branding & Signage Portfolio",
     description: "Browse our portfolio of vehicle branding, custom signage, vehicle wraps, and shop front branding projects in Durban.",
 };
 
-const adImages = [
-    "/images/ads/AD-1.png",
-    "/images/ads/AD-3.png",
-    "/images/ads/AD-4.png",
-    "/images/ads/AD-5.png",
-    "/images/ads/AD-6.png",
-    "/images/ads/vehicle-branding.jpeg",
-    "/images/ads/full-vehicle-wraps.jpeg",
-    "/images/ads/custom-sign-boards.jpeg",
-    "/images/ads/contravisions.jpeg",
-    "/images/ads/custom-cutout-stickers.jpeg",
-    "/images/ads/shop-front-office-branding.jpeg",
+// Static fallback images if no database images exist
+const fallbackImages = [
+    { src: "/images/ads/AD-1.png", category: "Ads" as const },
+    { src: "/images/ads/AD-3.png", category: "Ads" as const },
+    { src: "/images/ads/AD-4.png", category: "Ads" as const },
+    { src: "/images/ads/AD-5.png", category: "Ads" as const },
+    { src: "/images/ads/AD-6.png", category: "Ads" as const },
+    { src: "/images/ads/vehicle-branding.jpeg", category: "Ads" as const },
+    { src: "/images/ads/full-vehicle-wraps.jpeg", category: "Ads" as const },
+    { src: "/images/ads/custom-sign-boards.jpeg", category: "Ads" as const },
+    { src: "/images/ads/contravisions.jpeg", category: "Ads" as const },
+    { src: "/images/ads/custom-cutout-stickers.jpeg", category: "Ads" as const },
+    { src: "/images/ads/shop-front-office-branding.jpeg", category: "Ads" as const },
+    ...Array.from({ length: 13 }, (_, i) => ({ src: `/images/content/${i + 1}.jpeg`, category: "Portfolio" as const })),
+    { src: "/images/client/client-1.jpg", category: "Portfolio" as const },
+    { src: "/images/client/client-2.png", category: "Portfolio" as const },
+    { src: "/testimonials/black-roof-wraps.jpg", category: "Testimonials" as const },
+    { src: "/testimonials/custom-canvas.jpg", category: "Testimonials" as const },
+    { src: "/testimonials/custom-wallpaper.jpg", category: "Testimonials" as const },
+    { src: "/testimonials/laminex-headlight-film.jpg", category: "Testimonials" as const },
 ];
 
-const portfolioImages = Array.from({ length: 13 }, (_, i) => `/images/content/${i + 1}.jpeg`);
+// Map database categories to frontend display categories
+function mapCategory(dbCategory: string): "Ads" | "Portfolio" | "Testimonials" {
+    switch (dbCategory) {
+        case 'promotional':
+            return 'Ads';
+        case 'vehicle-branding':
+        case 'sign-boards':
+        case 'contravisions':
+        case 'stickers':
+        default:
+            return 'Portfolio';
+    }
+}
 
-const clientImages = [
-    "/images/client/client-1.jpg",
-    "/images/client/client-2.png",
-];
+async function getGalleryImages() {
+    try {
+        const supabase = createSupabaseServiceClient();
+        const { data: images, error } = await supabase
+            .from('gallery')
+            .select('*')
+            .eq('is_visible', true)
+            .order('sort_order', { ascending: true });
 
-const testimonialImages = [
-    "/testimonials/black-roof-wraps.jpg",
-    "/testimonials/custom-canvas.jpg",
-    "/testimonials/custom-wallpaper.jpg",
-    "/testimonials/laminex-headlight-film.jpg",
-];
+        if (error) {
+            console.error('Error fetching gallery:', error);
+            return fallbackImages;
+        }
 
-const galleryItems = [
-    ...adImages.map((src) => ({ src, category: "Ads" as const })),
-    ...portfolioImages.map((src) => ({ src, category: "Portfolio" as const })),
-    ...clientImages.map((src) => ({ src, category: "Portfolio" as const })),
-    ...testimonialImages.map((src) => ({ src, category: "Testimonials" as const })),
-];
+        if (!images || images.length === 0) {
+            return fallbackImages;
+        }
 
-export default function GalleryPage() {
+        // Map database images to gallery items
+        return images.map((img) => ({
+            src: img.image_url,
+            category: mapCategory(img.category),
+            title: img.title,
+            alt: img.alt_text || img.title || 'Gallery image',
+        }));
+    } catch (error) {
+        console.error('Error loading gallery:', error);
+        return fallbackImages;
+    }
+}
+
+export default async function GalleryPage() {
+    const galleryItems = await getGalleryImages();
+
     return (
         <main className="min-h-screen bg-gray-50">
             {/* Hero Header */}

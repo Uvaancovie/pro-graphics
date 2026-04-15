@@ -6,11 +6,34 @@ import { createSupabaseBrowserClient } from '@/lib/supabase/client'
 
 const NAV = [
   { href: '/admin',          label: 'Dashboard',         icon: '📊' },
+  { href: '/admin/orders',   label: 'Orders',            icon: '📋' },
+  { href: '/admin/invoices', label: 'Invoices',          icon: '📄' },
   { href: '/admin/products', label: 'Products & Services',icon: '📦' },
   { href: '/admin/pricing',  label: 'Pricing Packages',  icon: '💰' },
+  { href: '/admin/pricing/markups', label: 'Pricing Markups', icon: '📈' },
+  { href: '/admin/calculator', label: 'Cost Calculator', icon: '🧮' },
   { href: '/admin/gallery',  label: 'Gallery',            icon: '🖼️' },
   { href: '/',               label: 'View Website ↗',    icon: '🌐', external: true },
 ]
+
+// Map emails to display names - update with actual admin emails
+const USER_NAMES: Record<string, string> = {
+  'kemron@prographics.co.za': 'Kemron',
+  'keanu@prographics.co.za': 'Keanu',
+  'uvaan@prographics.co.za': 'Uvaan',
+}
+
+function getUserName(email: string): string {
+  const normalizedEmail = email.toLowerCase()
+  // Check if it's one of the known admin emails
+  for (const [adminEmail, name] of Object.entries(USER_NAMES)) {
+    if (normalizedEmail.includes(adminEmail.split('@')[0])) {
+      return name
+    }
+  }
+  // Return email prefix as fallback
+  return email.split('@')[0]
+}
 
 export default function AdminSidebar({ userEmail }: { userEmail: string }) {
   const pathname = usePathname()
@@ -62,16 +85,19 @@ export default function AdminSidebar({ userEmail }: { userEmail: string }) {
 
       {/* User & logout */}
       <div className="p-4 border-t border-[#1C2B3A]">
-        <div className="flex items-center gap-3 px-4 py-3 mb-2">
-          <div className="w-8 h-8 rounded-full bg-[#FF6B35] flex items-center justify-center flex-shrink-0">
-            <span className="text-white text-xs font-bold">
-              {userEmail.charAt(0).toUpperCase()}
-            </span>
+        <div className="bg-[#1C2B3A] rounded-xl p-4 mb-3">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#FF6B35] to-[#FF8F35] flex items-center justify-center flex-shrink-0">
+              <span className="text-white text-sm font-bold">
+                {userEmail.charAt(0).toUpperCase()}
+              </span>
+            </div>
+            <div className="min-w-0">
+              <p className="text-white text-sm font-medium truncate">{getUserName(userEmail)}</p>
+              <p className="text-[#4A5A6A] text-xs">Director</p>
+            </div>
           </div>
-          <div className="min-w-0">
-            <p className="text-white text-xs font-medium truncate">{userEmail}</p>
-            <p className="text-[#4A5A6A] text-xs">Director</p>
-          </div>
+          <p className="text-[#4A5A6A] text-xs mt-2 truncate">{userEmail}</p>
         </div>
         <button
           onClick={handleLogout}

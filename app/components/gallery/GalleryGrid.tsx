@@ -9,6 +9,8 @@ type GalleryCategory = "Ads" | "Portfolio" | "Testimonials";
 interface GalleryItem {
     src: string;
     category: GalleryCategory;
+    title?: string;
+    alt?: string;
 }
 
 interface GalleryGridProps {
@@ -67,11 +69,17 @@ export function GalleryGrid({ items }: GalleryGridProps) {
                     >
                         <Image
                             src={item.src}
-                            alt={`Pro Graphics Project ${index + 1}`}
+                            alt={item.alt || item.title || `Pro Graphics Project ${index + 1}`}
                             fill
                             className="object-cover transition-transform duration-500 group-hover:scale-110"
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
+                        {/* Title overlay for images with titles */}
+                        {item.title && (
+                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 pt-8">
+                                <p className="text-white font-semibold text-sm truncate">{item.title}</p>
+                            </div>
+                        )}
                         <div className="absolute inset-0 bg-blue-950/0 group-hover:bg-blue-950/40 transition-colors duration-300 flex items-center justify-center">
                             <div className="opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
                                 <span className="bg-amber-400 text-blue-950 font-bold px-4 py-2 rounded-full text-sm uppercase tracking-wide shadow-lg">

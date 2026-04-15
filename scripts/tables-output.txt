@@ -1,0 +1,29 @@
+﻿Γùç injected env (11) from .env.local // tip: Γîÿ override existing { override: true }
+≡ƒôï Tables exposed by PostgREST:
+  Γ£à AuditLogs
+  Γ£à Orders
+  Γ£à ProductAuditLogs
+  Γ£à Products
+  Γ£à Users
+  Γ£à Wishlists
+  Γ£à __EFMigrationsHistory
+  Γ£à blogs
+  Γ£à canvas_products
+  Γ£à general_submission
+  Γ£à price_items
+  Γ£à pro_graphic_leads_magnet
+
+≡ƒôï Direct table access check:
+  Γ¥î products                  ΓÇö 404: {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.Pr
+  Γ¥î pricing_packages          ΓÇö 404: {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.pr
+  Γ¥î gallery                   ΓÇö 404: {"code":"PGRST205","details":null,"hint":null,"message":"Could not find the tabl
+  Γ£à blogs                     ΓÇö */1
+  Γ£à canvas_products           ΓÇö */3
+  Γ¥î canvas_options            ΓÇö 404: {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.ca
+  Γ¥î customers                 ΓÇö 404: {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.Us
+  Γ¥î orders                    ΓÇö 404: {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.Or
+  Γ¥î order_items               ΓÇö 404: {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.pr
+  Γ¥î invoices                  ΓÇö 404: {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.pr
+  Γ¥î pricing_markups           ΓÇö 404: {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.pr
+  Γ¥î admin_activity_log        ΓÇö 404: {"code":"PGRST205","details":null,"hint":null,"message":"Could not find the tabl
+  Γ¥î admin_profiles            ΓÇö 404: {"code":"PGRST205","details":null,"hint":"Perhaps you meant the table 'public.ca

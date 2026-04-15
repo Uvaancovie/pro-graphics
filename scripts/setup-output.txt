@@ -1,0 +1,43 @@
+﻿Γùç injected env (11) from .env.local // tip: Γîÿ enable debugging { debug: true }
+≡ƒÜÇ Pro Graphics Admin + CMS Setup
+
+Step 1: Seeding pricing markups...
+  Γ¥î Markup insert error: Could not find the table 'public.pricing_markups' in the schema cache
+
+Step 2: Checking products...
+  Inserting seed products...
+  Γ¥î Product insert error: Could not find the table 'public.products' in the schema cache
+
+Step 3: Setting up admin profiles...
+  Found 3 auth users:
+  ΓåÆ uvaanmicrosoft@gmail.com ΓåÆ "Uvaan" (0a772d81-b44b-435a-9dc0-52b8f6cf2997)
+    Γ¥î Profile insert error: Could not find the table 'public.admin_profiles' in the schema cache
+  ΓåÆ i.t.safuneralsupplies@gmail.com ΓåÆ "Kemron" (6e06a924-b76b-4fbd-abba-339706ff9848)
+    Γ¥î Profile insert error: Could not find the table 'public.admin_profiles' in the schema cache
+  ΓåÆ way2flyagency@gmail.com ΓåÆ "Keanu" (16a78d9c-a734-4327-bdbf-05860cacc185)
+    Γ¥î Profile insert error: Could not find the table 'public.admin_profiles' in the schema cache
+
+Step 4: Setting up storage buckets...
+  Γ£à Created gallery-images bucket (public, 5MB limit)
+  Γ£à Created product-images bucket (public, 5MB limit)
+
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+≡ƒôè Final Database State:
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+  Γ¼£ Products                  0 rows
+  Γ¼£ Pricing Packages          0 rows
+  Γ¼£ Gallery Images            0 rows
+  Γ£à Blog Posts                1 rows
+  Γ¼£ Customers                 0 rows
+  Γ¼£ Orders                    0 rows
+  Γ¼£ Invoices                  0 rows
+  Γ¼£ Pricing Markups           0 rows
+  Γ¼£ Admin Profiles            0 rows
+  Γ¼£ Activity Log              0 rows
+
+  ≡ƒôª Storage Buckets: price-beat, gallery-images, product-images
+  ≡ƒæñ Admin Users: uvaanmicrosoft@gmail.com, i.t.safuneralsupplies@gmail.com, way2flyagency@gmail.com
+
+Γ£à Setup complete! You can now log in at /admin/login
+   Use one of the admin emails above with its password.
+

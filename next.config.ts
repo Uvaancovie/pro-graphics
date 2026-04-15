@@ -3,12 +3,15 @@ import type { NextConfig } from "next";
 
 const cspHeader = `
   default-src 'self';
-  script-src 'self' 'unsafe-inline' ${process.env.NODE_ENV === "development" ? "'unsafe-eval'" : ""};
-  style-src 'self' 'unsafe-inline';
+  script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com https://www.tiktok.com https://*.ttwstatic.com ${process.env.NODE_ENV === "development" ? "'unsafe-eval'" : ""};
+  script-src-elem 'self' 'unsafe-inline' https://va.vercel-scripts.com https://www.tiktok.com https://*.ttwstatic.com ${process.env.NODE_ENV === "development" ? "'unsafe-eval'" : ""};
+  style-src 'self' 'unsafe-inline' https://*.ttwstatic.com;
   img-src 'self' data: blob: https:;
   font-src 'self' data:;
-  connect-src 'self' https:;
+  connect-src 'self' https: https://vitals.vercel-insights.com https://va.vercel-scripts.com https://*.tiktok.com https://*.ttwstatic.com;
+  worker-src 'self' blob:;
   frame-ancestors 'self';
+  frame-src 'self' https://www.tiktok.com;
   object-src 'none';
   base-uri 'self';
   form-action 'self';
@@ -40,6 +43,12 @@ const nextConfig: NextConfig = {
         hostname: 'api.dicebear.com',
         port: '',
         pathname: '/7.x/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'whaffqypaptwczpjxjlw.supabase.co',
+        port: '',
+        pathname: '/storage/v1/object/public/**',
       },
     ],
   },

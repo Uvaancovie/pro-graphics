@@ -4,12 +4,16 @@ import { Button } from "@/app/components/ui/Button";
 import { HeroCarousel } from "@/app/components/ui/HeroCarousel";
 import { SocialProof } from "@/app/components/ui/SocialProof";
 import { ROICalculatorPromo } from "@/app/components/ui/ROICalculatorPromo";
+import { ProcessTikToks } from "@/app/components/ui/ProcessTikToks";
 
 export default function HomePage() {
   return (
     <main className="min-h-screen">
       {/* Hero Section with Carousel */}
       <HeroCarousel />
+
+      {/* TikTok Process Section */}
+      <ProcessTikToks />
 
       {/* Trust Indicators */}
       <section className="py-12 bg-blue-900 text-white border-b border-blue-800 relative z-20">

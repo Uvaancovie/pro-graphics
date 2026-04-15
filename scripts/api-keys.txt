@@ -1,0 +1,9 @@
+﻿
+  
+   NAME         | KEY VALUE                                                                                                                                                                                                                   
+  --------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   anon         | eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndoYWZmcXlwYXB0d2N6cGp4amx3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5NDQ2OTgsImV4cCI6MjA5MDUyMDY5OH0.WcH-rgdW3YwR2LL1HErxWbgu3EEsNxdrXO-Td3TUPHU            
+   service_role | eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndoYWZmcXlwYXB0d2N6cGp4amx3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDk0NDY5OCwiZXhwIjoyMDkwNTIwNjk4fQ.kOqgV51Y-Tc6H1IGsNaRRBfF80K5cRxuqWG1YvYGSJc 
+   default      | sb_publishable_lY_zXXKpIks1-i72oi9pow_wSIKPHkC                                                                                                                                                                              
+   default      | sb_secret_Kj2Up┬╖┬╖┬╖┬╖┬╖┬╖┬╖┬╖┬╖┬╖┬╖┬╖┬╖┬╖┬╖┬╖┬╖┬╖┬╖┬╖┬╖┬╖┬╖┬╖┬╖┬╖                                                                                                                                                                                   
+

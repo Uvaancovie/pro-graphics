@@ -3,10 +3,10 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
-  --primary-blue: #003366; /* Deep Navy Blue */
-  --accent-gold: #FFD700; /* Rich Gold */
-  --accent-gold-dark: #DAA520; /* Darker Gold for hover/text */
+  --foreground: #334155; /* Soft Slate for text */
+  --primary-blue: #4f738e; /* Muted Slate Blue */
+  --accent-gold: #e8cda5; /* Soft Sand/Gold */
+  --accent-gold-dark: #d4a977; /* Muted warm gold for hover */
 }
 
 @media (prefers-color-scheme: dark) {

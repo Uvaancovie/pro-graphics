@@ -9,7 +9,7 @@ export const metadata = {
 
 export default async function ProductsPage() {
   const { data: products, error } = await supabase
-    .from("canvas_products")
+    .from("products")
     .select("*")
     .order("created_at", { ascending: false });
 
@@ -34,33 +34,34 @@ export default async function ProductsPage() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {products.map((product) => (
-              <div
+              <Link
+                href={`/products/${product.id}`}
                 key={product.id}
-                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group"
+                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group block cursor-pointer"
               >
                 <div className="relative h-64 w-full bg-gray-100">
                   {/* Using unoptimized for local seed demo, usually not needed */}
                   <Image
-                    src={product.image_url}
-                    alt={product.title}
+                    src={product.image_url || "/images/ads/vehicle-branding.jpeg"}
+                    alt={product.name || "Product"}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-blue-950 mb-2">
-                    {product.title}
+                    {product.name}
                   </h3>
                   <p className="text-gray-600 mb-4 h-12 overflow-hidden">
-                    {product.description}
+                    {product.description || product.short_desc}
                   </p>
                   <div className="flex justify-end items-center">
-                    <Link href={`/products/${product.id}`} className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors cursor-pointer inline-block text-center">
-                      Request Quote
-                    </Link>
+                    <span className="w-full bg-blue-600 group-hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors inline-block text-center mt-2">
+                      View Details & Pricing
+                    </span>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}

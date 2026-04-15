@@ -1,5 +1,4 @@
 // app/admin/layout.tsx
-import { redirect } from 'next/navigation'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 import AdminSidebar from '@/components/admin/AdminSidebar'
 
@@ -13,7 +12,9 @@ export default async function AdminLayout({
   const supabase = await createSupabaseServerClient()
   const { data: { session } } = await supabase.auth.getSession()
 
-  if (!session) redirect('/admin/login')
+  if (!session) {
+    return <>{children}</>
+  }
 
   return (
     <div className="min-h-screen bg-[#F7F8FA] flex">

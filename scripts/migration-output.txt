@@ -1,0 +1,46 @@
+﻿Γùç injected env (11) from .env.local // tip: Γîü auth for agents [www.vestauth.com]
+≡ƒÜÇ Pro Graphics ΓÇö Database Migration via Management API
+
+Project: hcestxaffzsqlkiedvfx
+ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ
+
+≡ƒôä Executing: schema.sql ΓÇö Products, Pricing Packages, Gallery
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+node : TypeError: fetch 
+failed
+At line:1 char:1
++ node scripts/apply-migra
+tions.js 2>&1 | Out-File 
+-FilePath scripts/mi ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~
+    + CategoryInfo        
+      : NotSpecified: (T  
+  ypeError: fetch faile   
+ d:String) [], RemoteE    
+xception
+    + FullyQualifiedError 
+   Id : NativeCommandErr  
+  or
+ 
+    at node:internal/deps/
+undici/undici:16416:13
+    at async executeSql (C
+:\Users\UvaanG\Desktop\pro
+-graphics\scripts\apply-mi
+grations.js:13:15)
+    at async main (C:\User
+s\UvaanG\Desktop\pro-graph
+ics\scripts\apply-migratio
+ns.js:68:3) {
+  [cause]: Error: read 
+ECONNRESET
+      at 
+TLSWrap.onStreamRead (node
+:internal/stream_base_comm
+ons:216:20) {
+    errno: -4077,
+    code: 'ECONNRESET',
+    syscall: 'read'
+  }
+}

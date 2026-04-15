@@ -117,7 +117,6 @@ export default async function ProductsPage() {
               </Link>
               <form action={deleteProduct.bind(null, product.id)}>
                 <button type="submit"
-                  onClick={e => !confirm(`Delete "${product.name}"?`) && e.preventDefault()}
                   className="text-red-500 text-xs font-bold hover:underline px-3 py-1.5
                              bg-red-50 rounded-lg">
                   Delete
