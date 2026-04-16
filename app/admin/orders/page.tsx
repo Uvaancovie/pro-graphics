@@ -18,6 +18,14 @@ const PRIORITY_ICONS: Record<string, string> = {
   urgent: '🔴',
 }
 
+type CustomerSummary = {
+  name: string
+  email: string
+  company: string
+  orders: number
+  total: number
+}
+
 async function updateOrderStatus(orderId: string, newStatus: string) {
   'use server'
   const supabase = await createSupabaseServerClient()
@@ -59,7 +67,7 @@ export default async function OrdersPage({
 
   let query = supabase
     .from('orders')
-    .select('*, customer:customers(name, email, company)')
+    .select('*')
     .order('created_at', { ascending: false })
 
   if (statusFilter !== 'all') {
@@ -70,7 +78,37 @@ export default async function OrdersPage({
     query = query.or(`order_number.ilike.%${searchQuery}%,customer_name.ilike.%${searchQuery}%`)
   }
 
-  const { data: orders, error } = await query
+  const { data: orders } = await query
+
+  const safeOrders: any[] = (orders ?? []) as any[]
+  const totalCustomers = new Set(
+    safeOrders.map((order: any) => (order.customer_email || order.customer_name || '').toLowerCase())
+  ).size
+  const customerMap = safeOrders.reduce((map, order: any) => {
+      const key = (order.customer_email || order.customer_name || '').toLowerCase()
+      if (!key) return map
+
+      const current = map.get(key) || {
+        name: order.customer_name || 'Unknown',
+        email: order.customer_email || '',
+        company: order.customer_company || '',
+        orders: 0,
+        total: 0,
+      }
+
+      current.orders += 1
+      current.total += Number(order.total) || 0
+      map.set(key, current)
+      return map
+    }, new Map<string, CustomerSummary>())
+
+  const customerSummary: CustomerSummary[] = (Array.from(customerMap.values()) as CustomerSummary[])
+    .sort((a, b) => b.total - a.total)
+  const totalAmount = safeOrders.reduce((sum: number, order: any) => {
+    const total = Number(order.total) || 0
+    return sum + total
+  }, 0)
+  const averageAmount = safeOrders.length ? (totalAmount / safeOrders.length) : 0
 
   // Get counts for each status
   const { data: counts } = await supabase
@@ -92,7 +130,7 @@ export default async function OrdersPage({
         <div>
           <h1 className="text-[#0D1B2A] font-black text-3xl mb-1">Orders</h1>
           <p className="text-[#5A6A7A] text-sm">
-            Manage customer orders, track status, and generate invoices
+            Manage customer orders and track status updates
           </p>
         </div>
         <Link
@@ -102,6 +140,30 @@ export default async function OrdersPage({
         >
           <span>➕</span> New Order
         </Link>
+      </div>
+
+      {/* Summary cards */}
+      <div className="grid grid-cols-4 gap-4 mb-6">
+        <div className="bg-white rounded-2xl border border-[#E8EEF4] shadow-sm p-4">
+          <p className="text-[#5A6A7A] text-xs font-bold uppercase">Orders Shown</p>
+          <p className="text-[#0D1B2A] text-2xl font-black mt-1">{safeOrders.length}</p>
+        </div>
+        <div className="bg-white rounded-2xl border border-[#E8EEF4] shadow-sm p-4">
+          <p className="text-[#5A6A7A] text-xs font-bold uppercase">Customers</p>
+          <p className="text-[#0D1B2A] text-2xl font-black mt-1">{totalCustomers}</p>
+        </div>
+        <div className="bg-white rounded-2xl border border-[#E8EEF4] shadow-sm p-4">
+          <p className="text-[#5A6A7A] text-xs font-bold uppercase">Total Amount</p>
+          <p className="text-[#0D1B2A] text-2xl font-black mt-1">
+            R{totalAmount.toLocaleString('en-ZA', { minimumFractionDigits: 2 })}
+          </p>
+        </div>
+        <div className="bg-white rounded-2xl border border-[#E8EEF4] shadow-sm p-4">
+          <p className="text-[#5A6A7A] text-xs font-bold uppercase">Avg / Order</p>
+          <p className="text-[#0D1B2A] text-2xl font-black mt-1">
+            R{averageAmount.toLocaleString('en-ZA', { minimumFractionDigits: 2 })}
+          </p>
+        </div>
       </div>
 
       {/* Status filters */}
@@ -142,7 +204,7 @@ export default async function OrdersPage({
           ))}
         </div>
 
-        {orders?.map((order: any) => (
+        {safeOrders.map((order: any) => (
           <div
             key={order.id}
             className="grid grid-cols-12 gap-4 px-6 py-4 border-b border-[#E8EEF4]
@@ -173,11 +235,9 @@ export default async function OrdersPage({
             {/* Total */}
             <div className="col-span-2">
               <p className="font-bold text-[#0D1B2A] text-sm">
-                R{order.total?.toLocaleString('en-ZA', { minimumFractionDigits: 2 })}
+                R{(Number(order.total) || 0).toLocaleString('en-ZA', { minimumFractionDigits: 2 })}
               </p>
-              <p className="text-[#5A6A7A] text-xs">
-                {order.subtotal !== order.total ? `Incl. VAT (${order.tax_rate}%)` : 'No VAT'}
-              </p>
+              <p className="text-[#5A6A7A] text-xs">VAT already included</p>
             </div>
 
             {/* Status */}
@@ -225,7 +285,7 @@ export default async function OrdersPage({
           </div>
         ))}
 
-        {(!orders || orders.length === 0) && (
+        {(safeOrders.length === 0) && (
           <div className="text-center py-16 text-[#5A6A7A]">
             <p className="text-4xl mb-3">📋</p>
             <p className="font-bold">No orders found</p>
@@ -236,6 +296,35 @@ export default async function OrdersPage({
             </p>
           </div>
         )}
+      </div>
+
+      {/* Customers summary */}
+      <div className="mt-6 bg-white rounded-2xl border border-[#E8EEF4] shadow-sm overflow-hidden">
+        <div className="px-6 py-4 border-b border-[#E8EEF4] bg-[#F7F8FA]">
+          <h2 className="text-[#0D1B2A] font-bold">Customers</h2>
+        </div>
+        <div className="divide-y divide-[#E8EEF4]">
+          {customerSummary.map((customer) => (
+            <div key={`${customer.email}-${customer.name}`} className="px-6 py-4 flex items-center justify-between">
+              <div>
+                <p className="font-medium text-[#0D1B2A] text-sm">{customer.name}</p>
+                {customer.company && <p className="text-[#5A6A7A] text-xs">{customer.company}</p>}
+                {customer.email && <p className="text-[#5A6A7A] text-xs">{customer.email}</p>}
+              </div>
+              <div className="text-right">
+                <p className="text-[#0D1B2A] text-sm font-bold">{customer.orders} order{customer.orders === 1 ? '' : 's'}</p>
+                <p className="text-[#5A6A7A] text-xs">
+                  R{customer.total.toLocaleString('en-ZA', { minimumFractionDigits: 2 })}
+                </p>
+              </div>
+            </div>
+          ))}
+          {customerSummary.length === 0 && (
+            <div className="px-6 py-8 text-center text-[#5A6A7A] text-sm">
+              No customers to show.
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )

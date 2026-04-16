@@ -153,7 +153,7 @@ INSERT INTO pricing_packages (product_id, tier, label, price_from, price_to, uni
 ),
 (
   (SELECT id FROM products WHERE slug='vehicle-branding'),
-  'best','Full Wrap', 9000, 15000, 'per vehicle',
+  'best','Full Wrap', 10000, 15000, 'per vehicle',
   ARRAY['100% vehicle coverage','Unlimited revisions','3M Premium vinyl','5-year guarantee','Free design','Free removal'],
   false
 );

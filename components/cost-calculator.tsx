@@ -42,7 +42,9 @@ export function CostCalculator({ type, productTitle }: CostCalculatorProps) {
   // New products state
   const [vehicleType, setVehicleType] = useState("partial");
   const [signSize, setSignSize] = useState(1); // square meters
-  const [stickerQty, setStickerQty] = useState(100);
+  const [stickerQty, setStickerQty] = useState(1);
+  const [stickerWidth, setStickerWidth] = useState(10); // mm (default 10mm = 1cm)
+  const [stickerHeight, setStickerHeight] = useState(10); // mm (default 10mm = 1cm)
 
   // Calculations
   const calculations = useMemo(() => {
@@ -100,7 +102,7 @@ export function CostCalculator({ type, productTitle }: CostCalculatorProps) {
       }
       
       case "vehicle-branding": {
-        const price = vehicleType === "partial" ? 3500 : (vehicleType === "half" ? 6500 : 12000);
+        const price = vehicleType === "partial" ? 2500 : (vehicleType === "half" ? 5000 : 10000);
         const { calcTotal, calcVat, calcSubtotal } = calculateVATInclusive(price);
         total = calcTotal; vat = calcVat; subtotal = calcSubtotal;
         breakdown = [
@@ -111,7 +113,7 @@ export function CostCalculator({ type, productTitle }: CostCalculatorProps) {
       }
 
       case "sign-boards": {
-        const pricePerSqm = 1200;
+        const pricePerSqm = 800;
         const { calcTotal, calcVat, calcSubtotal } = calculateVATInclusive(signSize * pricePerSqm);
         total = calcTotal; vat = calcVat; subtotal = calcSubtotal;
         breakdown = [
@@ -122,20 +124,27 @@ export function CostCalculator({ type, productTitle }: CostCalculatorProps) {
       }
 
       case "stickers": {
-        const pricePer100 = 250;
-        const sets = Math.ceil(stickerQty / 100);
-        const { calcTotal, calcVat, calcSubtotal } = calculateVATInclusive(sets * pricePer100);
+        const pricePerCm2 = 0.25; // R0.25 per cm²
+        const areaMm2 = stickerWidth * stickerHeight; // mm²
+        const areaCm2 = areaMm2 / 100; // convert to cm²
+        const basePrice = areaCm2 * pricePerCm2; // price per sticker
+        const { calcTotal, calcVat, calcSubtotal } = calculateVATInclusive(basePrice * stickerQty);
         total = calcTotal; vat = calcVat; subtotal = calcSubtotal;
         breakdown = [
-          { label: "Quantity", value: sets * 100 },
-          { label: "Price per 100", value: `R${pricePer100}` }
+          { label: "Dimensions", value: `${stickerWidth}mm x ${stickerHeight}mm` },
+          { label: "Area per sticker", value: `${areaCm2.toFixed(2)}cm²` },
+          { label: "Quantity", value: stickerQty },
+          { label: "Price per sticker", value: `R${basePrice.toFixed(2)}` }
         ];
+        if (stickerWidth === 0 || stickerHeight === 0) {
+          breakdown.push({ label: "Note", value: "Please enter dimensions" });
+        }
         break;
       }
     }
 
     return { subtotal, vat, total, breakdown };
-  }, [type, canvasSize, canvasQty, frameLength, frameQty, labelSize, labelQty, vehicleType, signSize, stickerQty]);
+  }, [type, canvasSize, canvasQty, frameLength, frameQty, labelSize, labelQty, vehicleType, signSize, stickerQty, stickerWidth, stickerHeight]);
 
   const formatCurrency = (amount: number) =>
     `R${amount.toLocaleString("en-ZA", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -328,9 +337,9 @@ export function CostCalculator({ type, productTitle }: CostCalculatorProps) {
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               {[
-                { id: "partial", name: "Partial Wrap", price: 3500 },
-                { id: "half", name: "Half Wrap", price: 6500 },
-                { id: "full", name: "Full Wrap", price: 12000 }
+                { id: "partial", name: "Partial Wrap", price: 2500 },
+                { id: "half", name: "Half Wrap", price: 5000 },
+                { id: "full", name: "Full Wrap", price: 10000 }
               ].map((wrap) => (
                 <button
                   key={wrap.id}
@@ -384,23 +393,61 @@ export function CostCalculator({ type, productTitle }: CostCalculatorProps) {
       {/* Stickers Calculator */}
       {type === "stickers" && (
         <div className="space-y-5">
+          {/* Dimensions */}
+          <div className="bg-white rounded-xl p-4 border border-gray-200">
+            <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-3">
+              <Package className="w-4 h-4" />
+              Sticker Dimensions (mm)
+            </label>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-xs text-gray-500 mb-1 block">Width (mm)</label>
+                <input
+                  type="number"
+                  min="0"
+                  max="1000"
+                  value={stickerWidth}
+                  onChange={(e) => setStickerWidth(Math.max(0, Math.min(1000, Number(e.target.value))))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <label className="text-xs text-gray-500 mb-1 block">Height (mm)</label>
+                <input
+                  type="number"
+                  min="0"
+                  max="1000"
+                  value={stickerHeight}
+                  onChange={(e) => setStickerHeight(Math.max(0, Math.min(1000, Number(e.target.value))))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+            </div>
+            <div className="mt-3 p-2 bg-blue-50 rounded-lg text-center">
+              <span className="text-sm text-blue-800">
+                Area: <strong>{stickerWidth === 0 || stickerHeight === 0 ? '0.00' : (stickerWidth * stickerHeight / 100).toFixed(2)}cm²</strong> ({stickerWidth * stickerHeight}mm²) per sticker
+              </span>
+            </div>
+          </div>
+
+          {/* Quantity */}
           <div>
             <label className="text-sm font-semibold text-gray-700 mb-2 block">
-              Quantity: {Math.ceil(stickerQty / 100) * 100} units
+              Quantity: {stickerQty} stickers
             </label>
             <input
               type="range"
-              min="100"
-              max="5000"
-              step="100"
+              min="1"
+              max="1000"
+              step="1"
               value={stickerQty}
               onChange={(e) => setStickerQty(Number(e.target.value))}
               className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
             />
             <div className="flex justify-between text-xs text-gray-500 mt-1">
-              <span>100</span>
-              <span>2500</span>
-              <span>5000</span>
+              <span>1</span>
+              <span>500</span>
+              <span>1000</span>
             </div>
           </div>
         </div>

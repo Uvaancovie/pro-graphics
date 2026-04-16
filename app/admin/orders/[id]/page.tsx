@@ -1,6 +1,6 @@
 // app/admin/orders/[id]/page.tsx
 import { createSupabaseServerClient } from '@/lib/supabase/server'
-import { notFound, redirect } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { revalidatePath } from 'next/cache'
 
@@ -16,6 +16,35 @@ interface Props {
   params: Promise<{ id: string }>
 }
 
+function extractInvoiceImageUrl(notes: string | null | undefined): string {
+  if (!notes) return ''
+  const line = notes
+    .split('\n')
+    .map((entry) => entry.trim())
+    .find((entry) => entry.startsWith('INVOICE_IMAGE_URL:'))
+
+  return line ? line.replace('INVOICE_IMAGE_URL:', '').trim() : ''
+}
+
+function extractPlainNotes(notes: string | null | undefined): string {
+  if (!notes) return ''
+  return notes
+    .split('\n')
+    .filter((entry) => !entry.trim().startsWith('INVOICE_IMAGE_URL:'))
+    .join('\n')
+    .trim()
+}
+
+function composeOrderNotes(plainNotes: string, invoiceImageUrl: string): string | null {
+  const lines = [plainNotes.trim()]
+  if (invoiceImageUrl.trim()) {
+    lines.push(`INVOICE_IMAGE_URL:${invoiceImageUrl.trim()}`)
+  }
+
+  const result = lines.filter(Boolean).join('\n')
+  return result || null
+}
+
 export default async function OrderDetailPage({ params }: Props) {
   const { id } = await params
   const supabase = await createSupabaseServerClient()
@@ -28,46 +57,8 @@ export default async function OrderDetailPage({ params }: Props) {
 
   if (!order) return notFound()
 
-  const { data: invoices } = await supabase
-    .from('invoices')
-    .select('*')
-    .eq('order_id', id)
-    .order('created_at', { ascending: false })
-
-  async function generateInvoice() {
-    'use server'
-    const supabase = await createSupabaseServerClient()
-
-    // Create invoice from order
-    const dueDate = new Date()
-    dueDate.setDate(dueDate.getDate() + 30)
-
-    const { data: invoice } = await supabase
-      .from('invoices')
-      .insert({
-        order_id: id,
-        customer_id: order.customer_id,
-        status: 'draft',
-        subtotal: order.subtotal,
-        tax_rate: order.tax_rate,
-        tax_amount: order.tax_amount,
-        total: order.total,
-        due_date: dueDate.toISOString().split('T')[0],
-      })
-      .select()
-      .single()
-
-    if (invoice) {
-      await supabase.from('admin_activity_log').insert({
-        action: 'invoice_created',
-        entity_type: 'invoice',
-        entity_id: invoice.id,
-        details: { order_id: id, invoice_number: invoice.invoice_number },
-      })
-    }
-
-    revalidatePath(`/admin/orders/${id}`)
-  }
+  const invoiceImageUrl = extractInvoiceImageUrl(order.notes)
+  const plainNotes = extractPlainNotes(order.notes)
 
   async function updateStatus(newStatus: string) {
     'use server'
@@ -77,6 +68,77 @@ export default async function OrderDetailPage({ params }: Props) {
       updates.completed_at = new Date().toISOString()
     }
     await supabase.from('orders').update(updates).eq('id', id)
+    revalidatePath(`/admin/orders/${id}`)
+    revalidatePath('/admin/orders')
+  }
+
+  async function updateOrderDetails(formData: FormData) {
+    'use server'
+    const supabase = await createSupabaseServerClient()
+
+    const invoiceUrl = String(formData.get('invoice_image_url') || '').trim()
+    const notes = String(formData.get('notes') || '')
+    const amountValue = Number(formData.get('total_amount') || 0)
+    const totalAmount = Number.isFinite(amountValue) ? Math.max(amountValue, 0) : 0
+
+    await supabase
+      .from('orders')
+      .update({
+        customer_name: String(formData.get('customer_name') || ''),
+        customer_email: String(formData.get('customer_email') || ''),
+        customer_company: String(formData.get('customer_company') || '') || null,
+        customer_phone: String(formData.get('customer_phone') || '') || null,
+        delivery_method: String(formData.get('delivery_method') || 'pickup'),
+        delivery_date: String(formData.get('delivery_date') || '') || null,
+        delivery_notes: String(formData.get('delivery_notes') || '') || null,
+        priority: String(formData.get('priority') || 'normal'),
+        subtotal: totalAmount,
+        tax_rate: 0,
+        tax_amount: 0,
+        total: totalAmount,
+        notes: composeOrderNotes(notes, invoiceUrl),
+      })
+      .eq('id', id)
+
+    revalidatePath(`/admin/orders/${id}`)
+    revalidatePath('/admin/orders')
+  }
+
+  async function uploadInvoiceImage(formData: FormData) {
+    'use server'
+    const supabase = await createSupabaseServerClient()
+    const file = formData.get('invoice_image') as File | null
+
+    if (!file || file.size === 0) {
+      return
+    }
+
+    const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg'
+    const filePath = `order-invoices/${id}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
+    const fileBuffer = Buffer.from(await file.arrayBuffer())
+
+    const { error: uploadError } = await supabase.storage
+      .from('gallery-images')
+      .upload(filePath, fileBuffer, {
+        contentType: file.type || 'image/jpeg',
+        upsert: true,
+      })
+
+    if (uploadError) {
+      return
+    }
+
+    const {
+      data: { publicUrl },
+    } = supabase.storage.from('gallery-images').getPublicUrl(filePath)
+
+    await supabase
+      .from('orders')
+      .update({
+        notes: composeOrderNotes(plainNotes, publicUrl),
+      })
+      .eq('id', id)
+
     revalidatePath(`/admin/orders/${id}`)
     revalidatePath('/admin/orders')
   }
@@ -100,15 +162,13 @@ export default async function OrderDetailPage({ params }: Props) {
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <form action={generateInvoice}>
-            <button
-              type="submit"
-              className="bg-[#1AB5A0] hover:bg-[#159a88] text-white font-bold
-                         px-5 py-3 rounded-xl transition-colors flex items-center gap-2"
-            >
-              <span>📄</span> Generate Invoice
-            </button>
-          </form>
+          <Link
+            href="/admin/orders"
+            className="bg-[#FF6B35] hover:bg-[#e85c28] text-white font-bold
+                       px-5 py-3 rounded-xl transition-colors"
+          >
+            Back to Orders
+          </Link>
         </div>
       </div>
 
@@ -180,21 +240,15 @@ export default async function OrderDetailPage({ params }: Props) {
             <div className="px-6 py-4 bg-[#F7F8FA] border-t border-[#E8EEF4]">
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span className="text-[#5A6A7A]">Subtotal</span>
+                  <span className="text-[#5A6A7A]">Amount (VAT included)</span>
                   <span className="font-medium text-[#0D1B2A]">
-                    R{order.subtotal?.toLocaleString('en-ZA', { minimumFractionDigits: 2 })}
-                  </span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-[#5A6A7A]">VAT ({order.tax_rate}%)</span>
-                  <span className="font-medium text-[#0D1B2A]">
-                    R{order.tax_amount?.toLocaleString('en-ZA', { minimumFractionDigits: 2 })}
+                    R{(Number(order.total) || 0).toLocaleString('en-ZA', { minimumFractionDigits: 2 })}
                   </span>
                 </div>
                 <div className="flex justify-between pt-2 border-t border-[#E8EEF4]">
                   <span className="font-bold text-[#0D1B2A]">Total</span>
                   <span className="font-bold text-[#FF6B35] text-lg">
-                    R{order.total?.toLocaleString('en-ZA', { minimumFractionDigits: 2 })}
+                    R{(Number(order.total) || 0).toLocaleString('en-ZA', { minimumFractionDigits: 2 })}
                   </span>
                 </div>
               </div>
@@ -227,7 +281,7 @@ export default async function OrderDetailPage({ params }: Props) {
           </div>
         </div>
 
-        {/* Right column - Customer & Invoices */}
+        {/* Right column - Customer & Edit */}
         <div className="space-y-6">
           {/* Customer card */}
           <div className="bg-white rounded-2xl p-6 border border-[#E8EEF4] shadow-sm">
@@ -264,48 +318,163 @@ export default async function OrderDetailPage({ params }: Props) {
             </div>
           </div>
 
-          {/* Invoices */}
+          {/* Edit order */}
           <div className="bg-white rounded-2xl border border-[#E8EEF4] shadow-sm overflow-hidden">
             <div className="px-6 py-4 border-b border-[#E8EEF4]">
-              <h2 className="font-bold text-[#0D1B2A]">Invoices</h2>
+              <h2 className="font-bold text-[#0D1B2A]">Edit Order</h2>
             </div>
-            <div className="divide-y divide-[#E8EEF4]">
-              {invoices?.map((invoice: any) => (
-                <div key={invoice.id} className="px-6 py-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-bold text-[#0D1B2A] text-sm">{invoice.invoice_number}</p>
-                      <p className="text-[#5A6A7A] text-xs">
-                        {new Date(invoice.issue_date).toLocaleDateString('en-ZA')} • {invoice.status}
-                      </p>
-                    </div>
-                    <span className="font-bold text-[#0D1B2A] text-sm">
-                      R{invoice.total?.toLocaleString('en-ZA', { minimumFractionDigits: 2 })}
-                    </span>
-                  </div>
-                  <div className="flex gap-2 mt-2">
-                    <Link
-                      href={`/admin/invoices/${invoice.id}`}
-                      className="text-[#FF6B35] text-xs font-bold hover:underline"
+            <div className="px-6 py-4 space-y-4">
+              <form action={updateOrderDetails} className="space-y-3">
+                <input type="hidden" name="invoice_image_url" value={invoiceImageUrl} />
+
+                <div>
+                  <label className="block text-[#5A6A7A] text-xs mb-1">Customer Name</label>
+                  <input
+                    name="customer_name"
+                    defaultValue={order.customer_name}
+                    className="w-full border border-[#E8EEF4] rounded-lg px-3 py-2 text-sm"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[#5A6A7A] text-xs mb-1">Customer Email</label>
+                  <input
+                    name="customer_email"
+                    type="email"
+                    defaultValue={order.customer_email}
+                    className="w-full border border-[#E8EEF4] rounded-lg px-3 py-2 text-sm"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[#5A6A7A] text-xs mb-1">Company</label>
+                  <input
+                    name="customer_company"
+                    defaultValue={order.customer_company || ''}
+                    className="w-full border border-[#E8EEF4] rounded-lg px-3 py-2 text-sm"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[#5A6A7A] text-xs mb-1">Phone</label>
+                  <input
+                    name="customer_phone"
+                    defaultValue={order.customer_phone || ''}
+                    className="w-full border border-[#E8EEF4] rounded-lg px-3 py-2 text-sm"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-[#5A6A7A] text-xs mb-1">Priority</label>
+                    <select
+                      name="priority"
+                      defaultValue={order.priority || 'normal'}
+                      className="w-full border border-[#E8EEF4] rounded-lg px-3 py-2 text-sm"
                     >
-                      View →
-                    </Link>
-                    {invoice.pdf_url && (
-                      <a
-                        href={invoice.pdf_url}
-                        className="text-[#1AB5A0] text-xs font-bold hover:underline"
-                      >
-                        Download PDF
-                      </a>
-                    )}
+                      <option value="low">Low</option>
+                      <option value="normal">Normal</option>
+                      <option value="high">High</option>
+                      <option value="urgent">Urgent</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-[#5A6A7A] text-xs mb-1">Delivery Method</label>
+                    <select
+                      name="delivery_method"
+                      defaultValue={order.delivery_method || 'pickup'}
+                      className="w-full border border-[#E8EEF4] rounded-lg px-3 py-2 text-sm"
+                    >
+                      <option value="pickup">Pickup</option>
+                      <option value="delivery">Delivery</option>
+                      <option value="courier">Courier</option>
+                    </select>
                   </div>
                 </div>
-              ))}
-              {(!invoices || invoices.length === 0) && (
-                <div className="px-6 py-4 text-center text-[#5A6A7A] text-sm">
-                  No invoices yet
+
+                <div>
+                  <label className="block text-[#5A6A7A] text-xs mb-1">Delivery Date</label>
+                  <input
+                    name="delivery_date"
+                    type="date"
+                    defaultValue={order.delivery_date || ''}
+                    className="w-full border border-[#E8EEF4] rounded-lg px-3 py-2 text-sm"
+                  />
                 </div>
-              )}
+
+                <div>
+                  <label className="block text-[#5A6A7A] text-xs mb-1">Order Amount (VAT included)</label>
+                  <input
+                    name="total_amount"
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    defaultValue={Number(order.total) || 0}
+                    className="w-full border border-[#E8EEF4] rounded-lg px-3 py-2 text-sm"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[#5A6A7A] text-xs mb-1">Delivery Notes</label>
+                  <textarea
+                    name="delivery_notes"
+                    rows={2}
+                    defaultValue={order.delivery_notes || ''}
+                    className="w-full border border-[#E8EEF4] rounded-lg px-3 py-2 text-sm"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[#5A6A7A] text-xs mb-1">Internal Notes</label>
+                  <textarea
+                    name="notes"
+                    rows={3}
+                    defaultValue={plainNotes}
+                    className="w-full border border-[#E8EEF4] rounded-lg px-3 py-2 text-sm"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full bg-[#0D1B2A] hover:bg-[#13253b] text-white font-bold py-2.5 rounded-lg text-sm"
+                >
+                  Save Order Changes
+                </button>
+              </form>
+
+              <div className="border-t border-[#E8EEF4] pt-4">
+                <p className="text-[#0D1B2A] font-bold text-sm mb-2">Invoice Image</p>
+
+                {invoiceImageUrl ? (
+                  <a href={invoiceImageUrl} target="_blank" rel="noopener noreferrer" className="block mb-3">
+                    <img
+                      src={invoiceImageUrl}
+                      alt="Invoice"
+                      className="w-full h-40 object-cover rounded-lg border border-[#E8EEF4]"
+                    />
+                  </a>
+                ) : (
+                  <p className="text-[#5A6A7A] text-xs mb-3">No invoice image uploaded yet.</p>
+                )}
+
+                <form action={uploadInvoiceImage} className="space-y-2">
+                  <input
+                    name="invoice_image"
+                    type="file"
+                    accept="image/*"
+                    className="w-full border border-[#E8EEF4] rounded-lg px-3 py-2 text-xs"
+                  />
+                  <button
+                    type="submit"
+                    className="w-full bg-[#FF6B35] hover:bg-[#e85c28] text-white font-bold py-2.5 rounded-lg text-sm"
+                  >
+                    Upload Invoice Image
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>

@@ -10,20 +10,14 @@ export default async function AdminDashboard() {
     { count: totalPricing },
     { count: totalGallery },
     { count: visibleGallery },
-    { count: totalOrders },
     { count: pendingOrders },
-    { count: totalInvoices },
-    { count: unpaidInvoices },
   ] = await Promise.all([
     supabase.from('products').select('*', { count: 'exact', head: true }),
     supabase.from('products').select('*', { count: 'exact', head: true }).eq('is_visible', true),
     supabase.from('pricing_packages').select('*', { count: 'exact', head: true }),
     supabase.from('gallery').select('*', { count: 'exact', head: true }),
     supabase.from('gallery').select('*', { count: 'exact', head: true }).eq('is_visible', true),
-    supabase.from('orders').select('*', { count: 'exact', head: true }),
     supabase.from('orders').select('*', { count: 'exact', head: true }).in('status', ['pending', 'processing']),
-    supabase.from('invoices').select('*', { count: 'exact', head: true }),
-    supabase.from('invoices').select('*', { count: 'exact', head: true }).in('status', ['sent', 'overdue']),
   ])
 
   const { data: recentProducts } = await supabase
@@ -36,7 +30,6 @@ export default async function AdminDashboard() {
     { label: 'Total Products',    value: totalProducts ?? 0,    icon: '📦', color: '#FF6B35', bg: '#FFF0E8' },
     { label: 'Live on Website',   value: visibleProducts ?? 0,  icon: '✅', color: '#22C55E', bg: '#EDFBF2' },
     { label: 'Active Orders',     value: pendingOrders ?? 0,    icon: '📋', color: '#3B82F6', bg: '#EFF6FF' },
-    { label: 'Unpaid Invoices',   value: unpaidInvoices ?? 0,   icon: '📄', color: '#EF4444', bg: '#FEF2F2' },
     { label: 'Gallery Images',    value: totalGallery ?? 0,     icon: '🖼️', color: '#7C3AED', bg: '#F5F0FF' },
     { label: 'Published Images',  value: visibleGallery ?? 0,   icon: '👁️', color: '#F5C842', bg: '#FFFBE6' },
   ]
@@ -78,11 +71,10 @@ export default async function AdminDashboard() {
       </div>
 
       {/* Quick actions */}
-      <div className="grid grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-3 gap-4 mb-8">
         {[
           { href: '/admin/orders/new',   label: 'New Order',          icon: '➕', color: '#FF6B35' },
           { href: '/admin/orders',       label: 'View Orders',       icon: '📋', color: '#3B82F6' },
-          { href: '/admin/invoices',     label: 'Manage Invoices',   icon: '📄', color: '#1AB5A0' },
           { href: '/admin/products/new', label: 'Add Product',       icon: '📦', color: '#7C3AED' },
         ].map(({ href, label, icon, color }) => (
           <a key={href} href={href}

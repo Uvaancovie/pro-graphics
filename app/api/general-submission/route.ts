@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { securityMiddleware, corsHeaders } from '@/lib/security';
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@supabase/supabase-js';
 import { sendBrevoSmtpEmail } from '@/lib/brevo-smtp';
 import * as Sentry from '@sentry/nextjs';
 import { getBrevoListId, upsertBrevoContact } from '@/lib/brevo';
@@ -29,6 +29,17 @@ function escapeHtml(value: unknown) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
+}
+
+function getSupabaseClient() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+
+  if (!supabaseUrl || !supabaseKey) {
+    return null;
+  }
+
+  return createClient(supabaseUrl, supabaseKey);
 }
 
 export async function OPTIONS() {
@@ -69,26 +80,31 @@ export async function POST(req: Request) {
 
     const subjectLabel = queryTypeLabels[queryType] || 'General Submission';
     const urgencyLabel = urgencyLabels[urgency] || urgency;
+    const supabase = getSupabaseClient();
 
     // 1. Save to Supabase database
-    const { error: dbError } = await supabase
-      .from('general_submission')
-      .insert([
-        {
-          full_name: fullName,
-          email,
-          company: company || null,
-          query_type: queryType,
-          urgency,
-          summary,
-          has_sensitive_data: hasSensitiveData,
-          consent_given: consentGiven,
-          consent_timestamp: consentTimestamp || new Date().toISOString(),
-        }
-      ]);
+    if (supabase) {
+      const { error: dbError } = await supabase
+        .from('general_submission')
+        .insert([
+          {
+            full_name: fullName,
+            email,
+            company: company || null,
+            query_type: queryType,
+            urgency,
+            summary,
+            has_sensitive_data: hasSensitiveData,
+            consent_given: consentGiven,
+            consent_timestamp: consentTimestamp || new Date().toISOString(),
+          }
+        ]);
 
-    if (dbError) {
-      console.error('Supabase insert error (general submission):', dbError);
+      if (dbError) {
+        console.error('Supabase insert error (general submission):', dbError);
+      }
+    } else {
+      console.error('Supabase env missing: NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY or NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY');
     }
 
     // Split name format for Brevo

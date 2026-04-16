@@ -8,12 +8,16 @@ export async function GET(request: Request) {
     const type = requestUrl.searchParams.get('type');
     const next = requestUrl.searchParams.get('next') || '/roi-calculator';
 
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+
+    if (!supabaseUrl || !supabaseKey) {
+        return NextResponse.redirect(new URL(next, requestUrl.origin));
+    }
 
     if (token_hash && type) {
         // Magic link flow — verify the OTP token
-        const supabase = createClient(supabaseUrl, supabaseAnonKey);
+        const supabase = createClient(supabaseUrl, supabaseKey);
         const { error } = await supabase.auth.verifyOtp({
             token_hash,
             type: type as 'email' | 'magiclink',
@@ -27,7 +31,7 @@ export async function GET(request: Request) {
 
     if (code) {
         // PKCE flow — exchange the code for a session
-        const supabase = createClient(supabaseUrl, supabaseAnonKey);
+        const supabase = createClient(supabaseUrl, supabaseKey);
         const { error } = await supabase.auth.exchangeCodeForSession(code);
 
         if (!error) {

@@ -14,7 +14,25 @@ const CATEGORIES = [
 ]
 
 export default function GalleryPage() {
-  const supabase   = createSupabaseBrowserClient()
+  let supabaseClient: ReturnType<typeof createSupabaseBrowserClient> | null = null
+  let supabaseConfigError = ''
+
+  try {
+    supabaseClient = createSupabaseBrowserClient()
+  } catch (err) {
+    supabaseConfigError = err instanceof Error ? err.message : 'Supabase is not configured.'
+  }
+
+  if (!supabaseClient) {
+    return (
+      <div className="bg-white rounded-2xl border border-[#E8EEF4] shadow-sm p-6">
+        <h1 className="text-[#0D1B2A] font-black text-2xl mb-2">Supabase Configuration Required</h1>
+        <p className="text-[#5A6A7A] text-sm mb-3">{supabaseConfigError}</p>
+        <p className="text-[#5A6A7A] text-sm">Set `NEXT_PUBLIC_SUPABASE_URL` and a public key (`NEXT_PUBLIC_SUPABASE_ANON_KEY` or `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`) in your environment, then restart the dev server.</p>
+      </div>
+    )
+  }
+  const supabase = supabaseClient
   const fileRef    = useRef<HTMLInputElement>(null)
 
   const [images, setImages]       = useState<GalleryImage[]>([])

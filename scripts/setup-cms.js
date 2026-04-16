@@ -102,7 +102,7 @@ async function setup() {
         const packages = [
           { product_id: vb.id, tier: 'good', label: 'Partial Branding', price_from: 2500, price_to: 4500, unit: 'per vehicle', includes: ['Door & bonnet graphics', '1 design revision', 'Standard vinyl', '5-year guarantee'], is_popular: false },
           { product_id: vb.id, tier: 'better', label: 'Half Wrap', price_from: 5000, price_to: 8000, unit: 'per vehicle', includes: ['Half vehicle coverage', '2 design revisions', 'Premium vinyl', '5-year guarantee', 'Free design'], is_popular: true },
-          { product_id: vb.id, tier: 'best', label: 'Full Wrap', price_from: 9000, price_to: 15000, unit: 'per vehicle', includes: ['100% vehicle coverage', 'Unlimited revisions', '3M Premium vinyl', '5-year guarantee', 'Free design', 'Free removal'], is_popular: false },
+          { product_id: vb.id, tier: 'best', label: 'Full Wrap', price_from: 10000, price_to: 15000, unit: 'per vehicle', includes: ['100% vehicle coverage', 'Unlimited revisions', '3M Premium vinyl', '5-year guarantee', 'Free design', 'Free removal'], is_popular: false },
         ];
         const { error: pkgErr } = await supabase.from('pricing_packages').insert(packages);
         if (pkgErr) console.log('  ❌ Pricing packages error:', pkgErr.message);

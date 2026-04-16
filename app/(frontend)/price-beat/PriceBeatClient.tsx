@@ -3,7 +3,18 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { CheckCircle, Loader2, Upload } from "lucide-react";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@supabase/supabase-js";
+
+function getSupabaseClient() {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+
+    if (!supabaseUrl || !supabaseKey) {
+        return null;
+    }
+
+    return createClient(supabaseUrl, supabaseKey);
+}
 
 export function PriceBeatClient() {
     const [formData, setFormData] = useState({
@@ -36,6 +47,13 @@ export function PriceBeatClient() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setSubmitError("");
+        const supabase = getSupabaseClient();
+
+        if (!supabase) {
+            setSubmitError("Configuration error: set NEXT_PUBLIC_SUPABASE_URL and a public key (NEXT_PUBLIC_SUPABASE_ANON_KEY or NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY).");
+            return;
+        }
+
         if (!quoteFile) {
             alert("Please attach your verified quote to claim this offer.");
             return;

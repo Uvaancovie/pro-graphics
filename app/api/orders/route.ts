@@ -13,6 +13,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
+    const orderTotal = Number(body.total) || 0
 
     // Create or get customer
     let customerId = null
@@ -58,10 +59,10 @@ export async function POST(request: NextRequest) {
         customer_address: body.customer_address || null,
         status: 'pending',
         priority: body.priority || 'normal',
-        subtotal: body.subtotal,
-        tax_rate: body.tax_rate,
-        tax_amount: body.tax_amount,
-        total: body.total,
+        subtotal: orderTotal,
+        tax_rate: 0,
+        tax_amount: 0,
+        total: orderTotal,
         delivery_method: body.delivery_method || 'pickup',
         delivery_date: body.delivery_date || null,
         delivery_notes: body.delivery_notes || null,
@@ -106,7 +107,7 @@ export async function POST(request: NextRequest) {
       action: 'order_created',
       entity_type: 'order',
       entity_id: order.id,
-      details: { order_number: order.order_number, total: body.total },
+      details: { order_number: order.order_number, total: orderTotal },
     })
 
     return NextResponse.json({ orderId: order.id })

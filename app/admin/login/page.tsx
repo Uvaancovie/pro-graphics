@@ -10,7 +10,27 @@ export default function AdminLogin() {
   const [error, setError]       = useState('')
   const [loading, setLoading]   = useState(false)
   const router = useRouter()
-  const supabase = createSupabaseBrowserClient()
+  let supabaseClient: ReturnType<typeof createSupabaseBrowserClient> | null = null
+  let supabaseConfigError = ''
+
+  try {
+    supabaseClient = createSupabaseBrowserClient()
+  } catch (err) {
+    supabaseConfigError = err instanceof Error ? err.message : 'Supabase is not configured.'
+  }
+
+  if (!supabaseClient) {
+    return (
+      <div className="min-h-screen bg-[#0D1B2A] flex items-center justify-center p-4">
+        <div className="w-full max-w-xl bg-[#1C2B3A] rounded-2xl p-8 border border-[#2A3B4C]">
+          <h1 className="text-white font-bold text-2xl mb-2">Supabase Configuration Required</h1>
+          <p className="text-[#A0B4C8] text-sm mb-4">{supabaseConfigError}</p>
+          <p className="text-[#A0B4C8] text-sm">Set `NEXT_PUBLIC_SUPABASE_URL` and a public key (`NEXT_PUBLIC_SUPABASE_ANON_KEY` or `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`) in your environment, then restart the dev server.</p>
+        </div>
+      </div>
+    )
+  }
+  const supabase = supabaseClient
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault()

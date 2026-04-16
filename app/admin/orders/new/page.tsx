@@ -33,11 +33,8 @@ export default function NewOrderPage() {
 
     const formData = new FormData(e.currentTarget)
 
-    // Calculate totals (VAT Inclusive)
+    // Amount entered is already VAT-inclusive
     const total = items.reduce((sum, item) => sum + (item.quantity * item.unit_price), 0)
-    const taxRate = 15
-    const subtotal = total / (1 + (taxRate / 100))
-    const taxAmount = total - subtotal
 
     const orderData = {
       customer_name: formData.get('customer_name') as string,
@@ -50,9 +47,9 @@ export default function NewOrderPage() {
       delivery_notes: formData.get('delivery_notes') as string,
       priority: formData.get('priority') as string,
       notes: formData.get('notes') as string,
-      subtotal,
-      tax_rate: taxRate,
-      tax_amount: taxAmount,
+      subtotal: total,
+      tax_rate: 0,
+      tax_amount: 0,
       total,
       items: items.filter(i => i.description && i.unit_price > 0),
     }
@@ -91,8 +88,6 @@ export default function NewOrderPage() {
   }
 
   const total = items.reduce((sum, item) => sum + (Number(item.quantity) * Number(item.unit_price)), 0)
-  const tax = total - (total / 1.15)
-  const subtotal = total - tax
 
   return (
     <div>
@@ -330,10 +325,11 @@ export default function NewOrderPage() {
                 </label>
                 <select
                   name="priority"
+                  defaultValue="normal"
                   className="w-full border border-[#E8EEF4] rounded-lg px-3 py-2 text-sm"
                 >
                   <option value="low">🟢 Low</option>
-                  <option value="normal" selected>🔵 Normal</option>
+                  <option value="normal">🔵 Normal</option>
                   <option value="high">🟠 High</option>
                   <option value="urgent">🔴 Urgent</option>
                 </select>
@@ -341,15 +337,9 @@ export default function NewOrderPage() {
             </div>
             <div className="border-t border-[#E8EEF4] pt-4 mt-4 space-y-2">
               <div className="flex justify-between text-sm">
-                <span className="text-[#5A6A7A]">Subtotal</span>
+                <span className="text-[#5A6A7A]">Amount (VAT included)</span>
                 <span className="font-medium text-[#0D1B2A]">
-                  R{subtotal.toLocaleString('en-ZA', { minimumFractionDigits: 2 })}
-                </span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-[#5A6A7A]">VAT (15%)</span>
-                <span className="font-medium text-[#0D1B2A]">
-                  R{tax.toLocaleString('en-ZA', { minimumFractionDigits: 2 })}
+                  R{total.toLocaleString('en-ZA', { minimumFractionDigits: 2 })}
                 </span>
               </div>
               <div className="flex justify-between pt-2 border-t border-[#E8EEF4]">

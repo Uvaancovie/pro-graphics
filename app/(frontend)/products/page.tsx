@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { supabase } from "@/lib/supabase";
+import { createSupabaseServiceClient } from "@/lib/supabase/server";
 
 export const metadata = {
   title: "Products | Pro Graphics",
@@ -8,13 +8,22 @@ export const metadata = {
 };
 
 export default async function ProductsPage() {
-  const { data: products, error } = await supabase
-    .from("products")
-    .select("*")
-    .order("created_at", { ascending: false });
+  let products: any[] | null = [];
 
-  if (error) {
-    console.error("Error fetching canvas products:", error);
+  try {
+    const supabase = createSupabaseServiceClient();
+    const { data, error } = await supabase
+      .from("products")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error("Error fetching canvas products:", error);
+    }
+
+    products = data;
+  } catch {
+    products = [];
   }
 
   return (
