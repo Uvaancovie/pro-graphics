@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { createSupabaseServiceClient } from "@/lib/supabase/server";
+import { createSupabasePublicClient } from "@/lib/supabase/server";
 
 export const metadata = {
   title: "Products | Pro Graphics",
@@ -11,7 +11,7 @@ export default async function ProductsPage() {
   let products: any[] | null = [];
 
   try {
-    const supabase = createSupabaseServiceClient();
+    const supabase = createSupabasePublicClient();
     const { data, error } = await supabase
       .from("products")
       .select("*")

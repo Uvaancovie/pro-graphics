@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { createSupabaseServiceClient } from "@/lib/supabase/server";
+import { createSupabasePublicClient } from "@/lib/supabase/server";
 import { ChevronLeft } from "lucide-react";
 import { CostCalculator } from "@/components/cost-calculator";
 
@@ -19,7 +19,7 @@ function getCalculatorType(name: string): "canvas" | "split-frame" | "water-labe
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const supabase = createSupabaseServiceClient();
+  const supabase = createSupabasePublicClient();
 
   const { data: product } = await supabase
     .from("products")
@@ -45,7 +45,7 @@ export default async function ProductDetailsPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const supabase = createSupabaseServiceClient();
+  const supabase = createSupabasePublicClient();
 
   const { data: product, error } = await supabase
     .from("products")
