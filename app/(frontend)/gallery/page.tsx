@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/app/components/ui/Button";
 import { GalleryGrid } from "@/app/components/gallery/GalleryGrid";
-import { createSupabaseServiceClient } from "@/lib/supabase/server";
+import { createSupabasePublicClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
     title: "Our Work Gallery | Pro Graphics - Vehicle Branding & Signage Portfolio",
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 async function getGalleryImages() {
     try {
-        const supabase = createSupabaseServiceClient();
+        const supabase = createSupabasePublicClient();
         const { data: images, error } = await supabase
             .from('gallery')
             .select('*')

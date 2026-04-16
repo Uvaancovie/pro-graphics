@@ -58,12 +58,24 @@ async function deleteOrder(orderId: string) {
 export default async function OrdersPage({
   searchParams,
 }: {
-  searchParams: Promise<{ status?: string; search?: string }>
+  searchParams: Promise<{ status?: string; search?: string; date?: string; on?: string }>
 }) {
   const supabase = await createSupabaseServerClient()
   const params = await searchParams
   const statusFilter = params.status || 'all'
   const searchQuery = params.search || ''
+  const dateFilter = params.date || 'all'
+  const exactDate = params.on || ''
+
+  const buildOrdersUrl = (next: { status?: string; search?: string; date?: string; on?: string }) => {
+    const query = new URLSearchParams()
+    if (next.status && next.status !== 'all') query.set('status', next.status)
+    if (next.search) query.set('search', next.search)
+    if (next.date && next.date !== 'all') query.set('date', next.date)
+    if (next.on) query.set('on', next.on)
+    const queryString = query.toString()
+    return queryString ? `/admin/orders?${queryString}` : '/admin/orders'
+  }
 
   let query = supabase
     .from('orders')
@@ -81,10 +93,56 @@ export default async function OrdersPage({
   const { data: orders } = await query
 
   const safeOrders: any[] = (orders ?? []) as any[]
+
+  const now = new Date()
+  const isOrderInDateFilter = (orderDateValue: string | null | undefined) => {
+    if (!orderDateValue) return false
+
+    const orderDate = new Date(orderDateValue)
+    if (Number.isNaN(orderDate.getTime())) return false
+
+    if (exactDate) {
+      const target = new Date(`${exactDate}T00:00:00`)
+      const nextDay = new Date(target)
+      nextDay.setDate(nextDay.getDate() + 1)
+      return orderDate >= target && orderDate < nextDay
+    }
+
+    if (dateFilter === 'all') return true
+
+    if (dateFilter === 'today') {
+      const start = new Date(now)
+      start.setHours(0, 0, 0, 0)
+      return orderDate >= start
+    }
+
+    if (dateFilter === 'yesterday') {
+      const start = new Date(now)
+      start.setDate(start.getDate() - 1)
+      start.setHours(0, 0, 0, 0)
+
+      const end = new Date(now)
+      end.setHours(0, 0, 0, 0)
+
+      return orderDate >= start && orderDate < end
+    }
+
+    if (dateFilter === '7d' || dateFilter === '30d') {
+      const days = dateFilter === '7d' ? 7 : 30
+      const start = new Date(now)
+      start.setDate(start.getDate() - days)
+      return orderDate >= start
+    }
+
+    return true
+  }
+
+  const filteredOrders = safeOrders.filter((order: any) => isOrderInDateFilter(order.created_at))
+
   const totalCustomers = new Set(
-    safeOrders.map((order: any) => (order.customer_email || order.customer_name || '').toLowerCase())
+    filteredOrders.map((order: any) => (order.customer_email || order.customer_name || '').toLowerCase())
   ).size
-  const customerMap = safeOrders.reduce((map, order: any) => {
+  const customerMap = filteredOrders.reduce((map, order: any) => {
       const key = (order.customer_email || order.customer_name || '').toLowerCase()
       if (!key) return map
 
@@ -104,11 +162,27 @@ export default async function OrdersPage({
 
   const customerSummary: CustomerSummary[] = (Array.from(customerMap.values()) as CustomerSummary[])
     .sort((a, b) => b.total - a.total)
-  const totalAmount = safeOrders.reduce((sum: number, order: any) => {
+  const totalAmount = filteredOrders.reduce((sum: number, order: any) => {
     const total = Number(order.total) || 0
     return sum + total
   }, 0)
-  const averageAmount = safeOrders.length ? (totalAmount / safeOrders.length) : 0
+  const averageAmount = filteredOrders.length ? (totalAmount / filteredOrders.length) : 0
+
+  const dateLabelMap: Record<string, string> = {
+    all: 'All Dates',
+    today: 'Today',
+    yesterday: 'Yesterday',
+    '7d': 'Last 7 Days',
+    '30d': 'Last 30 Days',
+  }
+
+  const activeDateLabel = exactDate
+    ? `On ${new Date(`${exactDate}T00:00:00`).toLocaleDateString('en-ZA', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      })}`
+    : (dateLabelMap[dateFilter] ?? 'All Dates')
 
   // Get counts for each status
   const { data: counts } = await supabase
@@ -146,7 +220,7 @@ export default async function OrdersPage({
       <div className="grid grid-cols-4 gap-4 mb-6">
         <div className="bg-white rounded-2xl border border-[#E8EEF4] shadow-sm p-4">
           <p className="text-[#5A6A7A] text-xs font-bold uppercase">Orders Shown</p>
-          <p className="text-[#0D1B2A] text-2xl font-black mt-1">{safeOrders.length}</p>
+          <p className="text-[#0D1B2A] text-2xl font-black mt-1">{filteredOrders.length}</p>
         </div>
         <div className="bg-white rounded-2xl border border-[#E8EEF4] shadow-sm p-4">
           <p className="text-[#5A6A7A] text-xs font-bold uppercase">Customers</p>
@@ -177,7 +251,7 @@ export default async function OrdersPage({
         ].map(({ key, label, count }) => (
           <Link
             key={key}
-            href={`/admin/orders?status=${key}`}
+            href={buildOrdersUrl({ status: key, search: searchQuery, date: dateFilter, on: exactDate })}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-colors
               ${statusFilter === key
                 ? 'bg-[#0D1B2A] text-white'
@@ -188,6 +262,64 @@ export default async function OrdersPage({
             <span className="ml-2 text-xs opacity-70">({count})</span>
           </Link>
         ))}
+      </div>
+
+      {/* Date filters */}
+      <div className="bg-white rounded-2xl border border-[#E8EEF4] shadow-sm p-4 mb-6">
+        <div className="flex flex-wrap items-center gap-2">
+          {[
+            { key: 'all', label: 'All Dates' },
+            { key: 'today', label: 'Today' },
+            { key: 'yesterday', label: 'Yesterday' },
+            { key: '7d', label: 'Last 7 Days' },
+            { key: '30d', label: 'Last 30 Days' },
+          ].map((item) => (
+            <Link
+              key={item.key}
+              href={buildOrdersUrl({ status: statusFilter, search: searchQuery, date: item.key, on: '' })}
+              className={`px-3 py-1.5 rounded-full text-xs font-bold transition-colors
+                ${!exactDate && dateFilter === item.key
+                  ? 'bg-[#FF6B35] text-white'
+                  : 'bg-[#F7F8FA] text-[#5A6A7A] hover:bg-[#E8EEF4]'
+                }`}
+            >
+              {item.label}
+            </Link>
+          ))}
+
+          <form action="/admin/orders" method="get" className="ml-auto flex items-center gap-2">
+            <input type="hidden" name="status" value={statusFilter} />
+            {searchQuery && <input type="hidden" name="search" value={searchQuery} />}
+            <label className="text-xs font-bold text-[#5A6A7A]">On date:</label>
+            <input
+              type="date"
+              name="on"
+              defaultValue={exactDate}
+              className="border border-[#E8EEF4] rounded-lg px-2 py-1.5 text-xs"
+            />
+            <button
+              type="submit"
+              className="px-3 py-1.5 rounded-lg text-xs font-bold bg-[#0D1B2A] text-white"
+            >
+              Apply
+            </button>
+            {exactDate && (
+              <Link
+                href={buildOrdersUrl({ status: statusFilter, search: searchQuery, date: dateFilter, on: '' })}
+                className="px-2 py-1.5 rounded-lg text-xs font-bold text-[#5A6A7A] bg-[#F7F8FA]"
+              >
+                Clear
+              </Link>
+            )}
+          </form>
+        </div>
+
+        <div className="mt-3 pt-3 border-t border-[#E8EEF4] flex items-center justify-between text-sm">
+          <p className="text-[#5A6A7A] font-medium">Range: <span className="text-[#0D1B2A] font-bold">{activeDateLabel}</span></p>
+          <p className="text-[#0D1B2A] font-bold">
+            Money Made: <span className="text-[#FF6B35]">R{totalAmount.toLocaleString('en-ZA', { minimumFractionDigits: 2 })}</span>
+          </p>
+        </div>
       </div>
 
       {/* Orders table */}
@@ -204,7 +336,7 @@ export default async function OrdersPage({
           ))}
         </div>
 
-        {safeOrders.map((order: any) => (
+        {filteredOrders.map((order: any) => (
           <div
             key={order.id}
             className="grid grid-cols-12 gap-4 px-6 py-4 border-b border-[#E8EEF4]
@@ -285,7 +417,7 @@ export default async function OrdersPage({
           </div>
         ))}
 
-        {(safeOrders.length === 0) && (
+        {filteredOrders.length === 0 && (
           <div className="text-center py-16 text-[#5A6A7A]">
             <p className="text-4xl mb-3">📋</p>
             <p className="font-bold">No orders found</p>
