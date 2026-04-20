@@ -11,19 +11,19 @@ import type { CaptureLeadResponse } from '@/types/leads'
 // ── CONVERSION COPY — written like a $10k/month copywriter ──
 const HOOK_HEADLINE  = "Most Durban businesses waste\nthousands on advertising."
 const HOOK_SUBHEAD   = "There's a smarter way — and it's already sitting in your parking lot."
-const MAGNET_TITLE   = "The Durban Fleet Branding Playbook"
+const MAGNET_TITLE   = "Vehicle Wrap Pricing Estimator"
 const MAGNET_SUBTITLE = "Free PDF — Instant Download"
 const BULLETS = [
   { stat: "42,500", label: "daily impressions per unbranded vehicle — gone forever" },
   { stat: "30x",    label: "ROI — the highest of any advertising medium in SA" },
   { stat: "R1.53M", label: "average annual brand value lost per plain vehicle" },
 ]
-const FORM_HEADLINE  = "Where should we send your free playbook?"
-const FORM_SUBHEAD   = "Join 200+ Durban business owners who've already downloaded it"
+const FORM_HEADLINE  = "Where should we send your free pricing guide?"
+const FORM_SUBHEAD   = "Join Durban business owners using this to budget wraps correctly"
 const CTA_HOOK       = "Show Me How to Fix This →"
-const CTA_SUBMIT     = "Send My Free Playbook →"
+const CTA_SUBMIT     = "Send My Free Pricing Guide →"
 const SUCCESS_TITLE  = "It's on its way! 🎉"
-const SUCCESS_SUB    = "Check your inbox — your Fleet Branding Playbook will arrive within 2 minutes."
+const SUCCESS_SUB    = "Check your inbox — your Vehicle Wrap Pricing Estimator is on the way."
 
 export default function LeadMagnetPopup() {
   const { phase, setPhase, dismiss, utmParams, trafficSource } = useLeadPopup()

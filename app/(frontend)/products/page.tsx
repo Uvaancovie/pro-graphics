@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { createSupabasePublicClient } from "@/lib/supabase/server";
+import LeadMagnetPopup from "@/app/components/ui/LeadMagnetPopup";
 
 export const metadata = {
   title: "Products | Pro Graphics",
@@ -75,6 +76,7 @@ export default async function ProductsPage() {
           </div>
         )}
       </div>
+      <LeadMagnetPopup />
     </main>
   );
 }

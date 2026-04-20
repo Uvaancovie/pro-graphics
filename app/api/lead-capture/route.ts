@@ -87,7 +87,7 @@ export async function POST(req: Request) {
                         name: name || "Valued Customer"
                     }
                 ],
-                subject: "Your 10 Signage Mistakes Guide from Pro Graphics",
+            subject: "Your Vehicle Wrap Pricing Estimator from Pro Graphics",
                 html: `
           <!DOCTYPE html>
           <html>
@@ -104,14 +104,14 @@ export async function POST(req: Request) {
           <body>
             <div class="container">
               <div class="header">
-                <h2>Your Signage Mistakes Guide is Here!</h2>
+                <h2>Your Vehicle Wrap Pricing Estimator is Here!</h2>
               </div>
               <p>Hi ${firstName || 'there'},</p>
-              <p>Thank you for requesting our exclusive guide! Discovering these <strong>10 Common Signage Mistakes</strong> will help you save time, reduce costs, and ensure your brand stands out for all the right reasons.</p>
+              <p>Thank you for requesting our free guide. Use this estimator to plan your wrap budget based on vehicle size, finish, and installation scope.</p>
               
               <div style="text-align: center;">
                 <p>Click the button below to download or view your PDF guide:</p>
-                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://pro-graphics.vercel.app'}/lead-magnet/ProGraphics_SignageMistakes_Guide.pdf" class="btn" style="color: #ffffff;">Download the Guide Now</a>
+                <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://pro-graphics.vercel.app'}/lead-magnet/ProGraphics_VehicleWrapPricing_Guide.md" class="btn" style="color: #ffffff;">Open the Pricing Guide</a>
               </div>
 
               <p>If you're looking to elevate your business's visual presence and avoid these costly errors, our team is ready to help. Feel free to reply directly to this email if you have any questions or want to discuss your next project.</p>
@@ -120,7 +120,7 @@ export async function POST(req: Request) {
               
               <div class="footer">
                 <p>© Pro Graphics | Durban, South Africa</p>
-                <p>You received this email because you requested the Signage Mistakes guide on our website.</p>
+                <p>You received this email because you requested the Vehicle Wrap Pricing Estimator on our website.</p>
               </div>
             </div>
           </body>
