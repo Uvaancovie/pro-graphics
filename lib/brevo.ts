@@ -66,3 +66,49 @@ export async function upsertBrevoContact({ email, listIds, attributes = {} }: Up
 
   return response.json().catch(() => ({}));
 }
+
+export async function sendLeadMagnetEmail(
+  email: string,
+  firstName: string
+): Promise<boolean> {
+  const apiKey = getBrevoApiKey();
+  const TEMPLATE_ID = Number(process.env.BREVO_TEMPLATE_ID ?? 1);
+  const baseURL = 'https://api.brevo.com/v3';
+
+  const res = await fetch(`${baseURL}/smtp/email`, {
+    method: 'POST',
+    headers: {
+      'accept':       'application/json',
+      'content-type': 'application/json',
+      'api-key':      apiKey,
+    },
+    body: JSON.stringify({
+      to: [{ email, name: firstName }],
+      templateId: TEMPLATE_ID,
+      params: {
+        FIRSTNAME:      firstName,
+        PDF_LINK:       process.env.LEAD_MAGNET_PDF_URL ?? 'https://prographics.co.za/playbook.pdf',
+        COMPANY_NAME:   'Pro Graphics',
+        PHONE:          '031 508 6700',
+        WEBSITE:        'https://pro-graphics.vercel.app',
+      },
+      sender: {
+        name:  'Pro Graphics Durban',
+        email: process.env.BREVO_SENDER_EMAIL ?? 'info@prographics.co.za',
+      },
+    }),
+  })
+
+  return res.ok
+}
+
+export async function getBrevoContact(email: string): Promise<boolean> {
+  const apiKey = getBrevoApiKey();
+  const baseURL = 'https://api.brevo.com/v3';
+
+  const res = await fetch(
+    `${baseURL}/contacts/${encodeURIComponent(email)}`,
+    { headers: { 'api-key': apiKey, 'accept': 'application/json' } }
+  )
+  return res.ok
+}

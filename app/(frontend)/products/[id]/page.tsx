@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { createSupabasePublicClient } from "@/lib/supabase/server";
 import { ChevronLeft } from "lucide-react";
 import { CostCalculator } from "@/components/cost-calculator";
+import LeadMagnetPopup from "@/app/components/ui/LeadMagnetPopup";
 
 // Helper to determine calculator type based on product name
 function getCalculatorType(name: string): "canvas" | "split-frame" | "water-labels" | "vehicle-branding" | "sign-boards" | "stickers" | null {
@@ -113,6 +114,7 @@ export default async function ProductDetailsPage({
           </div>
         </div>
       </div>
+      <LeadMagnetPopup />
     </main>
   );
 }

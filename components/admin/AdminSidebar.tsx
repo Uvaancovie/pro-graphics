@@ -7,6 +7,7 @@ import { createSupabaseBrowserClient } from '@/lib/supabase/client'
 const NAV = [
   { href: '/admin',          label: 'Dashboard',         icon: '📊' },
   { href: '/admin/orders',   label: 'Orders',            icon: '📋' },
+  { href: '/admin/inventory',label: 'Inventory',         icon: '📦' },
   { href: '/admin/products', label: 'Products & Services',icon: '📦' },
   { href: '/admin/calculator', label: 'Cost Calculator', icon: '🧮' },
   { href: '/admin/gallery',  label: 'Gallery',            icon: '🖼️' },
