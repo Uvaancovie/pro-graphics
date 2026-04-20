@@ -11,7 +11,7 @@ const cspHeader = `
   connect-src 'self' https: https://vitals.vercel-insights.com https://va.vercel-scripts.com https://*.tiktok.com https://*.ttwstatic.com;
   worker-src 'self' blob:;
   frame-ancestors 'self';
-  frame-src 'self' https://www.tiktok.com;
+  frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com;
   object-src 'none';
   base-uri 'self';
   form-action 'self';

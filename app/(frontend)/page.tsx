@@ -36,7 +36,7 @@ export default function HomePage() {
       {/* Hero Section with Carousel */}
       <HeroCarousel />
 
-      {/* TikTok Process Section */}
+      {/* Process Video Section */}
       <ProcessTikToks />
 
       {/* Trust Indicators */}
