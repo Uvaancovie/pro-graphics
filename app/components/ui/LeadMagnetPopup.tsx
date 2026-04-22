@@ -12,7 +12,7 @@ import type { CaptureLeadResponse } from '@/types/leads'
 const HOOK_HEADLINE  = "Most Durban businesses waste\nthousands on advertising."
 const HOOK_SUBHEAD   = "There's a smarter way — and it's already sitting in your parking lot."
 const MAGNET_TITLE   = "Vehicle Wrap Pricing Estimator"
-const MAGNET_SUBTITLE = "Free PDF — Instant Download"
+const MAGNET_SUBTITLE = "Interactive Pricing Estimator"
 const BULLETS = [
   { stat: "42,500", label: "daily impressions per unbranded vehicle — gone forever" },
   { stat: "30x",    label: "ROI — the highest of any advertising medium in SA" },
@@ -21,9 +21,9 @@ const BULLETS = [
 const FORM_HEADLINE  = "Where should we send your free pricing guide?"
 const FORM_SUBHEAD   = "Join Durban business owners using this to budget wraps correctly"
 const CTA_HOOK       = "Show Me How to Fix This →"
-const CTA_SUBMIT     = "Send My Free Pricing Guide →"
+const CTA_SUBMIT     = "Get Access to the Estimator →"
 const SUCCESS_TITLE  = "It's on its way! 🎉"
-const SUCCESS_SUB    = "Check your inbox — your Vehicle Wrap Pricing Estimator is on the way."
+const SUCCESS_SUB    = "Check your inbox — your link to the Interactive Estimator is on the way."
 
 export default function LeadMagnetPopup() {
   const { phase, setPhase, dismiss, utmParams, trafficSource } = useLeadPopup()
@@ -107,10 +107,10 @@ export default function LeadMagnetPopup() {
         .pg-modal {
           position: relative;
           width: 100%; max-width: 520px;
-          background: #0D1B2A;
+          background: #2d4352;
           border-radius: 20px;
           overflow: hidden;
-          border: 1px solid rgba(255,107,53,0.3);
+          border: 1px solid rgba(212, 169, 119, 0.3);
           animation: pg-slide-up 0.4s cubic-bezier(0.34,1.56,0.64,1);
         }
         @keyframes pg-slide-up {
@@ -120,7 +120,7 @@ export default function LeadMagnetPopup() {
 
         .pg-top-bar {
           height: 4px;
-          background: linear-gradient(90deg, #FF6B35, #FF9F1C, #FF6B35);
+          background: linear-gradient(90deg, #d4a977, #e8cda5, #d4a977);
           background-size: 200% 100%;
           animation: pg-shimmer 2s linear infinite;
         }
@@ -138,23 +138,23 @@ export default function LeadMagnetPopup() {
           color: rgba(255,255,255,0.5); font-size: 16px;
           transition: background 0.2s, color 0.2s; z-index: 10;
         }
-        .pg-close:hover { background: rgba(255,107,53,0.2); color: #FF6B35; }
+        .pg-close:hover { background: rgba(212, 169, 119, 0.2); color: #d4a977; }
 
         .pg-inner { padding: 32px 32px 28px; }
         @media (max-width: 480px) { .pg-inner { padding: 24px 20px 20px; } }
 
         .pg-label {
           display: inline-flex; align-items: center; gap: 6px;
-          background: rgba(255,107,53,0.12);
-          border: 1px solid rgba(255,107,53,0.3);
+          background: rgba(212, 169, 119, 0.12);
+          border: 1px solid rgba(212, 169, 119, 0.3);
           border-radius: 20px; padding: 4px 12px;
           font-family: 'DM Sans', sans-serif;
           font-size: 11px; font-weight: 500; letter-spacing: 0.06em;
-          color: #FF6B35; text-transform: uppercase; margin-bottom: 20px;
+          color: #e8cda5; text-transform: uppercase; margin-bottom: 20px;
         }
         .pg-label-dot {
           width: 6px; height: 6px; border-radius: 50%;
-          background: #FF6B35; animation: pg-pulse 1.5s ease-in-out infinite;
+          background: #d4a977; animation: pg-pulse 1.5s ease-in-out infinite;
         }
         @keyframes pg-pulse { 0%,100% { opacity: 1 } 50% { opacity: 0.3 } }
 
@@ -165,7 +165,7 @@ export default function LeadMagnetPopup() {
           color: #FFFFFF; margin: 0 0 12px;
           white-space: pre-line;
         }
-        .pg-h1 .accent { color: #FF6B35; }
+        .pg-h1 .accent { color: #e8cda5; }
 
         .pg-sub {
           font-family: 'DM Sans', sans-serif;
@@ -174,14 +174,14 @@ export default function LeadMagnetPopup() {
         }
 
         .pg-magnet-box {
-          background: rgba(255,107,53,0.08);
-          border: 1px solid rgba(255,107,53,0.2);
+          background: rgba(212, 169, 119, 0.08);
+          border: 1px solid rgba(212, 169, 119, 0.2);
           border-radius: 14px; padding: 16px 18px; margin-bottom: 24px;
           display: flex; align-items: center; gap: 14px;
         }
         .pg-pdf-icon {
           width: 48px; height: 60px; flex-shrink: 0;
-          background: #FF6B35; border-radius: 8px;
+          background: #d4a977; border-radius: 8px;
           display: flex; flex-direction: column;
           align-items: center; justify-content: center; gap: 3px;
           position: relative; overflow: hidden;
@@ -208,7 +208,7 @@ export default function LeadMagnetPopup() {
         }
         .pg-magnet-badge {
           font-family: 'DM Sans', sans-serif;
-          font-size: 11px; color: #FF6B35; font-weight: 500;
+          font-size: 11px; color: #e8cda5; font-weight: 500;
         }
 
         .pg-bullets { list-style: none; margin: 0 0 28px; padding: 0; display: flex; flex-direction: column; gap: 10px; }
@@ -218,23 +218,23 @@ export default function LeadMagnetPopup() {
         }
         .pg-bullet-stat {
           font-family: 'Bebas Neue', sans-serif;
-          font-size: 22px; color: #FF6B35; letter-spacing: 0.02em;
+          font-size: 22px; color: #d4a977; letter-spacing: 0.02em;
           min-width: 70px; flex-shrink: 0; line-height: 1;
         }
         .pg-bullet-label { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.3; }
 
         .pg-cta-btn {
           width: 100%;
-          background: #FF6B35;
-          color: white; border: none; cursor: pointer;
+          background: #d4a977;
+          color: #0a0a0a; border: none; cursor: pointer;
           border-radius: 12px; padding: 16px 24px;
           font-family: 'Syne', sans-serif;
-          font-size: 16px; font-weight: 700;
+          font-size: 16px; font-weight: 800;
           letter-spacing: 0.01em;
           transition: background 0.2s, transform 0.1s;
           display: flex; align-items: center; justify-content: center; gap: 8px;
         }
-        .pg-cta-btn:hover  { background: #e85c28; }
+        .pg-cta-btn:hover  { background: #e8cda5; }
         .pg-cta-btn:active { transform: scale(0.98); }
         .pg-cta-btn:disabled { opacity: 0.7; cursor: not-allowed; }
 
@@ -260,15 +260,15 @@ export default function LeadMagnetPopup() {
         .pg-avatars { display: flex; }
         .pg-avatar {
           width: 28px; height: 28px; border-radius: 50%;
-          border: 2px solid #0D1B2A;
-          background: #FF6B35; margin-left: -8px;
+          border: 2px solid #2d4352;
+          background: #d4a977; margin-left: -8px;
           font-family: 'Syne', sans-serif;
-          font-size: 10px; font-weight: 700; color: white;
+          font-size: 10px; font-weight: 700; color: #0a0a0a;
           display: flex; align-items: center; justify-content: center;
         }
         .pg-avatar:first-child { margin-left: 0; }
-        .pg-avatar:nth-child(2) { background: #1AB5A0; }
-        .pg-avatar:nth-child(3) { background: #7C3AED; }
+        .pg-avatar:nth-child(2) { background: #4f738e; color: white; }
+        .pg-avatar:nth-child(3) { background: #e8cda5; color: #0a0a0a; }
         .pg-proof-text {
           font-family: 'DM Sans', sans-serif;
           font-size: 12px; color: rgba(255,255,255,0.5);
@@ -286,7 +286,7 @@ export default function LeadMagnetPopup() {
           box-sizing: border-box;
         }
         .pg-input::placeholder { color: rgba(255,255,255,0.28); }
-        .pg-input:focus { border-color: #FF6B35; background: rgba(255,107,53,0.06); }
+        .pg-input:focus { border-color: #d4a977; background: rgba(212, 169, 119, 0.06); }
 
         .pg-error {
           background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3);
@@ -357,7 +357,7 @@ export default function LeadMagnetPopup() {
           font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.7);
           cursor: pointer; transition: border-color 0.2s, color 0.2s;
         }
-        .pg-cta-secondary:hover { border-color: #FF6B35; color: #FF6B35; }
+        .pg-cta-secondary:hover { border-color: #e8cda5; color: #e8cda5; }
       `}</style>
 
       {/* ── Overlay ── */}
@@ -390,7 +390,7 @@ export default function LeadMagnetPopup() {
                 {/* PDF Visual */}
                 <div className="pg-magnet-box">
                   <div className="pg-pdf-icon">
-                    <span className="pg-pdf-text">PDF</span>
+                    <span className="pg-pdf-text">APP</span>
                     <div className="pg-pdf-lines">
                       {[52, 40, 48, 36].map((w, i) => (
                         <div key={i} className="pg-pdf-line" style={{ width: w }} />
@@ -498,11 +498,11 @@ export default function LeadMagnetPopup() {
                 <ul className="pg-success-steps">
                   {[
                     'Check your inbox (and spam folder just in case)',
-                    'Download the PDF — it\'s packed with ROI calculations specific to Durban',
-                    'Use the free Fleet Audit inside to calculate your exact brand value gap',
+                    'Open the link to access your interactive estimator',
+                    'Use the estimator to get precise sizing constraints and budgets specific to your vehicle',
                   ].map((step, i) => (
                     <li key={i} className="pg-step">
-                      <span className="pg-step-num">{i + 1}</span>
+                      <span className="pg-step-num" style={{ background: '#d4a977', color: '#0a0a0a' }}>{i + 1}</span>
                       {step}
                     </li>
                   ))}

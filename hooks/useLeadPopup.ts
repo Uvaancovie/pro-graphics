@@ -47,8 +47,16 @@ export function useLeadPopup(): UseLeadPopupReturn {
     else setTrafficSource('direct')
   }, [])
 
+  // ── Check Path Match ─────────────────────────────────
+  const isTargetPage = useCallback(() => {
+    if (typeof window === 'undefined') return false
+    const path = window.location.pathname
+    return path.includes('/vehicle-branding') || path === '/products/508f249e-6f90-45e2-8226-5d0e6ebf31fc'
+  }, [])
+
   // ── Check if should show ───────────────────────────────
   const shouldShow = useCallback((): boolean => {
+    if (!isTargetPage()) return false
     if (firedRef.current) return false
     // Already captured this lead
     if (localStorage.getItem(STORAGE_KEY)) return false
@@ -60,7 +68,7 @@ export function useLeadPopup(): UseLeadPopupReturn {
       localStorage.removeItem(SUPPRESSED_KEY)
     }
     return true
-  }, [])
+  }, [isTargetPage])
 
   const firePopup = useCallback(() => {
     if (!shouldShow()) return
@@ -70,11 +78,12 @@ export function useLeadPopup(): UseLeadPopupReturn {
 
   // ── Time delay trigger ─────────────────────────────────
   useEffect(() => {
-    timerRef.current = setTimeout(firePopup, DELAY_MS)
+    const delay = isTargetPage() ? 2_000 : DELAY_MS
+    timerRef.current = setTimeout(firePopup, delay)
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current)
     }
-  }, [firePopup])
+  }, [firePopup, isTargetPage])
 
   // ── Scroll depth trigger ───────────────────────────────
   useEffect(() => {

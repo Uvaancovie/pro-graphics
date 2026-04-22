@@ -41,23 +41,23 @@ function isMissingLeadsTableError(message?: string | null): boolean {
 
 async function sendVehicleWrapPricingGuideEmail(email: string, firstName: string): Promise<boolean> {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://pro-graphics.vercel.app'
-  const guideUrl = `${siteUrl}/lead-magnet/ProGraphics_VehicleWrapPricing_Guide.md`
+  const guideUrl = `${siteUrl}/pricing-estimator`
 
   await sendBrevoSmtpEmail({
     to: [{ email, name: firstName }],
-    subject: 'Your Vehicle Wrap Pricing Estimator from Pro Graphics',
+    subject: 'Your Interactive Pricing Estimator from Pro Graphics',
     html: `
       <!DOCTYPE html>
       <html>
       <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; background: #f9fafb; padding: 24px;">
         <div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 8px; border: 1px solid #e5e7eb; padding: 28px;">
-          <h2 style="color: #1e3a8a; margin-top: 0;">Your Vehicle Wrap Pricing Estimator is Ready</h2>
+          <h2 style="color: #4f738e; margin-top: 0;">Your Vehicle Wrap Pricing Estimator is Ready</h2>
           <p>Hi ${firstName},</p>
-          <p>Thanks for requesting our estimator. Use it to plan your wrap budget by vehicle size, coverage type, and finish.</p>
+          <p>Thanks for requesting our estimator. Use it to plan your wrap budget by vehicle class, coverage type, and finish.</p>
           <p style="margin: 24px 0;">
-            <a href="${guideUrl}" style="display: inline-block; padding: 12px 20px; border-radius: 6px; background: #d97706; color: #fff; text-decoration: none; font-weight: 600;">Open the Pricing Guide</a>
+            <a href="${guideUrl}" style="display: inline-block; padding: 12px 20px; border-radius: 6px; background: #d4a977; color: #0a0a0a; text-decoration: none; font-weight: bold;">Launch the Pricing Estimator</a>
           </p>
-          <p>If you want an exact quote, reply with your vehicle model, preferred finish, and whether you want full or partial wrap.</p>
+          <p>If you want an exact quote immediately, reply with your vehicle model, preferred finish, and whether you want full or partial wrap.</p>
           <p style="margin-top: 24px;">— Pro Graphics Team</p>
         </div>
       </body>
