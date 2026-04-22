@@ -65,7 +65,7 @@ export default function PricingEstimatorPage() {
           Vehicle Wrap <span style={{ color: 'var(--accent-gold-dark)' }}>Pricing Estimator</span>
         </h1>
         <p className="text-lg md:text-xl max-w-2xl mx-auto opacity-80" style={{ color: 'var(--foreground)' }}>
-          Use this interactive planner to estimate your vehicle wrap budget before requesting a final quote from the Pro Graphics team.
+          Use this interactive planner to estimate the market rate of south african vehicle branding pricing levels.
         </p>
       </section>
 

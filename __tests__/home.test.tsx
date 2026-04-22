@@ -33,6 +33,22 @@ vi.mock('@/app/components/ui/ROICalculatorPromo', () => ({
   ROICalculatorPromo: () => <div data-testid="roi-calculator">ROI Calculator</div>,
 }));
 
+vi.mock('@/app/components/ui/ProcessTikToks', () => ({
+  ProcessTikToks: () => <div data-testid="process-tiktoks">Process TikToks</div>,
+}));
+
+vi.mock('@/app/components/ui/FaqSection', () => ({
+  FaqSection: () => <div data-testid="faq-section">Faq Section</div>,
+}));
+
+vi.mock('@/app/components/ui/HomeProductsGallery', () => ({
+  HomeProductsGallery: () => <div data-testid="home-products-gallery">Home Products Gallery</div>,
+}));
+
+vi.mock('@/app/components/ui/EstimatorOptIn', () => ({
+  EstimatorOptIn: () => <div data-testid="estimator-opt-in">Estimator Opt In</div>,
+}));
+
 describe('HomePage Unit Tests', () => {
   it('renders the core marketing sections successfully', () => {
     render(<HomePage />);

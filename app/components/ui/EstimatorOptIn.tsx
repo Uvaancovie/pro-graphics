@@ -55,11 +55,11 @@ export function EstimatorOptIn() {
                     Pricing Transparency
                 </span>
                 <h2 className="text-3xl md:text-5xl font-black text-white mb-5 leading-tight">
-                    Don't Pay R40,000 for a Vehicle Wrap <br className="hidden md:block" />
-                    <span className="text-amber-400">Before You See This Data.</span>
+                    Find Estimate Market Rate Quotes <br className="hidden md:block" />
+                    <span className="text-amber-400">For a Vehicle Wrap.</span>
                 </h2>
                 <p className="text-lg md:text-xl text-blue-200 mb-10 max-w-2xl mx-auto leading-relaxed">
-                    Get instant access to the <strong className="text-white">Interactive South African Market Rate Estimator</strong>. Know the exact math behind what your fleet branding should cost. No agencies, no BS pricing. 
+                    Get instant access to the <strong className="text-white">Interactive South African Market Rate Estimator</strong>.
                 </p>
 
                 <div className="bg-white/[0.04] backdrop-blur-md border border-white/10 p-3 rounded-2xl max-w-3xl mx-auto shadow-2xl">
