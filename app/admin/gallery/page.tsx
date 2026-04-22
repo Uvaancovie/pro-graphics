@@ -87,6 +87,12 @@ export default function GalleryPage() {
 
   async function handleSave(e: React.FormEvent) {
     e.preventDefault()
+
+    if (!editImg && !previewFile) {
+      setMsg(`Error: Please choose an image file to upload.`)
+      return
+    }
+
     setUploading(true)
     setUploadPct(10)
 
@@ -294,7 +300,6 @@ export default function GalleryPage() {
                   <p className="text-xs text-[#A0B4C8] mt-1">JPG, PNG, WebP · Max 5MB</p>
                 </div>
                 <input ref={fileRef} type="file" accept="image/*" className="hidden"
-                  required={!editImg}
                   onChange={e => setPreviewFile(e.target.files?.[0] ?? null)} />
               </div>
 

@@ -6,6 +6,7 @@ import { ROICalculatorPromo } from "@/app/components/ui/ROICalculatorPromo";
 import { ProcessTikToks } from "@/app/components/ui/ProcessTikToks";
 import { FaqSection } from "@/app/components/ui/FaqSection";
 import { HomeProductsGallery } from "@/app/components/ui/HomeProductsGallery";
+import { EstimatorOptIn } from "@/app/components/ui/EstimatorOptIn";
 
 const homeFaqs = [
   {
@@ -38,6 +39,9 @@ export default function HomePage() {
 
       {/* Process Video Section */}
       <ProcessTikToks />
+
+      {/* High-Value Email Opt-In */}
+      <EstimatorOptIn />
 
       {/* Trust Indicators */}
       <section className="py-12 bg-blue-900 text-white border-b border-blue-800 relative z-20">

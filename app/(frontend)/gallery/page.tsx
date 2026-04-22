@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+export const revalidate = 0;
 import Link from "next/link";
 import { Button } from "@/app/components/ui/Button";
 import { GalleryGrid } from "@/app/components/gallery/GalleryGrid";
