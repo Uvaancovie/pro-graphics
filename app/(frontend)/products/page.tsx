@@ -67,7 +67,7 @@ export default async function ProductsPage() {
                   </p>
                   <div className="flex justify-end items-center">
                     <span className="w-full bg-blue-600 group-hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors inline-block text-center mt-2">
-                      View Details & Pricing
+                      View Details
                     </span>
                   </div>
                 </div>

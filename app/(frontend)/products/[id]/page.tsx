@@ -3,20 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createSupabasePublicClient } from "@/lib/supabase/server";
 import { ChevronLeft } from "lucide-react";
-import { CostCalculator } from "@/components/cost-calculator";
 import LeadMagnetPopup from "@/app/components/ui/LeadMagnetPopup";
-
-// Helper to determine calculator type based on product name
-function getCalculatorType(name: string): "canvas" | "split-frame" | "water-labels" | "vehicle-branding" | "sign-boards" | "stickers" | null {
-  const lower = name?.toLowerCase() || "";
-  if (lower.includes("canvas") || lower.includes("print")) return "canvas";
-  if (lower.includes("split") || lower.includes("frame")) return "split-frame";
-  if (lower.includes("water") || lower.includes("label")) return "water-labels";
-  if (lower.includes("vehicle") || lower.includes("brand")) return "vehicle-branding";
-  if (lower.includes("sign")) return "sign-boards";
-  if (lower.includes("sticker")) return "stickers";
-  return null;
-}
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -59,8 +46,6 @@ export default async function ProductDetailsPage({
     notFound();
   }
 
-  const calculatorType = getCalculatorType(product.name);
-
   return (
     <main className="min-h-screen py-16 bg-gray-50">
       <div className="container mx-auto px-4 max-w-6xl">
@@ -95,21 +80,17 @@ export default async function ProductDetailsPage({
                 <p>{product.description || product.short_desc}</p>
               </div>
 
-              {calculatorType ? (
-                <CostCalculator type={calculatorType} productTitle={product.name} />
-              ) : (
-                <div className="space-y-4 max-w-sm">
-                  <Link
-                    href="/general-submission"
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-bold text-lg transition-colors flex items-center justify-center shadow-md shadow-blue-600/20"
-                  >
-                    Request a Quote
-                  </Link>
-                  <p className="text-sm text-gray-500 text-center">
-                    Interested in this product? Request a quote for printing and delivery options.
-                  </p>
-                </div>
-              )}
+              <div className="space-y-4 max-w-sm">
+                <Link
+                  href="/general-submission"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-bold text-lg transition-colors flex items-center justify-center shadow-md shadow-blue-600/20"
+                >
+                  Request a Quote
+                </Link>
+                <p className="text-sm text-gray-500 text-center">
+                  Interested in this product? Request a quote for printing and delivery options.
+                </p>
+              </div>
             </div>
           </div>
         </div>
