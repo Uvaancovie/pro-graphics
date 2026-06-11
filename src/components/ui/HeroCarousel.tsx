@@ -1,0 +1,139 @@
+
+
+import { useState, useEffect, useCallback } from "react";
+
+import { Button } from "@/components/ui/Button";
+import { cn } from "@/lib/utils";
+import { motion, AnimatePresence } from "framer-motion";
+
+const heroImages = [
+    "/images/content/1.jpeg",
+    "/images/content/2.jpeg",
+    "/images/content/3.jpeg",
+    "/images/content/4.jpeg",
+    "/images/content/5.jpeg",
+];
+
+export function HeroCarousel() {
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    const nextSlide = useCallback(() => {
+        setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+    }, []);
+
+    const prevSlide = useCallback(() => {
+        setCurrentImageIndex((prev) => (prev - 1 + heroImages.length) % heroImages.length);
+    }, []);
+
+    useEffect(() => {
+        const interval = setInterval(nextSlide, 5000); // Change image every 5 seconds
+        return () => clearInterval(interval);
+    }, [nextSlide]);
+
+    const swipeConfidenceThreshold = 10000;
+    const swipePower = (offset: number, velocity: number) => {
+        return Math.abs(offset) * velocity;
+    };
+
+    return (
+        <section className="relative h-[85vh] min-h-[600px] w-full overflow-hidden bg-blue-950 flex flex-col group">
+            {/* Background Slider */}
+            <AnimatePresence initial={false} mode="popLayout">
+                <motion.div
+                    key={currentImageIndex}
+                    className="absolute inset-0 z-0"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 1 }}
+                    drag="x"
+                    dragConstraints={{ left: 0, right: 0 }}
+                    dragElastic={1}
+                    onDragEnd={(e, { offset, velocity }) => {
+                        const swipe = swipePower(offset.x, velocity.x);
+
+                        if (swipe < -swipeConfidenceThreshold) {
+                            nextSlide();
+                        } else if (swipe > swipeConfidenceThreshold) {
+                            prevSlide();
+                        }
+                    }}
+                >
+                    <img
+                        src={heroImages[currentImageIndex]}
+                        alt={`Hero Background ${currentImageIndex + 1}`}
+                        className="w-full h-full object-cover"
+                        fetchPriority="high"
+                        onError={(e) => {
+                            (e.target as HTMLImageElement).src = "/images/ads/vehicle-branding.jpeg";
+                        }}
+                    />
+                    {/* Elegant Dark Overlay */}
+                    <div className="absolute inset-0 bg-blue-950/70 mix-blend-multiply pointer-events-none"></div>
+                </motion.div>
+            </AnimatePresence>
+
+            {/* Slider Controls (Arrows) */}
+            <button
+                onClick={prevSlide}
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-4 text-white/50 hover:text-white transition-colors hover:bg-black/20 rounded-full md:opacity-0 md:group-hover:opacity-100 duration-300"
+                aria-label="Previous Slide"
+            >
+                <svg className="w-10 h-10 md:w-12 md:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+            <button
+                onClick={nextSlide}
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-4 text-white/50 hover:text-white transition-colors hover:bg-black/20 rounded-full md:opacity-0 md:group-hover:opacity-100 duration-300"
+                aria-label="Next Slide"
+            >
+                <svg className="w-10 h-10 md:w-12 md:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
+
+            {/* Main Content Overlay */}
+            <div className="relative z-10 flex-grow flex flex-col items-center justify-center px-4 text-center mt-[-40px] pointer-events-none">
+
+                
+                
+                <div className="max-w-4xl mx-auto space-y-3 md:space-y-4">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white drop-shadow-lg leading-tight tracking-tight">
+                        Vehicle Wraps & Signage That <span className="text-amber-400 block mt-1">Stop Traffic in Durban</span>
+                    </h1>
+
+                    <p className="text-base sm:text-lg md:text-xl text-blue-100 font-light max-w-xl mx-auto drop-shadow-md">
+                        Durban's Premier Printing & Signage Specialists
+                    </p>
+                </div>
+            </div>
+
+            {/* CTA Buttons */}
+            <div className="relative z-20 pb-16 pt-4 flex flex-col sm:flex-row gap-4 justify-center items-center w-full bg-gradient-to-t from-blue-950/90 to-transparent pointer-events-auto">
+                <a href="tel:0659424036">
+                    <Button variant="outline" className="bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white hover:text-blue-950 px-6 py-3 text-base sm:text-lg rounded-full transition-all hover:-translate-y-1 min-w-[0] sm:min-w-[200px]">
+                        Call 065 9424 036
+                    </Button>
+                </a>
+            </div>
+
+            {/* Slider Indicators */}
+            <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-2 z-20 pointer-events-auto">
+                {heroImages.map((_, index) => (
+                    <button
+                        key={index}
+                        onClick={() => setCurrentImageIndex(index)}
+                        className="w-10 h-10 flex items-center justify-center group"
+                        aria-label={`Go to slide ${index + 1}`}
+                    >
+                        <span className={cn(
+                            "h-1.5 rounded-full transition-all duration-300",
+                            index === currentImageIndex ? "bg-amber-500 w-6" : "bg-white/30 w-3 group-hover:bg-white/50"
+                        )} />
+                    </button>
+                ))}
+            </div>
+        </section>
+    );
+}

@@ -1,9 +1,21 @@
+# AI agent/mcp artifacts
 playwright-mcp/
 .playwright-mcp/
 sanity-mcp/
+.agents/
+skills-lock.json
+
+# Documentation & planning (not shipped)
 documentation/
 website_snapshot.md
 storage.json
+
+# Migration scripts (one-time use)
+fix-current-color.mjs
+fix-imports.mjs
+generate-routes.mjs
+migrate.mjs
+refactor-async.js
 
 # Ignore screenshot/documentation PNGs at root level (not in app/ or public/)
 /page.png
