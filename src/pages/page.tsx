@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/Button";
 import { HeroCarousel } from "@/components/ui/HeroCarousel";
 import { SocialProof } from "@/components/ui/SocialProof";
-import { ROICalculatorPromo } from "@/components/ui/ROICalculatorPromo";
 import { FaqSection } from "@/components/ui/FaqSection";
 import { HomeProductsGallery } from "@/components/ui/HomeProductsGallery";
 
@@ -58,8 +57,105 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ROI Calculator Promo */}
-      <ROICalculatorPromo />
+      {/* FIFA World Cup 2026 Special Showcase Section */}
+      <section className="py-20 bg-[#070e17] text-white relative overflow-hidden border-b border-gray-950">
+        {/* Glow Effects */}
+        <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#00a651]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-96 h-96 bg-[#d4a843]/5 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-6xl mx-auto">
+            <div className="flex flex-col lg:flex-row items-center gap-12">
+              
+              {/* Text / Info Card */}
+              <div className="lg:w-5/12 space-y-6 text-left">
+                <div className="inline-flex items-center gap-2 bg-[#00a651]/20 border border-[#00a651]/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-emerald-400 uppercase tracking-widest">
+                  🏆 Special Limited Release
+                </div>
+                
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-black leading-tight tracking-tight uppercase">
+                  FIFA WORLD CUP <span className="text-[#d4a843]">2026™</span>
+                  <span className="block text-xl sm:text-2xl font-bold text-white normal-case mt-2 tracking-normal">
+                    Legend Poster Collection
+                  </span>
+                </h2>
+                
+                <p className="text-gray-300 text-sm sm:text-base leading-relaxed font-light">
+                  Celebrate football history with Durban's premium poster collection. Get high-definition 250gsm photo satin prints of 36 iconic legends — including Messi, Cristiano Ronaldo, Mbappé, Haaland, and Bellingham.
+                </p>
+
+                {/* Offer Bullet points */}
+                <ul className="space-y-3 pt-2">
+                  <li className="flex items-center gap-3 text-sm text-gray-300">
+                    <svg className="w-5 h-5 text-[#d4a843] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>36 Legend options in A3, A2, or A1 sizes</span>
+                  </li>
+                  <li className="flex items-center gap-3 text-sm text-gray-300">
+                    <svg className="w-5 h-5 text-[#d4a843] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Premium framing & block mount options</span>
+                  </li>
+                  <li className="flex items-center gap-3 text-sm text-gray-300">
+                    <svg className="w-5 h-5 text-[#d4a843] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-emerald-400 font-semibold">Buy 3 or more, Save 20% auto-applied</span>
+                  </li>
+                </ul>
+
+                <div className="pt-4 flex flex-col sm:flex-row gap-4">
+                  <Link
+                    to="/world-cup"
+                    className="inline-flex items-center justify-center bg-[#d4a843] hover:bg-[#c29837] text-[#070e17] px-8 py-3.5 rounded-xl font-bold text-base transition-all transform hover:-translate-y-0.5 shadow-lg shadow-[#d4a843]/15"
+                  >
+                    Browse All 36 Posters
+                  </Link>
+                  <Link
+                    to="/quote?product=world-cup-legend-posters"
+                    className="inline-flex items-center justify-center bg-white/10 hover:bg-white/15 border border-white/20 px-8 py-3.5 rounded-xl font-bold text-base transition-colors"
+                  >
+                    Quick Quote
+                  </Link>
+                </div>
+              </div>
+
+              {/* Poster Showcase Grid (Vibrant Teaser Cards) */}
+              <div className="lg:w-7/12 w-full grid grid-cols-2 sm:grid-cols-4 gap-4">
+                {[
+                  { name: "Lionel Messi", img: "/world-cup-posters/lionel-messi.jpg" },
+                  { name: "Cristiano Ronaldo", img: "/world-cup-posters/cristian-ronaldo.jpg" },
+                  { name: "Kylian Mbappé", img: "/world-cup-posters/kylian-mbappe.jpg" },
+                  { name: "Jude Bellingham", img: "/world-cup-posters/jude-bellingham.jpg" },
+                ].map((p) => (
+                  <Link
+                    key={p.name}
+                    to="/world-cup"
+                    className="group bg-[#0e1b2b] rounded-xl overflow-hidden shadow-lg border border-white/5 hover:border-[#d4a843]/30 transition-all hover:scale-105 relative"
+                  >
+                    <div className="aspect-[3/4] relative overflow-hidden bg-gray-900">
+                      <img
+                        src={p.img}
+                        alt={`${p.name} Poster`}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#070e17] via-transparent to-transparent opacity-80" />
+                      <div className="absolute bottom-2.5 left-2.5 right-2.5 text-left">
+                        <p className="text-white text-xs sm:text-sm font-black truncate">{p.name}</p>
+                        <span className="text-[10px] text-[#00a651] font-bold">Limited Edition</span>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
 
       <HomeProductsGallery />
 
