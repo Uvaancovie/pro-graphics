@@ -1,261 +1,375 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/Button";
-import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
+import { 
+  Truck, 
+  Building2, 
+  Layers, 
+  Tag, 
+  Image as ImageIcon, 
+  Anchor, 
+  ChevronLeft, 
+  ChevronRight, 
+  ArrowRight, 
+  ShieldCheck, 
+  Star, 
+  PhoneCall,
+  Clock,
+  Sparkles
+} from "lucide-react";
 
-const slides = [
+export interface HeroSlide {
+  id: string;
+  badge: string;
+  icon: typeof Truck;
+  title: string;
+  subtitle: string;
+  image: string;
+  tabLabel: string;
+  specs: { label: string; value: string }[];
+  primaryCtaText: string;
+  primaryCtaLink: string;
+  secondaryCtaText: string;
+  secondaryCtaLink: string;
+}
+
+const HERO_SLIDES: HeroSlide[] = [
   {
-    image: "/world-cup-posters/lionel-messi.jpg",
-    badge: "🏆 Limited Special Edition",
-    badgeClass: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
-    title: "FIFA World Cup 2026™ Legend Posters",
-    subtitle: "Durban's exclusive collection of 36 football legends. High-fidelity prints & custom framing.",
-    ctaText: "Explore Collection",
-    ctaLink: "/world-cup",
-    secondaryCtaText: "Request Quote",
-    secondaryCtaLink: "/quote?product=world-cup-legend-posters",
-    isWorldCup: true,
-  },
-  {
+    id: "vehicle-wraps",
+    badge: "Commercial Fleet & Vehicles",
+    icon: Truck,
+    tabLabel: "Vehicle Wraps",
+    title: "High-Impact Vehicle & Fleet Branding",
+    subtitle: "Turn every commute into a moving billboard. Precision-engineered using high-durability cast vinyl and UV overlaminates that withstand coastal sun.",
     image: "/images/content/1.jpeg",
-    badge: "🚗 Mobile Billboards",
-    badgeClass: "bg-blue-500/20 text-blue-300 border-blue-500/30",
-    title: "Vehicle Wraps & Signage That Stop Traffic",
-    subtitle: "Durban's Premier Printing & Signage Specialists. Standard 24h quote turnaround.",
-    ctaText: "View Products",
-    ctaLink: "/products",
-    secondaryCtaText: "Call Us",
-    secondaryCtaLink: "tel:0659424036",
+    specs: [
+      { label: "Turnaround", value: "2–4 Days" },
+      { label: "Durability", value: "5–7 Years Outdoor" },
+      { label: "Options", value: "Full, Half, or Decal Wraps" }
+    ],
+    primaryCtaText: "Explore Vehicle Branding",
+    primaryCtaLink: "/vehicle-branding",
+    secondaryCtaText: "Request Free Quote",
+    secondaryCtaLink: "/general-submission"
   },
   {
+    id: "sign-boards",
+    badge: "Storefront & Architectural",
+    icon: Building2,
+    tabLabel: "Sign Boards",
+    title: "Chromadek, ABS & Storefront Sign Boards",
+    subtitle: "Heavy-duty outdoor signboards, 3D fabricated lettering, lightboxes, and safety signs manufactured in-house for retail shops, warehouses, and offices.",
     image: "/images/content/4.jpeg",
-    badge: "🏢 Corporate Branding",
-    badgeClass: "bg-amber-500/20 text-amber-300 border-amber-500/30",
-    title: "Sleek Chromadek & ABS Sign Boards",
-    subtitle: "Enhance your storefront and offices with durable, professional sign boards.",
-    ctaText: "Sign Board Services",
-    ctaLink: "/sign-boards",
-    secondaryCtaText: "Get Quote",
-    secondaryCtaLink: "/quote",
+    specs: [
+      { label: "Materials", value: "Chromadek, ABS, Acrylic" },
+      { label: "Finish", value: "UV Gloss / Matte Sealed" },
+      { label: "Mounting", value: "Wall, Pole, or Pylon" }
+    ],
+    primaryCtaText: "View Signage Solutions",
+    primaryCtaLink: "/sign-boards",
+    secondaryCtaText: "Get a Sign Quote",
+    secondaryCtaLink: "/general-submission"
   },
   {
-    image: "/images/content/3.jpeg",
-    badge: "🎨 Custom Canvas Prints",
-    badgeClass: "bg-purple-500/20 text-purple-300 border-purple-500/30",
-    title: "Premium Home & Office Canvas Prints",
-    subtitle: "Transform your favorite memories or company artwork into high-quality prints.",
-    ctaText: "Custom Canvas Shop",
-    ctaLink: "/canvas-shop",
-    secondaryCtaText: "Estimate Cost",
-    secondaryCtaLink: "/cost-calculator",
+    id: "contravisions",
+    badge: "Perforated Window Film",
+    icon: Layers,
+    tabLabel: "Contravisions",
+    title: "One-Way Window Contravisions",
+    subtitle: "Vibrant exterior advertising with clear see-through visibility inside. Provides daytime privacy, solar heat reduction, and full-color branding.",
+    image: "/images/content/2.jpeg",
+    specs: [
+      { label: "Material", value: "Perforated 60/40 Film" },
+      { label: "Benefit", value: "Privacy & Sun Shade" },
+      { label: "Application", value: "Shopfronts & Vehicles" }
+    ],
+    primaryCtaText: "Learn About Contravisions",
+    primaryCtaLink: "/contravisions",
+    secondaryCtaText: "Request Sizing & Quote",
+    secondaryCtaLink: "/general-submission"
   },
+  {
+    id: "stickers",
+    badge: "Precision Die-Cut Decals",
+    icon: Tag,
+    tabLabel: "Custom Stickers",
+    title: "Custom Die-Cut Vinyl Stickers & Labels",
+    subtitle: "Waterproof, scratch-resistant branding for products, packaging, equipment, and promotions printed on premium vinyl with razor-sharp contour cutting.",
+    image: "/images/content/6.jpeg",
+    specs: [
+      { label: "Cut Type", value: "Die-Cut & Kiss-Cut" },
+      { label: "Waterproof", value: "100% Water & UV Resistant" },
+      { label: "Quantities", value: "Short Runs to Bulk 10,000+" }
+    ],
+    primaryCtaText: "Order Custom Stickers",
+    primaryCtaLink: "/custom-stickers",
+    secondaryCtaText: "Estimate Pricing",
+    secondaryCtaLink: "/cost-calculator"
+  },
+  {
+    id: "canvas",
+    badge: "Fine Art Stretched Canvas",
+    icon: ImageIcon,
+    tabLabel: "Canvas Prints",
+    title: "Museum-Grade Stretched Canvas Prints",
+    subtitle: "Archival pigment inks printed on genuine 100% cotton canvas, hand-stretched over solid kiln-dried wooden frames for homes and executive boardrooms.",
+    image: "/images/content/3.jpeg",
+    specs: [
+      { label: "Material", value: "100% Archival Cotton" },
+      { label: "Framing", value: "Kiln-Dried Pine Stretcher Bars" },
+      { label: "Longevity", value: "Anti-Fade Archival Inks" }
+    ],
+    primaryCtaText: "Browse Canvas Shop",
+    primaryCtaLink: "/custom-canvas",
+    secondaryCtaText: "Instant Sizing Tool",
+    secondaryCtaLink: "/custom-canvas"
+  },
+  {
+    id: "marine",
+    badge: "Marine & Heavy Duty",
+    icon: Anchor,
+    tabLabel: "Marine Wraps",
+    title: "Marine Craft & Heavy Equipment Wraps",
+    subtitle: "Specialized saltwater-resistant vinyl wraps engineered specifically for boats, commercial vessels, jet skis, and harsh outdoor environments.",
+    image: "/images/content/7.jpeg",
+    specs: [
+      { label: "Grade", value: "Marine Cast + Edge Seal" },
+      { label: "Resistance", value: "Saltwater & Heavy UV" },
+      { label: "Vessels", value: "Boats, Skis & Commercial" }
+    ],
+    primaryCtaText: "View Marine Case Study",
+    primaryCtaLink: "/case-studies/neuro-wave-boat-branding",
+    secondaryCtaText: "Marine Wrap Consultation",
+    secondaryCtaLink: "/general-submission"
+  }
 ];
 
 export function HeroCarousel() {
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const touchStartX = useRef<number | null>(null);
 
   const nextSlide = useCallback(() => {
-    setCurrentSlideIndex((prev) => (prev + 1) % slides.length);
+    setCurrentIndex((prev) => (prev + 1) % HERO_SLIDES.length);
   }, []);
 
   const prevSlide = useCallback(() => {
-    setCurrentSlideIndex((prev) => (prev - 1 + slides.length) % slides.length);
+    setCurrentIndex((prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length);
   }, []);
 
+  // Auto-play interval (6 seconds per slide)
   useEffect(() => {
-    const interval = setInterval(nextSlide, 6000); // Change image every 6 seconds
+    if (isPaused) return;
+    const interval = setInterval(nextSlide, 6000);
     return () => clearInterval(interval);
-  }, [nextSlide]);
+  }, [nextSlide, isPaused]);
 
-  const swipeConfidenceThreshold = 10000;
-  const swipePower = (offset: number, velocity: number) => {
-    return Math.abs(offset) * velocity;
+  // Touch handlers for mobile swipe
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
   };
 
-  const currentSlide = slides[currentSlideIndex];
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX.current - touchEndX;
+
+    if (diff > 50) {
+      nextSlide();
+    } else if (diff < -50) {
+      prevSlide();
+    }
+    touchStartX.current = null;
+  };
+
+  const currentSlide = HERO_SLIDES[currentIndex];
+  const Icon = currentSlide.icon;
 
   return (
-    <section className="relative h-[85vh] min-h-[600px] w-full overflow-hidden bg-blue-950 flex flex-col group">
-      {/* Background Slider */}
-      <AnimatePresence initial={false} mode="popLayout">
-        <motion.div
-          key={currentSlideIndex}
-          className="absolute inset-0 z-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1 }}
-          drag="x"
-          dragConstraints={{ left: 0, right: 0 }}
-          dragElastic={1}
-          onDragEnd={(e, { offset, velocity }) => {
-            const swipe = swipePower(offset.x, velocity.x);
+    <section 
+      className="relative min-h-[640px] lg:min-h-[740px] w-full overflow-hidden bg-slate-950 text-white flex flex-col justify-between pt-20 pb-8 select-none"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
+      {/* Background Cross-fade Slider Image */}
+      <div className="absolute inset-0 z-0">
+        <AnimatePresence mode="popLayout">
+          <motion.div
+            key={currentSlide.id}
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.9, ease: "easeOut" }}
+            className="absolute inset-0"
+          >
+            <img
+              src={currentSlide.image}
+              alt={currentSlide.title}
+              className="w-full h-full object-cover"
+              fetchPriority="high"
+            />
+            {/* Cinematic Multilayer Gradient Overlay for Maximum Text Contrast */}
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-950/95 via-blue-950/85 to-slate-950/70" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-black/40" />
+          </motion.div>
+        </AnimatePresence>
+      </div>
 
-            if (swipe < -swipeConfidenceThreshold) {
-              nextSlide();
-            } else if (swipe > swipeConfidenceThreshold) {
-              prevSlide();
-            }
-          }}
-        >
-          <img
-            src={currentSlide.image}
-            alt={currentSlide.title}
-            className={cn(
-              "w-full h-full object-cover",
-              currentSlide.isWorldCup ? "object-top" : "object-cover"
-            )}
-            fetchPriority="high"
-            onError={(e) => {
-              (e.target as HTMLImageElement).src = "https://hcestxaffzsqlkiedvfx.supabase.co/storage/v1/object/public/gallery/vehicle-branding/uls-truck.jpeg";
-            }}
-          />
-          {/* Elegant Dark Overlay with slide-specific color toning */}
-          <div
-            className={cn(
-              "absolute inset-0 pointer-events-none mix-blend-multiply transition-colors duration-500",
-              currentSlide.isWorldCup
-                ? "bg-gradient-to-b from-emerald-950/40 via-blue-950/75 to-blue-950/90"
-                : "bg-blue-950/70"
-            )}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-blue-950/80 via-transparent to-black/30 pointer-events-none" />
-        </motion.div>
-      </AnimatePresence>
+      {/* Ambient Glows */}
+      <div className="absolute top-1/4 -left-20 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
-      {/* Slider Controls (Arrows) */}
-      <button
-        onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 text-white/50 hover:text-white transition-colors bg-black/10 hover:bg-black/30 backdrop-blur-sm rounded-full md:opacity-0 md:group-hover:opacity-100 duration-300"
-        aria-label="Previous Slide"
-      >
-        <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
-      <button
-        onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 text-white/50 hover:text-white transition-colors bg-black/10 hover:bg-black/30 backdrop-blur-sm rounded-full md:opacity-0 md:group-hover:opacity-100 duration-300"
-        aria-label="Next Slide"
-      >
-        <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
-
-      {/* Main Content Overlay */}
-      <div className="relative z-10 flex-grow flex flex-col items-center justify-center px-4 text-center mt-[-30px] pointer-events-none">
-        <div className="max-w-4xl mx-auto space-y-4 md:space-y-6">
+      {/* Main Content Area */}
+      <div className="container mx-auto px-4 relative z-10 my-auto py-8">
+        <div className="max-w-4xl">
           <AnimatePresence mode="wait">
             <motion.div
-              key={`content-${currentSlideIndex}`}
-              initial={{ opacity: 0, y: 15 }}
+              key={currentSlide.id}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
+              exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.4 }}
-              className="flex flex-col items-center space-y-4"
+              className="space-y-5"
             >
-              {currentSlide.badge && (
-                <div
-                  className={cn(
-                    "inline-flex items-center gap-1.5 border backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider",
-                    currentSlide.badgeClass
-                  )}
-                >
-                  {currentSlide.badge}
-                </div>
-              )}
+              {/* Category Pill Badge */}
+              <div className="inline-flex items-center gap-2 bg-amber-500/20 border border-amber-500/40 px-3.5 py-1.5 rounded-full text-xs font-semibold text-amber-300 uppercase tracking-widest backdrop-blur-md">
+                <Icon className="w-3.5 h-3.5 text-amber-400" />
+                <span>{currentSlide.badge}</span>
+              </div>
 
-              <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white drop-shadow-lg leading-tight tracking-tight uppercase">
-                {currentSlide.title.includes("FIFA") ? (
-                  <>
-                    FIFA World Cup <span className="text-amber-400 block mt-1 sm:inline">2026™</span>
-                  </>
-                ) : (
-                  currentSlide.title
-                )}
+              {/* Title */}
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                {currentSlide.title}
               </h1>
 
-              {currentSlide.title.includes("FIFA") && (
-                <div className="text-xl sm:text-2xl font-bold text-white tracking-wide">
-                  Legend Posters Collection
-                </div>
-              )}
-
-              <p className="text-sm sm:text-lg md:text-xl text-blue-100 font-light max-w-2xl mx-auto drop-shadow-md">
+              {/* Subtitle */}
+              <p className="text-base sm:text-lg lg:text-xl text-slate-200/90 max-w-2xl font-light leading-relaxed">
                 {currentSlide.subtitle}
               </p>
+
+              {/* Key Specifications Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 max-w-2xl">
+                {currentSlide.specs.map((spec, i) => (
+                  <div 
+                    key={i} 
+                    className="bg-slate-900/80 border border-white/10 rounded-2xl p-3 backdrop-blur-md shadow-lg"
+                  >
+                    <p className="text-[10px] uppercase tracking-wider text-slate-400 font-semibold mb-0.5">
+                      {spec.label}
+                    </p>
+                    <p className="text-xs sm:text-sm font-bold text-white">
+                      {spec.value}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap items-center gap-3.5 pt-4">
+                <Link to={currentSlide.primaryCtaLink}>
+                  <button className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-blue-950 font-bold px-6 sm:px-7 py-3 rounded-full text-xs sm:text-sm uppercase tracking-wider transition-all shadow-lg shadow-amber-500/25 hover:scale-105 active:scale-95">
+                    <span>{currentSlide.primaryCtaText}</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </Link>
+
+                <Link to={currentSlide.secondaryCtaLink}>
+                  <button className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/25 font-semibold px-5 sm:px-6 py-3 rounded-full text-xs sm:text-sm uppercase tracking-wider transition-all backdrop-blur-md">
+                    <span>{currentSlide.secondaryCtaText}</span>
+                  </button>
+                </Link>
+
+                <a
+                  href="tel:0659424036"
+                  className="hidden sm:inline-flex items-center gap-2 text-slate-300 hover:text-amber-400 text-xs sm:text-sm font-semibold px-3 py-2 transition-colors"
+                >
+                  <PhoneCall className="w-4 h-4 text-amber-400" />
+                  <span>065 9424 036</span>
+                </a>
+              </div>
             </motion.div>
           </AnimatePresence>
         </div>
       </div>
 
-      {/* CTA Buttons */}
-      <div className="relative z-20 pb-16 pt-4 flex flex-col sm:flex-row gap-4 justify-center items-center w-full bg-gradient-to-t from-blue-950/90 to-transparent pointer-events-auto">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={`ctas-${currentSlideIndex}`}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
-            className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto px-4 justify-center"
-          >
-            {currentSlide.ctaLink.startsWith("http") || currentSlide.ctaLink.startsWith("tel:") ? (
-              <a href={currentSlide.ctaLink} className="w-full sm:w-auto">
-                <Button className="bg-amber-500 hover:bg-amber-600 text-white font-bold text-base px-8 py-3 rounded-full w-full sm:min-w-[180px] shadow-lg shadow-amber-500/20 hover:scale-105 transition-all">
-                  {currentSlide.ctaText}
-                </Button>
-              </a>
-            ) : (
-              <Link to={currentSlide.ctaLink} className="w-full sm:w-auto">
-                <Button className="bg-amber-500 hover:bg-amber-600 text-white font-bold text-base px-8 py-3 rounded-full w-full sm:min-w-[180px] shadow-lg shadow-amber-500/20 hover:scale-105 transition-all">
-                  {currentSlide.ctaText}
-                </Button>
-              </Link>
-            )}
-
-            {currentSlide.secondaryCtaLink.startsWith("http") || currentSlide.secondaryCtaLink.startsWith("tel:") ? (
-              <a href={currentSlide.secondaryCtaLink} className="w-full sm:w-auto">
-                <Button
-                  variant="outline"
-                  className="bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white hover:text-blue-950 px-8 py-3 text-base rounded-full transition-all w-full sm:min-w-[180px]"
-                >
-                  {currentSlide.secondaryCtaText}
-                </Button>
-              </a>
-            ) : (
-              <Link to={currentSlide.secondaryCtaLink} className="w-full sm:w-auto">
-                <Button
-                  variant="outline"
-                  className="bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white hover:text-blue-950 px-8 py-3 text-base rounded-full transition-all w-full sm:min-w-[180px]"
-                >
-                  {currentSlide.secondaryCtaText}
-                </Button>
-              </Link>
-            )}
-          </motion.div>
-        </AnimatePresence>
+      {/* Navigation Arrows (Desktop & Tablet) */}
+      <div className="hidden sm:flex absolute right-8 bottom-32 z-20 items-center gap-2">
+        <button
+          onClick={prevSlide}
+          className="w-12 h-12 rounded-full bg-slate-900/80 hover:bg-amber-500 hover:text-blue-950 text-white border border-white/15 flex items-center justify-center transition-all backdrop-blur-md shadow-lg"
+          aria-label="Previous Slide"
+        >
+          <ChevronLeft className="w-6 h-6" />
+        </button>
+        <button
+          onClick={nextSlide}
+          className="w-12 h-12 rounded-full bg-slate-900/80 hover:bg-amber-500 hover:text-blue-950 text-white border border-white/15 flex items-center justify-center transition-all backdrop-blur-md shadow-lg"
+          aria-label="Next Slide"
+        >
+          <ChevronRight className="w-6 h-6" />
+        </button>
       </div>
 
-      {/* Slider Indicators */}
-      <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-1.5 z-20 pointer-events-auto">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentSlideIndex(index)}
-            className="w-8 h-8 flex items-center justify-center group"
-            aria-label={`Go to slide ${index + 1}`}
-          >
-            <span
-              className={cn(
-                "h-1.5 rounded-full transition-all duration-300",
-                index === currentSlideIndex ? "bg-amber-500 w-5" : "bg-white/30 w-1.5 group-hover:bg-white/50"
-              )}
-            />
-          </button>
-        ))}
+      {/* Bottom Interactive Discipline Tabs & Progress Indicators */}
+      <div className="relative z-20 container mx-auto px-4 mt-6">
+        <div className="bg-slate-900/90 border border-white/10 rounded-2xl p-2.5 backdrop-blur-lg shadow-2xl">
+          <div className="flex items-center justify-between gap-1 overflow-x-auto scrollbar-none pb-1 sm:pb-0">
+            {HERO_SLIDES.map((slide, index) => {
+              const isSelected = index === currentIndex;
+              const SlideIcon = slide.icon;
+              return (
+                <button
+                  key={slide.id}
+                  onClick={() => setCurrentIndex(index)}
+                  className={`flex-1 min-w-[130px] sm:min-w-0 text-left px-3 py-2 rounded-xl transition-all relative ${
+                    isSelected 
+                      ? "bg-blue-900/80 text-white shadow-md border border-amber-500/40" 
+                      : "hover:bg-white/5 text-slate-400 hover:text-slate-200"
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <SlideIcon className={`w-4 h-4 shrink-0 ${isSelected ? "text-amber-400" : "text-slate-500"}`} />
+                    <span className="text-xs font-bold truncate">
+                      {slide.tabLabel}
+                    </span>
+                  </div>
+                  {/* Progress Line Indicator */}
+                  {isSelected && (
+                    <motion.div 
+                      layoutId="activeSlideIndicator"
+                      className="absolute bottom-0 left-2 right-2 h-0.5 bg-amber-400 rounded-full"
+                    />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Quick Trust Strip Under Carousel */}
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-400 px-2">
+          <div className="flex items-center gap-1.5">
+            <div className="flex text-amber-400">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="w-3.5 h-3.5 fill-amber-400" />
+              ))}
+            </div>
+            <span className="font-semibold text-slate-200">5.0 Star Rated</span>
+            <span className="hidden sm:inline">· Verified Google Reviews</span>
+          </div>
+
+          <div className="flex items-center gap-1.5">
+            <Clock className="w-3.5 h-3.5 text-amber-400" />
+            <span className="font-semibold text-slate-200">24-Hour Quote Response</span>
+          </div>
+
+          <div className="flex items-center gap-1.5">
+            <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
+            <span className="font-semibold text-slate-200">100% In-House Durban Studio</span>
+          </div>
+        </div>
       </div>
     </section>
   );

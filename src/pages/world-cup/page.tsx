@@ -329,8 +329,8 @@ export default function WorldCupPage() {
         </div>
 
         <div className="container mx-auto px-4 max-w-4xl relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 bg-[#d4a843]/10 border border-[#d4a843]/20 px-4 py-2 rounded-full text-xs font-bold text-[#d4a843] uppercase tracking-widest mb-6">
-            🎉 World Cup Special Deal
+          <div className="inline-flex items-center gap-2 bg-[#d4a843]/10 border border-[#d4a843]/20 px-4 py-2 rounded-full text-xs font-semibold text-[#d4a843] uppercase tracking-widest mb-6">
+            World Cup Special Promotion
           </div>
           <h2 className="text-3xl sm:text-5xl font-black mb-6">
             BUY 3 OR MORE, <span className="text-[#00a651]">SAVE 20%</span>

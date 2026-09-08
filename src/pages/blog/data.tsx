@@ -168,11 +168,11 @@ export const blogPosts: BlogPost[] = [
                 </h3>
 
                 <ul className="list-disc pl-6 mb-6 space-y-2 text-gray-600">
-                    <li>❌ Multiple phone numbers (use one, forward the rest)</li>
-                    <li>❌ Email addresses (no one writes them down from signs)</li>
-                    <li>❌ Lists of services (&quot;We also do...&quot; dilutes the message)</li>
-                    <li>❌ Social media handles (save for your website)</li>
-                    <li>❌ Opening hours (put these on your door, not your main sign)</li>
+                    <li>Multiple phone numbers (use one, forward the rest)</li>
+                    <li>Email addresses (no one writes them down from signs)</li>
+                    <li>Lists of services (&quot;We also do...&quot; dilutes the message)</li>
+                    <li>Social media handles (save for your website)</li>
+                    <li>Opening hours (put these on your door, not your main sign)</li>
                 </ul>
 
                 <h2 className="text-3xl font-bold text-blue-950 mt-12 mb-6 pb-2 border-b border-gray-200">
@@ -1327,7 +1327,7 @@ export const blogPosts: BlogPost[] = [
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                     <div className="bg-blue-50 p-6 rounded-xl border border-blue-100">
-                        <h4 className="font-bold text-blue-950 mb-3 text-lg">🖼️ With Premium Frame</h4>
+                        <h4 className="font-bold text-blue-950 mb-3 text-lg">With Premium Frame</h4>
                         <ul className="list-disc pl-6 space-y-2 text-gray-700">
                             <li>Ready to hang — no extra trip to the framing shop</li>
                             <li>Premium quality frame with a sleek profile</li>
@@ -1336,8 +1336,8 @@ export const blogPosts: BlogPost[] = [
                             <li>Ideal for gifts and special displays</li>
                         </ul>
                     </div>
-                    <div className="bg-amber-50 p-6 rounded-xl border-l-4 border-amber-500">
-                        <h4 className="font-bold text-blue-950 mb-3 text-lg">📄 Print Only</h4>
+                    <div className="bg-amber-50/70 p-6 rounded-xl border border-amber-200">
+                        <h4 className="font-bold text-blue-950 mb-3 text-lg">Print Only</h4>
                         <ul className="list-disc pl-6 space-y-2 text-gray-700">
                             <li>Lower upfront cost — save R150–R440 per poster</li>
                             <li>Freedom to choose your own frame style</li>

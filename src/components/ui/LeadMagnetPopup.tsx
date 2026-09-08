@@ -22,7 +22,7 @@ const FORM_HEADLINE  = "Where should we send your free pricing guide?"
 const FORM_SUBHEAD   = "Join Durban business owners using this to budget wraps correctly"
 const CTA_HOOK       = "Show Me How to Fix This →"
 const CTA_SUBMIT     = "Get Access to the Estimator →"
-const SUCCESS_TITLE  = "It's on its way! 🎉"
+const SUCCESS_TITLE  = "It's on its way!"
 const SUCCESS_SUB    = "Check your inbox — your link to the Interactive Estimator is on the way."
 
 export default function LeadMagnetPopup() {
@@ -399,7 +399,7 @@ export default function LeadMagnetPopup() {
                   </div>
                   <div className="pg-magnet-info">
                     <p className="pg-magnet-name">{MAGNET_TITLE}</p>
-                    <p className="pg-magnet-badge">⚡ {MAGNET_SUBTITLE}</p>
+                    <p className="pg-magnet-badge">{MAGNET_SUBTITLE}</p>
                   </div>
                 </div>
 
@@ -416,7 +416,7 @@ export default function LeadMagnetPopup() {
                 <button className="pg-cta-btn" onClick={() => setPhase('form')}>
                   {CTA_HOOK}
                 </button>
-                <p className="pg-no-spam">🔒 No spam. Unsubscribe anytime. Takes 10 seconds.</p>
+                <p className="pg-no-spam">No spam. Unsubscribe anytime. Takes 10 seconds.</p>
               </>
             )}
 
@@ -466,7 +466,7 @@ export default function LeadMagnetPopup() {
                   />
                 </div>
 
-                {error && <div className="pg-error">⚠️ {error}</div>}
+                {error && <div className="pg-error">{error}</div>}
 
                 <button className="pg-cta-btn" type="submit" disabled={loading}>
                   {loading
@@ -477,7 +477,6 @@ export default function LeadMagnetPopup() {
 
                 {/* Trust signal */}
                 <div className="pg-guarantee">
-                  <span style={{ fontSize: 18 }}>🔒</span>
                   <p className="pg-guarantee-text">
                     <strong>100% private.</strong> Your email goes straight to your inbox — we'll also send you Durban-specific branding tips. Unsubscribe anytime, one click.
                   </p>
@@ -491,7 +490,11 @@ export default function LeadMagnetPopup() {
             ══════════════════════════════════════ */}
             {phase === 'success' && (
               <div className="pg-success">
-                <div className="pg-success-icon">📬</div>
+                <div className="pg-success-icon">
+                  <svg className="w-8 h-8 text-amber-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
                 <h3 className="pg-success-h2">{SUCCESS_TITLE}</h3>
                 <p className="pg-success-sub">{SUCCESS_SUB}</p>
 

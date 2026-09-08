@@ -56,8 +56,8 @@ export default function NeuroWaveBoatBrandingCaseStudy() {
                         </Link>
                     </nav>
 
-                    <div className="flex items-center gap-2 text-amber-400 text-xs font-bold uppercase tracking-widest mb-4">
-                        🔥 Latest Project
+                    <div className="inline-flex items-center gap-2 bg-amber-500/15 border border-amber-500/30 px-3.5 py-1.5 rounded-full text-xs font-semibold text-amber-400 uppercase tracking-widest mb-4">
+                        Featured Marine Project
                     </div>
 
                     <h1 className="text-3xl sm:text-5xl font-extrabold text-white leading-tight mb-4">

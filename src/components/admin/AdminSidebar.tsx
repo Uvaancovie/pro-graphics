@@ -2,15 +2,16 @@
 // components/admin/AdminSidebar.tsx
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { createSupabaseBrowserClient } from '@/lib/supabase/client'
+import { LayoutDashboard, ClipboardList, Package, Layers, Calculator, Image, ExternalLink, LogOut } from 'lucide-react'
 
 const NAV = [
-  { href: '/admin',          label: 'Dashboard',         icon: '📊' },
-  { href: '/admin/orders',   label: 'Orders',            icon: '📋' },
-  { href: '/admin/inventory',label: 'Inventory',         icon: '📦' },
-  { href: '/admin/products', label: 'Products & Services',icon: '📦' },
-  { href: '/admin/calculator', label: 'Cost Calculator', icon: '🧮' },
-  { href: '/admin/gallery',  label: 'Gallery',            icon: '🖼️' },
-  { href: '/',               label: 'View Website ↗',    icon: '🌐', external: true },
+  { href: '/admin',          label: 'Dashboard',         icon: LayoutDashboard },
+  { href: '/admin/orders',   label: 'Orders',            icon: ClipboardList },
+  { href: '/admin/inventory',label: 'Inventory',         icon: Package },
+  { href: '/admin/products', label: 'Products & Services',icon: Layers },
+  { href: '/admin/calculator', label: 'Cost Calculator', icon: Calculator },
+  { href: '/admin/gallery',  label: 'Gallery',            icon: Image },
+  { href: '/',               label: 'View Website',      icon: ExternalLink, external: true },
 ]
 
 // Map emails to display names - update with actual admin emails
@@ -59,7 +60,7 @@ export default function AdminSidebar({ userEmail }: { userEmail: string }) {
 
       {/* Nav */}
       <nav className="flex-1 p-4 space-y-1">
-        {NAV.map(({ href, label, icon, external }) => {
+        {NAV.map(({ href, label, icon: Icon, external }) => {
           const active = external ? false : (href === '/admin' ? pathname === href : pathname.startsWith(href))
           return (
             <Link
@@ -72,7 +73,7 @@ export default function AdminSidebar({ userEmail }: { userEmail: string }) {
                   : 'text-[#A0B4C8] hover:bg-[#1C2B3A] hover:text-white'
                 }`}
             >
-              <span>{icon}</span>
+              <Icon className="w-4 h-4 shrink-0" />
               <span>{label}</span>
             </Link>
           )
@@ -100,7 +101,7 @@ export default function AdminSidebar({ userEmail }: { userEmail: string }) {
           className="w-full text-left flex items-center gap-3 px-4 py-2.5 rounded-xl
                      text-[#A0B4C8] hover:bg-red-500/10 hover:text-red-400 transition-all text-sm"
         >
-          <span>🚪</span>
+          <LogOut className="w-4 h-4 shrink-0" />
           <span>Sign Out</span>
         </button>
       </div>
