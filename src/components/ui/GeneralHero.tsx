@@ -40,7 +40,7 @@ const WORK_CATEGORIES: WorkCategory[] = [
     title: "Commercial Fleet & Vehicle Wraps",
     tagline: "Turn every commute into a moving billboard across KwaZulu-Natal",
     description: "From single company bakkies to full commercial truck fleets. Precision-engineered using high-durability cast vinyl and UV overlaminates that withstand coastal sun and weather.",
-    image: "/images/content/1.jpeg",
+    image: "/vehicle-branding/gold-white-truck.jpeg",
     specs: [
       { label: "Turnaround", value: "2–4 Days" },
       { label: "Durability", value: "5–7 Years Outdoor" },
@@ -57,7 +57,7 @@ const WORK_CATEGORIES: WorkCategory[] = [
     title: "Chromadek, ABS & Architectural Signage",
     tagline: "Command attention with durable, high-visibility business signage",
     description: "Heavy-duty outdoor signboards, 3D fabricated lettering, lightboxes, and safety signs manufactured in-house for retail shops, warehouses, industrial parks, and corporate offices.",
-    image: "/images/content/4.jpeg",
+    image: "/vehicle-branding/signage.jpeg",
     specs: [
       { label: "Materials", value: "Chromadek, ABS, Acrylic" },
       { label: "Finish", value: "UV Gloss / Matte Sealed" },
@@ -74,7 +74,7 @@ const WORK_CATEGORIES: WorkCategory[] = [
     title: "Perforated One-Way Window Vinyl",
     tagline: "Vibrant exterior advertising with clear see-through visibility inside",
     description: "Ideal for retail shopfront windows, corporate glass partitions, and vehicle rear windows. Provides daytime privacy, solar glare reduction, and full-color branding.",
-    image: "/images/content/2.jpeg",
+    image: "/images/ads/contravisions.jpeg",
     specs: [
       { label: "Material", value: "Perforated 60/40 Film" },
       { label: "Benefit", value: "One-Way Privacy + Sun Shade" },
@@ -108,7 +108,7 @@ const WORK_CATEGORIES: WorkCategory[] = [
     title: "Museum-Grade Stretched Canvas",
     tagline: "Transform photos and artwork into gallery-quality displays",
     description: "Archival pigment inks printed on genuine 100% cotton canvas, hand-stretched over solid kiln-dried wooden frames. Perfect for homes, boardrooms, and luxury gifts.",
-    image: "/images/content/3.jpeg",
+    image: "/canvas-products/custom-canvas-3.jpeg",
     specs: [
       { label: "Material", value: "100% Archival Cotton" },
       { label: "Framing", value: "Kiln-Dried Pine Stretcher Bars" },
@@ -118,21 +118,21 @@ const WORK_CATEGORIES: WorkCategory[] = [
     ctaText: "Browse Canvas Options"
   },
   {
-    id: "marine-specialty",
-    name: "Marine & Specialty Wraps",
-    shortLabel: "Marine & Specialty",
-    icon: Anchor,
-    title: "Marine Craft & Specialized Graphics",
-    tagline: "Saltwater-resistant wraps for boats, jet skis, and heavy machinery",
-    description: "Engineered specifically for harsh maritime and industrial environments. Seamless hull wrapping, marine registration numbering, and heavy-duty equipment livery.",
-    image: "/images/content/7.jpeg",
+    id: "custom-wallpaper",
+    name: "Custom Wall Murals",
+    shortLabel: "Custom Wallpaper",
+    icon: Sparkles,
+    title: "Custom Wall Murals & Feature Wallpaper",
+    tagline: "Seamless custom printed wallpaper for offices and residential spaces",
+    description: "Transform commercial boardrooms, retail showrooms, and residential feature walls with vibrant, seamless custom printed wallpaper printed with anti-fade inks.",
+    image: "/images/gallery/1776257457860.jpeg",
     specs: [
-      { label: "Grade", value: "Marine Cast + Edge Seal" },
-      { label: "Resistance", value: "Saltwater & Heavy UV" },
-      { label: "Vessels", value: "Boats, Skis & Commercial" }
+      { label: "Material", value: "Heavyweight Textured Vinyl" },
+      { label: "Finish", value: "Seamless Custom Paste-Up" },
+      { label: "Longevity", value: "Washable & Anti-Fade Inks" }
     ],
-    link: "/case-studies/neuro-wave-boat-branding",
-    ctaText: "View Marine Projects"
+    link: "/custom-wallpaper",
+    ctaText: "Explore Wall Murals"
   }
 ];
 
@@ -154,10 +154,10 @@ export function GeneralHero() {
   }, [isAutoCycling]);
 
   return (
-    <section className="relative bg-gradient-to-b from-blue-950 via-blue-900 to-slate-950 text-white overflow-hidden pt-24 pb-16 lg:pt-28 lg:pb-24">
+    <section className="relative bg-gradient-to-b from-neutral-950 via-neutral-900 to-neutral-950 text-white overflow-hidden pt-24 pb-16 lg:pt-28 lg:pb-24">
       {/* Background Subtle Grid Texture */}
       <div 
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        className="absolute inset-0 opacity-[0.02] pointer-events-none"
         style={{
           backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
           backgroundSize: '32px 32px'
@@ -165,8 +165,8 @@ export function GeneralHero() {
       />
       
       {/* Ambient Lighting Orbs */}
-      <div className="absolute -top-40 -left-40 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-1/2 -right-40 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -top-40 -left-40 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 -right-40 w-96 h-96 bg-white/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Top Header Badge & Main Value Proposition */}
