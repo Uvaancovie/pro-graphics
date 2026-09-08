@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { MaterialComparison } from "@/components/sign-boards/MaterialComparison";
+import { Seo } from "@/components/Seo";
 import { Button } from "@/components/ui/Button";
 import { Link } from "react-router-dom";
 
@@ -30,34 +31,19 @@ const signBoardFaqs = [
 export default function SignBoardsPage() {
     return (
         <main className="min-h-screen">
-            {/* Hero Section */}
-            <section className="relative h-[50vh] min-h-[400px] md:min-h-[600px] flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0">
-                    <img
-                        src="/images/ads/custom-sign-boards.jpeg"
-                        alt="Custom Sign Boards"
-                        
-                        className="object-cover"
-                        
-                    />
-                    <div className="absolute inset-0 bg-blue-950/80 mix-blend-multiply"></div>
-                </div>
-
-                <div className="container mx-auto px-4 relative z-10 text-center text-white">
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6 drop-shadow-lg">
-                        Custom Sign Boards{" "}
-                        <span className="text-amber-400">| Pro Graphics</span>
-                    </h1>
-                    <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 md:mb-10 max-w-3xl mx-auto text-blue-100 font-light drop-shadow-md">
-                        Choose the right material for your environment. Expert guidance included.
-                    </p>
-                    <Link to="/quote">
-                        <Button size="lg" className="bg-amber-500 hover:bg-amber-600 text-white font-bold px-6 sm:px-8 md:px-12 py-4 sm:py-6 md:py-8 text-base sm:text-lg md:text-xl shadow-2xl border-none">
-                            Get Free Design & Quote
-                        </Button>
-                    </Link>
-                </div>
-            </section>
+            <Seo
+                title="Sign Boards Durban | Custom Shop & Outdoor Signage"
+                description="Choose the right material for your environment. Expert guidance from concept to installation for custom sign boards in Durban."
+                canonicalUrl="/sign-boards"
+            />
+            <ServiceHero
+                title="Custom Sign Boards"
+                subtitle="Choose the right material for your environment. Expert guidance from concept to installation."
+                imageSrc="/images/ads/sign-boards-hero.png"
+                imageAlt="Professional custom sign board on a modern storefront at dusk"
+                breadcrumbLabel="Sign Boards"
+                primaryCTA={{ text: "Get Free Design & Quote", href: "/quote" }}
+            />
 
             {/* Material Comparison Component */}
             <MaterialComparison />

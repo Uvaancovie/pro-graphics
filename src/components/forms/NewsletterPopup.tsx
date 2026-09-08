@@ -102,7 +102,7 @@ export function NewsletterPopup() {
         <div className="grid md:grid-cols-2">
           <div className="relative min-h-[280px] md:min-h-full">
             <img
-              src="/images/ads/vehicle-branding.jpeg"
+              src="https://hcestxaffzsqlkiedvfx.supabase.co/storage/v1/object/public/gallery/vehicle-branding/uls-truck.jpeg"
               alt="Professional vehicle branding examples in Durban"
               
               className="object-cover"

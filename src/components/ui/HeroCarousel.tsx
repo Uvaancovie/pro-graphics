@@ -108,7 +108,7 @@ export function HeroCarousel() {
             )}
             fetchPriority="high"
             onError={(e) => {
-              (e.target as HTMLImageElement).src = "/images/ads/vehicle-branding.jpeg";
+              (e.target as HTMLImageElement).src = "https://hcestxaffzsqlkiedvfx.supabase.co/storage/v1/object/public/gallery/vehicle-branding/uls-truck.jpeg";
             }}
           />
           {/* Elegant Dark Overlay with slide-specific color toning */}

@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
+import { Seo } from "@/components/Seo";
 import { Button } from "@/components/ui/Button";
-import { HeroCarousel } from "@/components/ui/HeroCarousel";
+import { BoatBrandingHero } from "@/components/ui/BoatBrandingHero";
 import { SocialProof } from "@/components/ui/SocialProof";
 import { ROICalculatorPromo } from "@/components/ui/ROICalculatorPromo";
 import { FaqSection } from "@/components/ui/FaqSection";
 import { HomeProductsGallery } from "@/components/ui/HomeProductsGallery";
+import { motion } from "framer-motion";
 
 const homeFaqs = [
   {
@@ -32,8 +34,114 @@ const homeFaqs = [
 export default function HomePage() {
   return (
     <main className="min-h-screen">
-      {/* Hero Section with Carousel */}
-      <HeroCarousel />
+      <Seo
+        title="Vehicle Branding Durban | Sign Boards & Canvas Printing"
+        description="Pro Graphics Durban offers professional vehicle branding, custom sign boards, canvas printing, and more. Get a free quote within 24 hours."
+        canonicalUrl="/"
+      />
+      <BoatBrandingHero />
+
+      <section className="py-16 lg:py-20 bg-white border-b border-gray-100">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 px-4 py-1.5 rounded-full text-xs font-bold text-blue-900 uppercase tracking-widest mb-4">
+                📋 Case Study
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-bold text-blue-950 mb-3">
+                NeuroWave Boat Branding
+              </h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                From concept to ocean — a complete marine vinyl wrap project showcasing premium materials, precision installation, and stunning results.
+              </p>
+            </motion.div>
+
+            <div className="grid gap-6 sm:grid-cols-3 mb-10">
+              {[
+                {
+                  title: "The Challenge",
+                  desc: "The client required a distinctive marine wrap that reflected the NeuroWave brand while remaining durable in harsh coastal conditions with constant UV exposure and saltwater spray.",
+                  color: "bg-red-50 border-red-100",
+                  icon: (
+                    <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                    </svg>
+                  ),
+                },
+                {
+                  title: "The Solution",
+                  desc: "Premium marine-grade vinyl wrap with UV-resistant eco-solvent printing, protective overlaminate, and precision computer-cut panels for a seamless fit.",
+                  color: "bg-blue-50 border-blue-100",
+                  icon: (
+                    <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                  ),
+                },
+                {
+                  title: "The Result",
+                  desc: "A bold, professional marine wrap that transforms the vessel into a highly visible floating advertisement while protecting the original paintwork from UV damage and salt corrosion.",
+                  color: "bg-emerald-50 border-emerald-100",
+                  icon: (
+                    <svg className="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  ),
+                },
+              ].map((item) => (
+                <motion.div
+                  key={item.title}
+                  className={`rounded-xl p-6 border ${item.color}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <div className="w-10 h-10 rounded-lg flex items-center justify-center mb-4 bg-white/80">
+                    {item.icon}
+                  </div>
+                  <h3 className="font-bold text-blue-950 mb-2">{item.title}</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">{item.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+              {[
+                "https://hcestxaffzsqlkiedvfx.supabase.co/storage/v1/object/public/boat-branding/WhatsApp%20Image%202026-07-29%20at%2010.45.49.jpeg",
+                "https://hcestxaffzsqlkiedvfx.supabase.co/storage/v1/object/public/boat-branding/WhatsApp%20Image%202026-07-29%20at%2010.45.49%20(1).jpeg",
+              ].map((src, i) => (
+                <div key={i} className="rounded-xl overflow-hidden shadow-sm border border-gray-200">
+                  <img
+                    src={src}
+                    alt={`NeuroWave boat branding ${i + 1}`}
+                    className="w-full aspect-[16/9] object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+
+            <div className="text-center">
+              <Link
+                to="/case-studies/neuro-wave-boat-branding"
+                className="inline-flex items-center gap-2 bg-blue-950 hover:bg-blue-900 text-white font-bold px-8 py-3.5 rounded-xl transition-all hover:scale-105"
+              >
+                Read the Full Case Study
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Trust Indicators */}
       <section className="py-12 bg-blue-900 text-white border-b border-blue-800 relative z-20">

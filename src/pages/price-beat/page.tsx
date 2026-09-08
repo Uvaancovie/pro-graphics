@@ -1,24 +1,28 @@
-import { Metadata } from "next";
-
+import { Seo } from "@/components/Seo";
 import { Link } from "react-router-dom";
 
 import { PriceBeatClient } from "./PriceBeatClient";
 
 const SITE_URL = "https://pro-graphics.co.za";
 const PAGE_URL = `${SITE_URL}/price-beat`;
-const OG_IMAGE_URL = `${SITE_URL}/images/ads/vehicle-branding.jpeg`;
+const OG_IMAGE_URL = "https://hcestxaffzsqlkiedvfx.supabase.co/storage/v1/object/public/gallery/vehicle-branding/uls-truck.jpeg";
 
 
 
 export default function PriceBeatPage() {
     return (
         <main className="min-h-screen bg-blue-950 text-white">
+            <Seo
+                title="Price Beat Guarantee | Pro Graphics Durban"
+                description="Have a verified quote for vehicle branding? Send it to us and we will beat it by 10%. Premium 3M materials, professional installation, better price."
+                canonicalUrl="/price-beat"
+            />
             {/* Hero Section */}
             <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
                 {/* Background Image */}
                 <div className="absolute inset-0 z-0">
                     <img
-                        src="/images/ads/vehicle-branding.jpeg"
+                        src="https://hcestxaffzsqlkiedvfx.supabase.co/storage/v1/object/public/gallery/vehicle-branding/uls-truck.jpeg"
                         alt="Professional Vehicle Branding by Pro Graphics"
                         
                         className="object-cover"
@@ -78,7 +82,7 @@ export default function PriceBeatPage() {
 
                     {/* Scroll Indicator */}
                     <div className="animate-bounce text-blue-300">
-                        <svg className="w-8 h-8 mx-auto" fillfill="none" strokefill="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                         </svg>
                     </div>

@@ -1,15 +1,14 @@
-
+import { useParams } from "react-router-dom";
+import { Seo } from "@/components/Seo";
 import CanvasProductConfigurator from "@/components/canvas-shop/CanvasProductConfigurator";
 
-// Dummy data fetching - you would replace this with a Supabase query:
-// const { data } = await supabase.from('canvas_products').select('*, canvas_options(*)').eq('slug', params.slug).single()
 const dummyDatabase = [
   {
     id: "1",
     title: "Durban Skyline Abstract",
     slug: "durban-skyline-abstract",
     description: "A beautiful abstract depiction of the Durban skyline printed on premium material.",
-    imageUrl: "/images/ads/custom-sign-boards.jpeg",
+    imageUrl: "/canvas-products/canvas-product-1.jpeg",
     options: [
       { id: "o1", sizeName: "A4 (210x297mm)", material: "Standard Canvas", price: 350 },
       { id: "o2", sizeName: "A4 (210x297mm)", material: "Premium Gloss Canvas", price: 450 },
@@ -23,7 +22,7 @@ const dummyDatabase = [
     title: "Minimalist Geometric Tiger",
     slug: "minimalist-geometric-tiger",
     description: "Geometric art perfect for modern offices.",
-    imageUrl: "/images/ads/vehicle-branding.jpeg",
+    imageUrl: "/canvas-products/canvas-product-2.jpeg",
     options: [
       { id: "o1", sizeName: "Medium (500x700mm)", material: "Matte Canvas", price: 450 },
       { id: "o2", sizeName: "Large (700x1000mm)", material: "Matte Canvas", price: 850 },
@@ -31,25 +30,30 @@ const dummyDatabase = [
   }
 ];
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const product = dummyDatabase.find(p => p.slug === params.slug);
-  if (!product) return { title: "Not Found" };
-  
-  return {
-    title: `${product.title} | Canvas Art | Pro Graphics`,
-    description: product.description,
-  };
-}
-
-export default function CanvasProductPage({ params }: { params: { slug: string } }) {
-  const product = dummyDatabase.find(p => p.slug === params.slug);
+export default function CanvasProductPage() {
+  const { slug } = useParams<{ slug: string }>();
+  const product = dummyDatabase.find(p => p.slug === slug);
 
   if (!product) {
-    notFound();
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-blue-950">Product Not Found</h1>
+          <a href="/canvas-shop" className="text-blue-900 font-bold mt-4 inline-block hover:text-amber-500 transition-colors">
+            ← Back to Canvas Shop
+          </a>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="bg-white min-h-screen pt-12">
+      <Seo
+        title={`${product.title} | Canvas Art | Pro Graphics`}
+        description={product.description}
+        canonicalUrl={`/canvas-shop/${slug}`}
+      />
       <CanvasProductConfigurator product={product} />
     </div>
   );

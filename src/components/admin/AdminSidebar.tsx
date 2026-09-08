@@ -1,7 +1,6 @@
 'use client'
 // components/admin/AdminSidebar.tsx
-import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { createSupabaseBrowserClient } from '@/lib/supabase/client'
 
 const NAV = [
@@ -34,14 +33,13 @@ function getUserName(email: string): string {
 }
 
 export default function AdminSidebar({ userEmail }: { userEmail: string }) {
-  const pathname = usePathname()
-  const router   = useRouter()
+  const pathname = useLocation().pathname
+  const navigate = useNavigate()
   const supabase = createSupabaseBrowserClient()
 
   async function handleLogout() {
     await supabase.auth.signOut()
-    router.push('/admin/login')
-    router.refresh()
+    navigate('/admin/login')
   }
 
   return (
@@ -66,7 +64,7 @@ export default function AdminSidebar({ userEmail }: { userEmail: string }) {
           return (
             <Link
               key={href}
-              href={href}
+              to={href}
               target={external ? '_blank' : undefined}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-sm font-medium
                 ${active

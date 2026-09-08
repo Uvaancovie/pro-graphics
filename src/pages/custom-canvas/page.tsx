@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import { Seo } from "@/components/Seo";
 import { Button } from "@/components/ui/Button";
 import { Link } from "react-router-dom";
 
@@ -9,6 +9,11 @@ import { Link } from "react-router-dom";
 export default function CustomCanvasPage() {
     return (
         <main className="min-h-screen">
+            <Seo
+                title="Custom Canvas Printing Durban | Premium Canvas Art"
+                description="Turn your visuals into premium statement pieces for offices, stores, and branded spaces with custom canvas printing in Durban."
+                canonicalUrl="/custom-canvas"
+            />
             <section className="relative h-[50vh] min-h-[400px] md:min-h-[600px] flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0">
                     <img

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Seo } from "@/components/Seo";
 import { blogPosts } from './data';
 
 
@@ -21,6 +22,11 @@ export default function BlogIndex() {
 
     return (
         <div className="min-h-screen bg-background pt-24 pb-16">
+            <Seo
+                title="Branding & Signage Blog | Pro Graphics Durban"
+                description="Data, strategies, and guides to help your Durban business turn vehicles into revenue. Vehicle branding, sign boards, and signage insights."
+                canonicalUrl="/blog"
+            />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(blogCollectionSchema) }}

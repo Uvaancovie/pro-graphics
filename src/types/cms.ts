@@ -10,6 +10,8 @@ export type ProductCategory =
   | 'canvas-wallpaper'
   | 'stickers-decals'
   | 'world-cup-posters'
+  | 'roof-wrap'
+  | 'office-branding'
 
 export type PricingTier = 'good' | 'better' | 'best'
 

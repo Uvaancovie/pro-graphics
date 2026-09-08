@@ -20,12 +20,13 @@
 
     "paths": {
       "@/*": [
-        "./*"
+        "./src/*"
       ]
     },
     "types": [
       "vitest/globals",
-      "@testing-library/jest-dom"
+      "@testing-library/jest-dom",
+      "vite/client"
     ]
   },
   "include": [
@@ -38,6 +39,9 @@
     "dist",
     "playwright-mcp",
     ".playwright-mcp",
-    "pro-graphic-back"
+    "pro-graphic-back",
+    "supabase",
+    "src/lib/security.ts",
+    "src/lib/markdown.ts"
   ]
 }

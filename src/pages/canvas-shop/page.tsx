@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
-
-
+import { Seo } from "@/components/Seo";
 
 // In a real app, you would fetch this from Supabase
 const dummyProducts = [
@@ -8,7 +7,7 @@ const dummyProducts = [
     id: "1",
     title: "Durban Skyline Abstract",
     slug: "durban-skyline-abstract",
-    imageUrl: "/images/ads/custom-sign-boards.jpeg", // Placeholder
+    imageUrl: "/canvas-products/canvas-product-1.jpeg", // Placeholder
     description: "A beautiful abstract depiction of the Durban skyline.",
     priceFrom: 350,
   },
@@ -16,7 +15,7 @@ const dummyProducts = [
     id: "2",
     title: "Minimalist Geometric Tiger",
     slug: "minimalist-geometric-tiger",
-    imageUrl: "/images/ads/vehicle-branding.jpeg", // Placeholder
+    imageUrl: "/canvas-products/canvas-product-2.jpeg", // Placeholder
     description: "Geometric art perfect for modern offices.",
     priceFrom: 450,
   }
@@ -27,6 +26,11 @@ const dummyProducts = [
 export default function CanvasShopPage() {
   return (
     <main className="min-h-screen py-20 bg-gray-50">
+      <Seo
+        title="Canvas Printing Durban | Premium Custom Canvas Art"
+        description="Explore our curated gallery of high-quality canvas prints and custom signage artworks available for purchase in Durban."
+        canonicalUrl="/canvas-shop"
+      />
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-6xl font-bold text-blue-950 mb-6 tracking-tight">

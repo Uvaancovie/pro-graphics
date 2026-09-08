@@ -1,5 +1,5 @@
-import { Metadata } from 'next';
 import { Link } from "react-router-dom";
+import { Seo } from "@/components/Seo";
 
 import { TrendingUp, Eye, ShieldCheck, Banknote, Car, ChartBar } from 'lucide-react';
 
@@ -9,6 +9,11 @@ import { TrendingUp, Eye, ShieldCheck, Banknote, Car, ChartBar } from 'lucide-re
 export default function ROIEducationalPage() {
     return (
         <article className="min-h-screen bg-gray-50 pb-24 pt-32">
+            <Seo
+                title="Vehicle Branding ROI Calculator"
+                description="Learn how unbranded vehicles bleed revenue and calculate the true ROI of professional vehicle branding for your Durban fleet."
+                canonicalUrl="/roi-calculator"
+            />
             {/* Hero Section */}
             <div className="bg-blue-950 text-white relative overflow-hidden py-24 mb-16">
                 <div className="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-amber-500 via-transparent to-transparent"></div>

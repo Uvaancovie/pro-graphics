@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import { Seo } from "@/components/Seo";
 import { GeneralSubmissionForm } from "@/components/forms/GeneralSubmissionForm";
 
 
@@ -6,6 +6,11 @@ import { GeneralSubmissionForm } from "@/components/forms/GeneralSubmissionForm"
 export default function GeneralSubmissionPage() {
     return (
         <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white py-16">
+            <Seo
+                title="General Submission | Pro Graphics Durban"
+                description="Submit any enquiry to Pro Graphics Durban. We route your request to the right team for signage, branding, or print projects."
+                canonicalUrl="/general-submission"
+            />
             <div className="container mx-auto px-4 max-w-6xl">
                 <div className="text-center mb-12">
                     <div className="inline-flex items-center gap-2 bg-blue-950 text-amber-400 px-5 py-2.5 rounded-full mb-6 shadow-lg">

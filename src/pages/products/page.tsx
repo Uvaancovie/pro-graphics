@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect, useMemo } from "react";
+import { Seo } from "@/components/Seo";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ArrowRight, Layers } from "lucide-react";
 import { getProducts, getGalleryImages } from "@/lib/cms";
@@ -36,7 +37,7 @@ const container = {
 
 const item = {
   hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" as const } },
 };
 
 function ProductSkeleton() {
@@ -87,6 +88,11 @@ export default function ProductsPage() {
 
   return (
     <main className="min-h-screen bg-gray-50">
+      <Seo
+        title="Products & Services | Pro Graphics Durban"
+        description="From vehicle wraps that turn heads to precision-cut stickers, custom canvas, and durable signage — browse our full range."
+        canonicalUrl="/products"
+      />
       <section className="bg-gradient-to-br from-blue-950 via-blue-900 to-blue-950 text-white py-20 md:py-28 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500 rounded-full blur-3xl opacity-20 transform translate-x-1/2 -translate-y-1/2" />
@@ -165,7 +171,7 @@ export default function ProductsPage() {
                     >
                       <div className="relative h-56 bg-gray-100 overflow-hidden">
                         <img
-                          src={product.image_url || "/images/ads/vehicle-branding.jpeg"}
+                          src={product.image_url || "https://hcestxaffzsqlkiedvfx.supabase.co/storage/v1/object/public/gallery/vehicle-branding/uls-truck.jpeg"}
                           alt={product.name}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                         />

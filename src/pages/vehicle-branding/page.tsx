@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { PricingMatrix } from "@/components/vehicle-branding/PricingMatrix";
 import { VehicleCareGuide } from "@/components/vehicle-branding/VehicleCareGuide";
+import { Seo } from "@/components/Seo";
 import { Button } from "@/components/ui/Button";
 import { Link } from "react-router-dom";
 
@@ -31,39 +32,20 @@ const vehicleBrandingFaqs = [
 export default function VehicleBrandingPage() {
     return (
         <main className="min-h-screen">
-            {/* Hero Section */}
-            <section className="relative h-[50vh] min-h-[400px] md:min-h-[600px] flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0">
-                    <img
-                        src="/images/ads/vehicle-branding.jpeg"
-                        alt="Professional Vehicle Branding"
-                        
-                        className="object-cover"
-                        
-                    />
-                    <div className="absolute inset-0 bg-blue-950/80 mix-blend-multiply"></div>
-                </div>
-
-                <div className="container mx-auto px-4 relative z-10 text-center text-white">
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6 drop-shadow-lg">
-                        Vehicle Branding{" "}
-                        <span className="text-amber-400">| Pro Graphics</span>
-                    </h1>
-                    <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 md:mb-10 max-w-3xl mx-auto text-blue-100 font-light drop-shadow-md">
-                        Turn your fleet into your most powerful marketing asset. From simple decals to full color change wraps.
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center">
-                        <Link to="/quote">
-                            <Button size="lg" className="bg-amber-500 hover:bg-amber-600 text-white font-bold px-6 sm:px-8 md:px-12 py-4 sm:py-6 md:py-8 text-base sm:text-lg md:text-xl shadow-2xl border-none">
-                                Get a Quote
-                            </Button>
-                        </Link>
-                        <Button variant="outline" size="lg" className="border-2 border-white text-white hover:bg-white hover:text-blue-900 px-12 py-8 text-xl font-bold bg-transparent">
-                            View Gallery
-                        </Button>
-                    </div>
-                </div>
-            </section>
+            <Seo
+                title="Vehicle Branding Durban | Premium Car & Fleet Wraps"
+                description="Turn your fleet into your most powerful marketing asset. Professional vehicle wraps, decals, and fleet branding in Durban."
+                canonicalUrl="/vehicle-branding"
+            />
+            <ServiceHero
+                title="Vehicle Branding"
+                subtitle="Turn your fleet into your most powerful marketing asset. From simple decals to full colour-change wraps."
+                imageSrc="/images/ads/vehicle-branding-hero.png"
+                imageAlt="Professional vehicle branding — branded van on a Durban highway"
+                breadcrumbLabel="Vehicle Branding"
+                primaryCTA={{ text: "Get a Quote", href: "/quote" }}
+                secondaryCTA={{ text: "View Gallery", href: "/gallery" }}
+            />
 
             {/* Benefits Section */}
             <section className="py-24 bg-white">

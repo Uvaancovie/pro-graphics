@@ -1,6 +1,7 @@
 
 
 import { useState } from "react";
+import { Seo } from "@/components/Seo";
 import { CostCalculator } from "@/components/cost-calculator";
 import { ImageIcon, Package, Droplets } from "lucide-react";
 
@@ -18,6 +19,11 @@ export default function CostCalculatorPage() {
 
   return (
     <main className="min-h-screen py-16 bg-gray-50">
+      <Seo
+        title="Signage Cost Estimator | Pro Graphics Durban"
+        description="Get instant pricing for canvas prints, custom split frames, and water labels. Prices include VAT and are calculated in real-time."
+        canonicalUrl="/cost-calculator"
+      />
       <div className="container mx-auto px-4 max-w-4xl">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-blue-950 mb-4">

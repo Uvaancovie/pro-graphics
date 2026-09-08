@@ -26,6 +26,10 @@ const categoryBadgeColors: Record<string, string> = {
     "contravisions": "bg-purple-100 text-purple-700",
     "stickers": "bg-rose-100 text-rose-700",
     "promotional": "bg-amber-100 text-amber-700",
+    "custom-wallpaper": "bg-cyan-100 text-cyan-700",
+    "custom-wrap": "bg-indigo-100 text-indigo-700",
+    "office-branding": "bg-teal-100 text-teal-700",
+    "roof-wrap": "bg-orange-100 text-orange-700",
 };
 
 const getCategoryBadgeClass = (category: string): string => {

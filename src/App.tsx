@@ -6,6 +6,7 @@ import Page3 from './pages/branding-blueprint/page';
 import Page4 from './pages/canvas-shop/page';
 import Page5 from './pages/canvas-shop/[slug]/page';
 import Page6 from './pages/case-studies/page';
+import NeuroWaveCaseStudy from './pages/case-studies/neuro-wave-boat-branding/page';
 import Page7 from './pages/contravisions/page';
 import Page8 from './pages/cost-calculator/page';
 import Page9 from './pages/custom-canvas/page';
@@ -44,6 +45,7 @@ function App() {
         <Route path="/canvas-shop" element={<Page4 />} />
         <Route path="/canvas-shop/:slug" element={<Page5 />} />
         <Route path="/case-studies" element={<Page6 />} />
+        <Route path="/case-studies/neuro-wave-boat-branding" element={<NeuroWaveCaseStudy />} />
         <Route path="/contravisions" element={<Page7 />} />
         <Route path="/cost-calculator" element={<Page8 />} />
         <Route path="/custom-canvas" element={<Page9 />} />

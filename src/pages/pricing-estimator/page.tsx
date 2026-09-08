@@ -1,6 +1,7 @@
 
 
 import React, { useState, useMemo } from 'react'
+import { Seo } from "@/components/Seo";
 import { CheckCircle, Info, Calculator, Car, Sparkles, AlertTriangle, ArrowRight } from 'lucide-react'
 import { Link } from "react-router-dom";
 
@@ -56,6 +57,11 @@ export default function PricingEstimatorPage() {
 
   return (
     <div className="min-h-screen pt-24 pb-16" style={{ background: 'var(--background)' }}>
+      <Seo
+        title="Vehicle Wrap Pricing Estimator | Pro Graphics Durban"
+        description="Use this interactive planner to estimate the market rate of South African vehicle branding pricing levels for wraps and graphics."
+        canonicalUrl="/pricing-estimator"
+      />
       {/* HEADER HERO */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 text-center">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 border" style={{ borderColor: 'var(--accent-gold)', background: 'rgba(232,205,165,0.1)', color: 'var(--accent-gold-dark)' }}>

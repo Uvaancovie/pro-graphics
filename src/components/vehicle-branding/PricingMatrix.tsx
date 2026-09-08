@@ -100,7 +100,7 @@ export function PricingMatrix() {
                         <ul className="space-y-3 mb-8">
                             {tier.features.map((feature) => (
                                 <li key={feature} className="flex items-start gap-2 text-sm text-gray-700">
-                                    <svg className={`w-5 h-5 ${tier.level === "Best" ? "text-amber-500" : "text-blue-600"} shrink-0`} fillfill="none" viewBox="0 0 24 24" strokefill="currentColor">
+                                    <svg className={`w-5 h-5 ${tier.level === "Best" ? "text-amber-500" : "text-blue-600"} shrink-0`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                     </svg>
                                     {feature}

@@ -60,7 +60,7 @@ export function HomeProductsGallery() {
                 >
                   <div className="relative h-64 w-full bg-gray-100">
                     <img
-                      src={product.image_url || "/images/ads/vehicle-branding.jpeg"}
+                      src={product.image_url || "https://hcestxaffzsqlkiedvfx.supabase.co/storage/v1/object/public/gallery/vehicle-branding/uls-truck.jpeg"}
                       alt={product.name || "Product"}
                       className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
                     />

@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import { Seo } from "@/components/Seo";
 import { Link } from "react-router-dom";
 
 import { Button } from "@/components/ui/Button";
@@ -8,6 +8,11 @@ import { Button } from "@/components/ui/Button";
 export default function BrandingBlueprintPage() {
     return (
         <div className="min-h-screen bg-gray-50">
+            <Seo
+                title="Branding Blueprint | Fleet Branding Strategy | Pro Graphics"
+                description="Our 4-step Branding Blueprint engineers custom mobile billboards for Durban traffic patterns. Claim your free fleet assessment."
+                canonicalUrl="/branding-blueprint"
+            />
             {/* Hero Section */}
             <section className="bg-white text-gray-900 py-16 md:py-24 relative overflow-hidden border-b border-gray-100">
                 <div className="absolute inset-0 bg-[url('/images/gallery/grid-pattern.svg')] opacity-5"></div>

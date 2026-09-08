@@ -1,25 +1,40 @@
-'use client';
-
-import Script from 'next/script';
+import { useEffect } from 'react';
 
 export default function BrevoTracker() {
-  const clientKey = process.env.NEXT_PUBLIC_BREVO_CLIENT_KEY;
+  const clientKey = import.meta.env.VITE_BREVO_CLIENT_KEY || import.meta.env.VITE_PUBLIC_BREVO_CLIENT_KEY;
 
-  if (!clientKey) return null;
+  useEffect(() => {
+    if (!clientKey) return;
 
-  return (
-    <>
-      <Script src="https://cdn.brevo.com/js/sdk-loader.js" strategy="afterInteractive" />
-      <Script id="brevo-init" strategy="afterInteractive">
-        {`
-          window.Brevo = window.Brevo || [];
-          Brevo.push([
-            "init",
-            { client_key: "${clientKey}" }
-          ]);
-          Brevo.push(["trackPage"]); // Automatically tracks page views
-        `}
-      </Script>
-    </>
-  );
+    // Load sdk-loader.js
+    const scriptLoader = document.createElement('script');
+    scriptLoader.src = 'https://cdn.brevo.com/js/sdk-loader.js';
+    scriptLoader.async = true;
+    document.body.appendChild(scriptLoader);
+
+    // Initialize Brevo
+    const scriptInit = document.createElement('script');
+    scriptInit.id = 'brevo-init';
+    scriptInit.innerHTML = `
+      window.Brevo = window.Brevo || [];
+      Brevo.push([
+        "init",
+        { client_key: "${clientKey}" }
+      ]);
+      Brevo.push(["trackPage"]);
+    `;
+    document.body.appendChild(scriptInit);
+
+    return () => {
+      if (document.body.contains(scriptLoader)) {
+        document.body.removeChild(scriptLoader);
+      }
+      const existingInit = document.getElementById('brevo-init');
+      if (existingInit && document.body.contains(existingInit)) {
+        document.body.removeChild(existingInit);
+      }
+    };
+  }, [clientKey]);
+
+  return null;
 }

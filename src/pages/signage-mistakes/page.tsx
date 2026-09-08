@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import { Seo } from "@/components/Seo";
 import { LeadCaptureForm } from '@/components/forms/LeadCaptureForm';
 import { ShieldAlert, TrendingUp, Wallet, CheckCircle } from 'lucide-react';
 
@@ -32,6 +32,11 @@ const highlights = [
 export default function SignageMistakesPage() {
     return (
         <div className="min-h-screen bg-black text-white selection:bg-primary/30 pt-24 pb-16">
+            <Seo
+                title="10 Costly Signage Mistakes | Free Guide | Pro Graphics"
+                description="Download our exclusive guide to uncover the 10 most common signage mistakes and learn how to ensure your brand stands out perfectly."
+                canonicalUrl="/signage-mistakes"
+            />
             <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:32px_32px]" />
 
             {/* Glow Effects */}

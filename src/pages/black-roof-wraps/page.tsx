@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import { Seo } from "@/components/Seo";
 import { Button } from "@/components/ui/Button";
 import { Link } from "react-router-dom";
 
@@ -9,6 +9,11 @@ import { Link } from "react-router-dom";
 export default function BlackRoofWrapsPage() {
     return (
         <main className="min-h-screen">
+            <Seo
+                title="Black Roof Wraps | Premium Roof Vinyl | Pro Graphics"
+                description="Upgrade your vehicle with a premium black roof finish while protecting your original paint. Gloss, satin, or matte options available."
+                canonicalUrl="/black-roof-wraps"
+            />
             <section className="relative h-[50vh] min-h-[400px] md:min-h-[600px] flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0">
                     <img

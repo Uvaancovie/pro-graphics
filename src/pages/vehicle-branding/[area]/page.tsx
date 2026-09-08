@@ -1,7 +1,5 @@
-import type { Metadata } from 'next';
-import { Link } from "react-router-dom";
-
-
+import { Link, useParams } from "react-router-dom";
+import { Seo } from "@/components/Seo";
 import { Button } from '@/components/ui/Button';
 import { FaqSection } from '@/components/ui/FaqSection';
 
@@ -30,39 +28,21 @@ const areaContent = {
 
 type AreaSlug = keyof typeof areaContent;
 
-export function generateStaticParams() {
-    return Object.keys(areaContent).map((area) => ({ area }));
-}
-
-export async function generateMetadata({ params }: { params: Promise<{ area: string }> }): Promise<Metadata> {
-    const { area } = await params;
+export default function VehicleBrandingAreaPage() {
+    const { area } = useParams<{ area: string }>();
     const areaData = areaContent[area as AreaSlug];
 
     if (!areaData) {
-        return { title: 'Area Not Found' };
-    }
-
-    return {
-        title: areaData.title,
-        description: areaData.description,
-        alternates: {
-            canonical: `/vehicle-branding/${area}`,
-        },
-        openGraph: {
-            title: areaData.title,
-            description: areaData.description,
-            url: `https://pro-graphics.co.za/vehicle-branding/${area}`,
-            type: 'website',
-        },
-    };
-}
-
-export default async function VehicleBrandingAreaPage({ params }: { params: Promise<{ area: string }> }) {
-    const { area } = await params;
-    const areaData = areaContent[area as AreaSlug];
-
-    if (!areaData) {
-        notFound();
+        return (
+            <main className="min-h-screen flex items-center justify-center">
+                <div className="text-center">
+                    <h1 className="text-3xl font-bold text-blue-950">Area Not Found</h1>
+                    <Link to="/vehicle-branding" className="text-blue-900 font-bold mt-4 inline-block hover:text-amber-500 transition-colors">
+                        ← Back to Vehicle Branding
+                    </Link>
+                </div>
+            </main>
+        );
     }
 
     const serviceSchema = {
@@ -100,6 +80,12 @@ export default async function VehicleBrandingAreaPage({ params }: { params: Prom
 
     return (
         <main className="min-h-screen">
+            <Seo
+                title={areaData.title}
+                description={areaData.description}
+                canonicalUrl={`/vehicle-branding/${area}`}
+            />
+
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}

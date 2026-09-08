@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import { Seo } from "@/components/Seo";
 import { Button } from "@/components/ui/Button";
 import { Link } from "react-router-dom";
 
@@ -9,6 +9,11 @@ import { Link } from "react-router-dom";
 export default function CustomWallpaperPage() {
     return (
         <main className="min-h-screen">
+            <Seo
+                title="Custom Wallpaper Printing | Pro Graphics Durban"
+                description="Transform plain walls into immersive brand environments with custom printed wallpaper for offices, retail, and branded spaces."
+                canonicalUrl="/custom-wallpaper"
+            />
             <section className="relative h-[50vh] min-h-[400px] md:min-h-[600px] flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0">
                     <img

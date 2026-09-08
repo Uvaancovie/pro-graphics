@@ -1,10 +1,16 @@
-import type { Metadata } from 'next';
 import { Link } from "react-router-dom";
-
-
-
+import { Seo } from "@/components/Seo";
 
 const studies = [
+    {
+        title: 'NeuroWave Boat Branding — Marine Vinyl Wrap',
+        area: 'Durban',
+        challenge: 'Distinctive marine wrap needed to reflect the NeuroWave brand while remaining durable in harsh coastal conditions.',
+        solution: 'Premium marine-grade vinyl wrap with UV-resistant printing, protective overlaminate, and precision installation.',
+        result: 'A bold, professional marine wrap that transforms the vessel into a highly visible floating advertisement while protecting the original paintwork.',
+        reviewer: 'Pro Graphics Team',
+        slug: 'neuro-wave-boat-branding',
+    },
     {
         title: 'Fleet Branding Rollout for Local Service Business',
         area: 'Phoenix & Durban CBD',
@@ -50,6 +56,11 @@ export default function CaseStudiesPage() {
 
     return (
         <main className="min-h-screen bg-gray-50 pt-24 pb-16">
+            <Seo
+                title="Case Studies | Pro Graphics Durban"
+                description="Real project snapshots showing how better branding and signage support local lead generation."
+                canonicalUrl="/case-studies"
+            />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewSchema) }}
@@ -74,6 +85,19 @@ export default function CaseStudiesPage() {
                                 <p><span className="font-semibold text-blue-950">Result:</span> {study.result}</p>
                                 <p className="text-sm text-gray-500 pt-2">Reviewed by: {study.reviewer}</p>
                             </div>
+                            {study.slug && (
+                                <div className="mt-6">
+                                    <Link
+                                        to={`/case-studies/${study.slug}`}
+                                        className="inline-flex items-center gap-2 text-blue-900 font-semibold hover:text-amber-600 transition-colors"
+                                    >
+                                        Read Full Case Study
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                        </svg>
+                                    </Link>
+                                </div>
+                            )}
                         </article>
                     ))}
                 </div>

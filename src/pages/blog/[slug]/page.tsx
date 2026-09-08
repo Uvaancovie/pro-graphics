@@ -1,4 +1,5 @@
 import { Link, useParams } from "react-router-dom";
+import { Seo } from "@/components/Seo";
 import { blogPosts } from '../data';
 
 export default function BlogPost() {
@@ -42,6 +43,11 @@ export default function BlogPost() {
 
     return (
         <div className="min-h-screen bg-gray-50 pt-32 pb-16">
+            <Seo
+                title={post.title}
+                description={post.excerpt}
+                canonicalUrl={`/blog/${post.slug}`}
+            />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostSchema) }}

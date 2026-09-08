@@ -1,5 +1,6 @@
 import { Link, useParams, Navigate } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
+import { Seo } from "@/components/Seo";
 import { getProductById } from "@/lib/cms";
 import { ChevronLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -26,7 +27,7 @@ export default function ProductDetailsPage() {
     ? product.images
     : product?.image_url
       ? [product.image_url]
-      : ["/images/ads/vehicle-branding.jpeg"];
+      : ["https://hcestxaffzsqlkiedvfx.supabase.co/storage/v1/object/public/gallery/vehicle-branding/uls-truck.jpeg"];
 
   const nextImage = useCallback(() => {
     setActiveImageIndex((prev) => (prev + 1) % images.length);
@@ -72,6 +73,11 @@ export default function ProductDetailsPage() {
 
   return (
     <main className="min-h-screen py-16 bg-gray-50">
+      <Seo
+        title={product ? `${product.name} | Pro Graphics Durban` : "Product Details"}
+        description={product?.short_desc || product?.description || ""}
+        canonicalUrl={`/products/${id}`}
+      />
       <div className="container mx-auto px-4 max-w-6xl">
         <Link
           to="/products"

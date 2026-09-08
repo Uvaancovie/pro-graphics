@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { BulkPricingTable } from "@/components/stickers/BulkPricingTable";
+import { Seo } from "@/components/Seo";
 import { Button } from "@/components/ui/Button";
 import { Link } from "react-router-dom";
 
@@ -26,34 +27,19 @@ const customStickerFaqs = [
 export default function CustomStickersPage() {
     return (
         <main className="min-h-screen">
-            {/* Hero Section */}
-            <section className="relative h-[50vh] min-h-[400px] md:min-h-[600px] flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0">
-                    <img
-                        src="/images/ads/custom-cutout-stickers.jpeg"
-                        alt="Custom Die-Cut Stickers"
-                        
-                        className="object-cover"
-                        
-                    />
-                    <div className="absolute inset-0 bg-blue-950/80 mix-blend-multiply"></div>
-                </div>
-
-                <div className="container mx-auto px-4 relative z-10 text-center text-white">
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6 drop-shadow-lg">
-                        Custom Cutout Stickers{" "}
-                        <span className="text-amber-400">| Pro Graphics</span>
-                    </h1>
-                    <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 md:mb-10 max-w-3xl mx-auto text-blue-100 font-light drop-shadow-md">
-                        Die-cut to your exact shape. Transparent bulk pricing. Fast turnaround.
-                    </p>
-                    <Link to="/quote">
-                        <Button size="lg" className="bg-amber-500 hover:bg-amber-600 text-white font-bold px-12 py-8 text-xl shadow-2xl border-none">
-                            Get Instant Quote
-                        </Button>
-                    </Link>
-                </div>
-            </section>
+            <Seo
+                title="Custom Stickers Durban | Bulk Labels & Vinyl Decals"
+                description="Die-cut to your exact shape. Transparent bulk pricing. Fast turnaround for custom vinyl stickers and decals in Durban."
+                canonicalUrl="/custom-stickers"
+            />
+            <ServiceHero
+                title="Custom Cutout Stickers"
+                subtitle="Die-cut to your exact shape. Transparent bulk pricing. Fast turnaround for Durban businesses."
+                imageSrc="/images/ads/custom-stickers-hero.png"
+                imageAlt="Custom die-cut vinyl stickers in a professional print workshop"
+                breadcrumbLabel="Custom Stickers"
+                primaryCTA={{ text: "Get Instant Quote", href: "/quote" }}
+            />
 
             {/* Bulk Pricing Table Component */}
             <BulkPricingTable />

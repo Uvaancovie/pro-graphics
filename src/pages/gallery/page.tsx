@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
+import { Seo } from "@/components/Seo";
 import { GalleryGrid } from "@/components/gallery/GalleryGrid";
 import { GalleryCarousel } from "@/components/gallery/GalleryCarousel";
 import { getGalleryImages } from "@/lib/cms";
@@ -8,24 +9,40 @@ import { motion } from "framer-motion";
 
 const categoryConfig: Record<string, { label: string; description: string }> = {
   "vehicle-branding": {
-    label: "Vehicle Branding & Wraps",
-    description: "Full wraps, partial graphics, roof wraps, and fleet branding that turn vehicles into mobile billboards.",
+    label: "Vehicle Branding",
+    description: "Fleet branding, side panels, and half-wraps to market your brand on the move.",
+  },
+  "custom-wrap": {
+    label: "Custom Wraps",
+    description: "Premium full vehicle wraps and bespoke custom details.",
+  },
+  "roof-wrap": {
+    label: "Roof Wraps",
+    description: "Sleek gloss black roof wraps and custom panoramic style accents.",
+  },
+  "office-branding": {
+    label: "Office Branding",
+    description: "Interior wall decals, reception branding, and corporate identity graphics.",
+  },
+  "custom-wallpaper": {
+    label: "Custom Wallpapers",
+    description: "High-resolution custom printed wallpapers for home and office transformations.",
   },
   "sign-boards": {
-    label: "Sign Boards & Corporate Signage",
-    description: "Chromadek, ABS, Perspex signage, and custom corporate branding for shopfronts and offices.",
+    label: "Sign Boards",
+    description: "Chromadek, ABS, Perspex signage, and outdoor signboards.",
   },
   contravisions: {
-    label: "Contravision & Storefront Glass",
-    description: "One-way vision perforated vinyl that advertises outside while maintaining visibility from within.",
+    label: "Contravision & Glass",
+    description: "Perforated one-way vision film for windows and vehicle glass.",
   },
   promotional: {
-    label: "Canvas, Prints & Promotions",
-    description: "Custom canvas prints, promotional flyers, campaign designs, and marketing materials.",
+    label: "Canvas & Prints",
+    description: "Custom canvas prints, digital printing, and promotional materials.",
   },
   stickers: {
     label: "Stickers & Decals",
-    description: "Die-cut custom stickers, vinyl decals, and precision-cut graphics for any surface.",
+    description: "Precision-cut custom stickers, vinyl lettering, and branding decals.",
   },
 };
 
@@ -97,6 +114,11 @@ export default function GalleryPage() {
 
   return (
     <main className="min-h-screen bg-gray-50">
+      <Seo
+        title="Our Work Gallery | Pro Graphics Durban"
+        description="Browse our complete portfolio of ad creatives, installs, and client branding projects across vehicles, signage, wallpaper, and custom print."
+        canonicalUrl="/gallery"
+      />
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-950 via-blue-900 to-blue-950 text-white py-20 md:py-28 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 pointer-events-none">

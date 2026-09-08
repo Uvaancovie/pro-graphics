@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import { Seo } from "@/components/Seo";
 import { SmartQuoteForm } from "@/components/quote/SmartQuoteForm";
 
 
@@ -6,6 +6,11 @@ import { SmartQuoteForm } from "@/components/quote/SmartQuoteForm";
 export default function QuotePage() {
     return (
         <main className="min-h-screen bg-white py-16">
+            <Seo
+                title="Get a Free Signage & Branding Quote"
+                description="Get a free, detailed quote within 24 hours. No obligation, no pressure — just honest advice on your signage or branding project."
+                canonicalUrl="/quote"
+            />
             <div className="container mx-auto px-4">
                 <div className="text-center mb-12">
                     {/* Price Beat Badge on Quote Page */}

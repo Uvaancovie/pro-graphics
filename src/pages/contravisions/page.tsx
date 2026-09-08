@@ -1,4 +1,5 @@
 import { BeforeAfterSlider } from "@/components/contravisions/BeforeAfterSlider";
+import { Seo } from "@/components/Seo";
 import { Button } from "@/components/ui/Button";
 import { Link } from "react-router-dom";
 import { useState, useRef } from "react";
@@ -37,6 +38,11 @@ export default function ContravisionsPage() {
 
     return (
         <main className="min-h-screen">
+            <Seo
+                title="Contravision Durban | One-Way Window Vinyl Signs"
+                description="Contravision window graphics - the perfect solution for storefronts and vehicle windows. One-way vision film for privacy and advertising."
+                canonicalUrl="/contravisions"
+            />
             {/* Hero Section */}
             <section className="relative h-[50vh] min-h-[400px] md:min-h-[600px] flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0">

@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
+import { Seo } from "@/components/Seo";
 import { motion, AnimatePresence } from "framer-motion";
 import { getGalleryImages } from "@/lib/cms";
 import { cn } from "@/lib/utils";
@@ -85,6 +86,11 @@ export default function WorldCupPage() {
 
   return (
     <main className="min-h-screen bg-[#070e17] text-white">
+      <Seo
+        title="FIFA World Cup 2026 Legend Posters | Pro Graphics"
+        description="Collect 36 high-fidelity FIFA World Cup 2026 legend posters. Premium 250gsm satin prints of Messi, Ronaldo, Mbappé, Haaland and more."
+        canonicalUrl="/world-cup"
+      />
       {/* Epic Hero Section */}
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
         {/* Background Image with Green/Black overlay */}
