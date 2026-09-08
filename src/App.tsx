@@ -25,6 +25,7 @@ import Page22 from './pages/sign-boards/page';
 import Page23 from './pages/signage-mistakes/page';
 import Page24 from './pages/vehicle-branding/page';
 import Page25 from './pages/vehicle-branding/[area]/page';
+import WorldCupPage from './pages/world-cup/page';
 import { Navbar } from './components/ui/Navbar';
 import { Footer } from './components/ui/Footer';
 import { WhatsAppButton } from './components/ui/WhatsAppButton';
@@ -62,6 +63,7 @@ function App() {
         <Route path="/signage-mistakes" element={<Page23 />} />
         <Route path="/vehicle-branding" element={<Page24 />} />
         <Route path="/vehicle-branding/:area" element={<Page25 />} />
+        <Route path="/world-cup" element={<WorldCupPage />} />
 
         </Routes>
       </main>

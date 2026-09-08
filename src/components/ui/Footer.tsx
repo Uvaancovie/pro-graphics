@@ -21,7 +21,7 @@ export function Footer() {
   return (
     <footer className="bg-blue-950 text-white">
       <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
           <div className="sm:col-span-2 lg:col-span-1">
             <Link to="/" className="inline-block mb-4">
               <img
@@ -97,6 +97,30 @@ export function Footer() {
               </li>
               <li className="text-blue-300">
                 Durban, South Africa
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-bold text-amber-400 uppercase tracking-wider text-sm mb-4">
+              Hours
+            </h4>
+            <ul className="space-y-2 text-sm text-blue-200">
+              <li className="flex justify-between border-b border-blue-900/40 pb-1">
+                <span>Mon - Thu:</span>
+                <span className="text-white font-medium">07:30 - 16:45</span>
+              </li>
+              <li className="flex justify-between border-b border-blue-900/40 pb-1">
+                <span>Friday:</span>
+                <span className="text-white font-medium">07:30 - 16:00</span>
+              </li>
+              <li className="flex justify-between border-b border-blue-900/40 pb-1">
+                <span>Saturday:</span>
+                <span className="text-white font-medium">09:00 - 13:00</span>
+              </li>
+              <li className="flex justify-between pb-1">
+                <span>Sunday:</span>
+                <span className="text-amber-400 font-semibold">Closed</span>
               </li>
             </ul>
           </div>

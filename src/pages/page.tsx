@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-
 import { Button } from "@/components/ui/Button";
 import { HeroCarousel } from "@/components/ui/HeroCarousel";
 import { SocialProof } from "@/components/ui/SocialProof";
+import { ROICalculatorPromo } from "@/components/ui/ROICalculatorPromo";
 import { FaqSection } from "@/components/ui/FaqSection";
 import { HomeProductsGallery } from "@/components/ui/HomeProductsGallery";
 
@@ -34,8 +34,6 @@ export default function HomePage() {
     <main className="min-h-screen">
       {/* Hero Section with Carousel */}
       <HeroCarousel />
-
-      {/* Process Video Section removed */}
 
       {/* Trust Indicators */}
       <section className="py-12 bg-blue-900 text-white border-b border-blue-800 relative z-20">
@@ -156,6 +154,8 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ROI Calculator Promo */}
+      <ROICalculatorPromo />
 
       <HomeProductsGallery />
 

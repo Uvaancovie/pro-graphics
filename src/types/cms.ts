@@ -7,6 +7,9 @@ export type ProductCategory =
   | 'stickers'
   | 'promotional'
   | 'banners'
+  | 'canvas-wallpaper'
+  | 'stickers-decals'
+  | 'world-cup-posters'
 
 export type PricingTier = 'good' | 'better' | 'best'
 
@@ -19,6 +22,7 @@ export interface Product {
   short_desc: string | null
   features: string[] | null
   image_url: string | null
+  images?: string[]
   is_visible: boolean
   sort_order: number
   created_at: string
@@ -45,7 +49,7 @@ export interface PricingPackage {
 export interface GalleryImage {
   id: string
   title: string | null
-  category: ProductCategory | 'all'
+  category: string
   image_url: string
   storage_path: string
   alt_text: string | null

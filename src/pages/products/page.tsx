@@ -2,10 +2,11 @@ import { Link } from "react-router-dom";
 import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ArrowRight, Layers } from "lucide-react";
-import { getProducts } from "@/lib/cms";
+import { getProducts, getGalleryImages } from "@/lib/cms";
 import { cn } from "@/lib/utils";
 import type { ProductCategory } from "@/types/cms";
 import LeadMagnetPopup from "@/components/ui/LeadMagnetPopup";
+import { GalleryCarousel } from "@/components/gallery/GalleryCarousel";
 
 const categoryLabels: Record<string, string> = {
   "vehicle-branding": "Vehicle Branding",
@@ -55,12 +56,21 @@ function ProductSkeleton() {
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<any[]>([]);
+  const [galleryItems, setGalleryItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState<string>("all");
 
   useEffect(() => {
-    getProducts().then((data) => {
-      setProducts(data);
+    Promise.all([getProducts(), getGalleryImages()]).then(([prods, gallery]) => {
+      setProducts(prods);
+      setGalleryItems(
+        gallery.map((img) => ({
+          src: img.image_url,
+          category: img.category,
+          title: img.title,
+          alt: img.alt_text || img.title || "Gallery image",
+        }))
+      );
       setLoading(false);
     });
   }, []);
@@ -99,21 +109,23 @@ export default function ProductsPage() {
 
       <section className="py-12 md:py-16">
         <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-2 mb-10">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={cn(
-                  "px-5 py-2 rounded-full text-sm font-semibold transition-all border",
-                  activeCategory === cat
-                    ? "bg-blue-950 text-white border-blue-950 shadow-lg shadow-blue-950/20"
-                    : "bg-white text-blue-950 border-gray-200 hover:border-amber-400 hover:text-amber-600"
-                )}
-              >
-                {cat === "all" ? "All" : categoryLabels[cat] || cat}
-              </button>
-            ))}
+          <div className="w-full overflow-hidden mb-10">
+            <div className="flex flex-row md:flex-wrap overflow-x-auto whitespace-nowrap justify-start md:justify-center gap-2 pb-2 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={cn(
+                    "px-5 py-2 rounded-full text-sm font-semibold transition-all border shrink-0",
+                    activeCategory === cat
+                      ? "bg-blue-950 text-white border-blue-950 shadow-lg shadow-blue-950/20"
+                      : "bg-white text-blue-950 border-gray-200 hover:border-amber-400 hover:text-amber-600"
+                  )}
+                >
+                  {cat === "all" ? "All" : categoryLabels[cat] || cat}
+                </button>
+              ))}
+            </div>
           </div>
 
           {loading ? (
@@ -203,6 +215,62 @@ export default function ProductsPage() {
           )}
         </div>
       </section>
+
+      {/* Real Projects Showcase */}
+      {!loading && galleryItems.length > 0 && (
+        <section className="py-16 md:py-20 bg-white border-t border-gray-100">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 bg-amber-50 px-4 py-2 rounded-full text-sm font-medium text-amber-700 mb-4">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                Real Client Projects
+              </div>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-blue-950 mb-4 leading-tight">
+                See Our Work <span className="text-amber-500">In Action</span>
+              </h2>
+              <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+                Browse real installations and client projects across every product category.
+              </p>
+            </div>
+
+            <div className="space-y-12">
+              {Object.entries(
+                galleryItems.reduce((acc: Record<string, any[]>, item) => {
+                  const cat = item.category;
+                  if (!acc[cat]) acc[cat] = [];
+                  acc[cat].push(item);
+                  return acc;
+                }, {})
+              )
+                .filter(([_, items]) => items.length >= 2)
+                .map(([cat, items]) => (
+                  <div key={cat}>
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-xl sm:text-2xl font-bold text-blue-950">
+                        {categoryLabels[cat] || cat.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")}
+                      </h3>
+                      <Link
+                        to="/gallery"
+                        className="text-amber-600 hover:text-amber-700 font-bold text-sm uppercase tracking-wider"
+                      >
+                        View all →
+                      </Link>
+                    </div>
+                    <div className="max-w-4xl mx-auto">
+                      <GalleryCarousel
+                        items={items.slice(0, 8)}
+                        autoPlay={false}
+                        showDots={items.length > 1}
+                      />
+                    </div>
+                  </div>
+                ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       <LeadMagnetPopup />
     </main>

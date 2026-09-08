@@ -37,6 +37,7 @@
     "node_modules",
     "dist",
     "playwright-mcp",
-    ".playwright-mcp"
+    ".playwright-mcp",
+    "pro-graphic-back"
   ]
 }
