@@ -228,9 +228,9 @@ async function start() {
     }
   });
 
-  const port = process.env.PORT || 5173;
-  app.listen(port, () => {
-    console.log(`Dev server running at http://localhost:${port}`);
+  const PORT = 3000;
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Dev server running at http://0.0.0.0:${PORT}`);
   });
 }
 

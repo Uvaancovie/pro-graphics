@@ -1,0 +1,6 @@
+{
+  "name": "Pro Graphics",
+  "description": "Professional vehicle branding, sign boards, and custom visual solutions in Durban.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
